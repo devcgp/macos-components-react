@@ -89,17 +89,34 @@ export const componentInventory = [
 
 const tokens = page('tokens', 'Design Tokens', '设计 Tokens')
 
-function topicSection(
-  folder: string, titleZh: string, category: Omit<NavigationItem, 'children'>,
-) {
+function topicCategory(
+  folder: string, category: Omit<NavigationItem, 'children'>,
+): NavigationItem {
   const topic = topicGroups.find(topic => topic.folder === folder)!
-  const children = topic.items.map(title => page(folder + '/' + slug(title), title))
-  return group(folder, topic.title, titleZh, [{ ...category, children }])
+  return { ...category, children: topic.items.map(title => page(folder + '/' + slug(title), title)) }
 }
 
+function topicSection(folder: string, titleZh: string, category: Omit<NavigationItem, 'children'>) {
+  const topic = topicGroups.find(topic => topic.folder === folder)!
+  return group(folder, topic.title, titleZh, [topicCategory(folder, category)])
+}
+
+const designPrinciples = topicCategory('foundations', {
+  id: 'design-principles', title: 'Design Principles', titleZh: '设计原则',
+})
+
 export const navigation = [
-  topicSection('getting-started', '入门指南', { id: 'start-here', title: 'Start Here', titleZh: '开始使用' }),
-  topicSection('foundations', '设计基础', { id: 'design-principles', title: 'Design Principles', titleZh: '设计原则' }),
+  group('getting-started', 'Getting Started', '入门指南', [
+    topicCategory('getting-started', { id: 'start-here', title: 'Start Here', titleZh: '开始使用' }),
+    topicCategory('technologies', { id: 'web-implementation', title: 'Web Implementation', titleZh: '网页实现' }),
+    group('project-resources', 'Project Resources', '项目资源', [
+      page('resources/ai-integration', 'AI Integration', 'AI 集成'),
+      page('resources/community', 'Community', '社区贡献'),
+    ]),
+  ]),
+  group('foundations', 'Foundations', '设计基础', [
+    { ...designPrinciples, children: [...(designPrinciples.children ?? []), tokens] },
+  ]),
   topicSection('patterns', '交互模式', { id: 'interaction-patterns', title: 'Interaction Patterns', titleZh: '常用交互' }),
   group('components', 'Components', '界面组件', componentInventory.map(category =>
     group(category.id, category.title, category.titleZh, [
@@ -108,14 +125,7 @@ export const navigation = [
     ]),
   )),
   topicSection('inputs', '输入方式', { id: 'input-methods', title: 'Input Methods', titleZh: '输入方法' }),
-  group('resources', 'Resources', '资源', [
-    group('project-resources', 'Project Resources', '项目资源', [
-      tokens,
-      page('resources/ai-integration', 'AI Integration', 'AI 集成'),
-      page('resources/community', 'Community', '社区贡献'),
-    ]),
-  ]),
-  topicSection('technologies', '技术与平台', { id: 'web-implementation', title: 'Web Implementation', titleZh: '网页实现' }),
+
 ]
 
 export function navigationTitle(item: NavigationItem, locale: Locale) {

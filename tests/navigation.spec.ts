@@ -4,7 +4,7 @@ import { componentInventory, navigation, navigationPages } from '../apps/docs/sr
 
 test('keeps the HIG sections, resources, component topics, and existing routes', () => {
   expect(navigation.map(section => section.title)).toEqual([
-    'Getting Started', 'Foundations', 'Patterns', 'Components', 'Inputs', 'Resources', 'Technologies',
+    'Getting Started', 'Foundations', 'Patterns', 'Components', 'Inputs',
   ])
   expect(componentInventory.map(category => category.title)).toEqual([
     'Content', 'Layout and Organization', 'Menus and Actions', 'Navigation and Search',
@@ -22,6 +22,14 @@ test('keeps the HIG sections, resources, component topics, and existing routes',
   expect(navigationPages.map(({ page }) => page.href).sort()).toEqual(
     expectedIds.map(id => '#/tahoe/' + id).sort(),
   )
+  for (const [id, section] of [
+    ['tokens', 'foundations'],
+    ['technologies/react-integration', 'getting-started'],
+    ['resources/ai-integration', 'getting-started'],
+    ['resources/community', 'getting-started'],
+  ]) {
+    expect(navigationPages.find(({ page }) => page.id === id)?.ancestors[0]).toBe(section)
+  }
   expect(navigationPages.every(({ ancestors }) => ancestors.length === 2)).toBe(true)
 })
 

@@ -57,3 +57,12 @@ test('shows all 62 system colors with stable Light and Dark swatches', async ({ 
   await page.getByRole('button', { name: 'Grayscale', exact: true }).click()
   await expect(page.getByRole('heading', { name: 'Grayscale', exact: true })).toBeInViewport()
 })
+
+test('keeps the complete Tokens reference in Foundations', async ({ page }) => {
+  await page.goto('/?lang=en#/tahoe/tokens')
+  const main = page.getByRole('main')
+  for (const heading of ['Setup and scope', 'Variables and sources', 'Component development', 'Scope preview', 'Typography']) {
+    await expect(main.getByRole('heading', { name: heading, exact: true })).toBeVisible()
+  }
+  await expect(main.getByRole('link', { name: 'tokens.json' })).toBeVisible()
+})

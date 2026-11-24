@@ -76,7 +76,7 @@ export default function App() {
     [item.title, navigationTitle(item, 'zh-CN'), item.href, ...(item.keywords ?? [])].some(value =>
       value.toLowerCase().includes(searchTerm)),
   ) : []
-  const referenceSections = id === 'foundations/color' ? tahoeColorSections : id === 'tokens' ? tahoeTokenSections.slice(0, 1) : foundationTokenSections(id)
+  const referenceSections = id === 'foundations/color' ? tahoeColorSections : id === 'tokens' ? tahoeTokenSections : foundationTokenSections(id)
   const toc = doc
     ? documentationTab(hash).sections.map(title => ({ title: localizeTitle(title, locale), href: slug(title) }))
     : referenceSections.map(section => ({ title: tr(section.titleZh, section.title), href: section.id }))
