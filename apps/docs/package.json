@@ -1,0 +1,32 @@
+{
+  "name": "@macos-tahoe/docs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node tools/export-resources.mjs && vite --host 127.0.0.1 --port 8897 --strictPort",
+    "build": "tsc -p tsconfig.json && node tools/export-resources.mjs && vite build",
+    "typecheck": "tsc -p tsconfig.json",
+    "preview": "vite preview --host 127.0.0.1 --port 8897 --strictPort"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "7.3.1",
+    "@fortawesome/free-regular-svg-icons": "7.3.1",
+    "@fortawesome/free-solid-svg-icons": "7.3.1",
+    "@fortawesome/react-fontawesome": "3.5.0",
+    "@headlessui/react": "2.2.9",
+    "@macos-tahoe/ui": "workspace:*",
+    "highlight.js": "11.12.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "react-markdown": "10.1.0",
+    "remark-gfm": "4.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.1.17",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "@vitejs/plugin-react": "5.1.0",
+    "tailwindcss": "4.1.17",
+    "vite": "7.2.2"
+  }
+}

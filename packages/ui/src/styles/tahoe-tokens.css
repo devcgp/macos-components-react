@@ -1,0 +1,464 @@
+@import "./tokens/index.css";
+
+:where([data-theme="tahoe"], .tahoe-doc, .tahoe-menu, .tahoe-overlay) {
+  --tahoe-control-height: 24px;
+  --tahoe-control-radius: 6px;
+  --tahoe-window-radius: 16px;
+  --tahoe-accent: var(--tahoe-accents-blue);
+  --tahoe-focus: color-mix(in srgb, var(--tahoe-accent) 25%, transparent);
+  --tahoe-control: var(--tahoe-fills-tertiary);
+  --tahoe-field-border: var(--tahoe-fills-secondary);
+  --tahoe-menu-rim: rgb(0 0 0 / 18%);
+  --tahoe-slider-knob: #fff;
+  --tahoe-border: var(--tahoe-fills-secondary);
+  --tahoe-menu: #f8f8f8;
+  --tahoe-label: var(--tahoe-text-primary);
+  --tahoe-sidebar-row-height: 28px;
+  --tahoe-sidebar-row-radius: 5px;
+  --tahoe-sidebar-inset: 8px;
+  --tahoe-sidebar-group-gap: 16px;
+  --tahoe-toolbar-height: 52px;
+  --tahoe-toolbar-search-width: 150px;
+}
+.tahoe-button, .tahoe-menu-trigger {
+  min-height: var(--tahoe-control-height);
+  padding-inline: 16px;
+  border-radius: var(--tahoe-control-radius);
+  background: var(--tahoe-control);
+  color: var(--tahoe-label);
+  cursor: default;
+}
+.tahoe-button[data-variant="accent"] { background: var(--tahoe-accent); color: white; }
+.tahoe-button:active:not(:disabled), .tahoe-menu-trigger[data-open] { filter: brightness(.92); }
+.tahoe-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: var(--tahoe-control-height);
+  padding-inline: 9px;
+  border: 1px solid var(--tahoe-field-border);
+  border-radius: 999px;
+  color: var(--tahoe-label);
+}
+.tahoe-search > svg { width: 24px; height: 24px; }
+.tahoe-search input { width: 100%; min-width: 0; outline: none; }
+.tahoe-search:focus-within { box-shadow: 0 0 0 1px color-mix(in srgb, var(--tahoe-accent) 15%, transparent), 0 0 0 3.5px var(--tahoe-focus); }
+.tahoe-slider { appearance: none; height: 24px; accent-color: var(--tahoe-accent); }
+.tahoe-slider::-webkit-slider-runnable-track { height: 6px; border-radius: 999px; background: var(--tahoe-accents-gray); }
+.tahoe-slider::-webkit-slider-thumb { appearance: none; width: 20px; height: 16px; margin-top: -5px; border-radius: 8px; background: var(--tahoe-slider-knob); box-shadow: 0 1px 3px #0005; }
+.tahoe-menu-trigger { display: inline-flex; align-items: center; justify-content: space-between; min-width: 84px; gap: 6px; }
+.tahoe-menu-trigger > svg:last-child { width: 7px; height: 12px; }
+.tahoe-menu { z-index: 3; min-width: 132px; padding: 4px; border: 1px solid var(--tahoe-menu-rim); border-radius: 10px; background: var(--tahoe-menu); backdrop-filter: blur(24px); color: var(--tahoe-label); box-shadow: var(--tahoe-menu-shadow); }
+.tahoe-menu button { width: 100%; display: flex; justify-content: space-between; gap: 6px; align-items: center; min-height: 24px; text-align: left; padding: 0 8px 0 0; border-radius: 5px; }
+.tahoe-menu [data-focus] { background: var(--tahoe-focus); }
+
+.dark :where([data-theme="tahoe"], .tahoe-doc, .tahoe-menu, .tahoe-overlay):not(:where([data-appearance="light"], [data-appearance="light"] *)),
+[data-theme="tahoe"][data-appearance="dark"],
+[data-appearance="dark"] :where([data-theme="tahoe"], .tahoe-doc, .tahoe-menu, .tahoe-overlay):not(:where([data-appearance="light"], [data-appearance="light"] *)) {
+  --tahoe-control: rgb(255 255 255 / 7%);
+  --tahoe-field-border: rgb(255 255 255 / 4%);
+  --tahoe-menu-rim: rgb(255 255 255 / 16%);
+  --tahoe-menu: #28282b;
+  --tahoe-slider-knob: #dedede;
+}
+
+.tahoe-menu button > span:first-child { flex: 0 0 20px; text-align: center; }
+.tahoe-menu button { justify-content: flex-start; }
+.tahoe-slider::-moz-range-track { height: 6px; border-radius: 999px; background: var(--tahoe-accents-gray); }
+.tahoe-slider::-moz-range-thumb { width: 20px; height: 16px; border: 0; border-radius: 8px; background: var(--tahoe-slider-knob); box-shadow: 0 1px 3px #0005; }
+
+.tahoe-choice, .tahoe-switch { display: inline-flex; align-items: center; gap: 8px; min-height: 24px; }
+.tahoe-choice input { width: 16px; height: 16px; margin: 0; accent-color: var(--tahoe-accent); }
+.tahoe-segments { display: inline-flex; align-items: stretch; gap: 1px; min-height: 24px; padding: 2px; border-radius: 6px; background: var(--tahoe-control); }
+.tahoe-segments label { position: relative; }
+.tahoe-segments input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; }
+.tahoe-segments span { display: grid; place-items: center; height: 100%; padding-inline: 10px; border-radius: 4px; }
+.tahoe-segments input:checked + span { background: var(--tahoe-accent); color: #111; }
+.tahoe-segments input:focus-visible + span { outline: 2px solid var(--tahoe-accent); outline-offset: 2px; }
+.tahoe-choice:has(input:disabled), .tahoe-switch:has(input:disabled) { opacity: .5; }
+
+.tahoe-window-demo {
+  display: grid;
+  grid-template-columns: clamp(138px, 29%, var(--tahoe-sidebar-width)) minmax(0, 1fr);
+  border: 1px solid var(--tahoe-border);
+  border-radius: var(--tahoe-window-radius);
+  background: var(--tahoe-content-surface);
+  color: var(--tahoe-label);
+  font-size: 13px;
+  overflow: hidden;
+}
+.tahoe-window-demo[data-sidebar="false"] { grid-template-columns: minmax(0, 1fr); }
+.tahoe-sidebar {
+  min-width: 0;
+  padding: var(--tahoe-sidebar-inset);
+  border-inline-end: 1px solid var(--tahoe-separator);
+  background: var(--tahoe-sidebar-surface);
+  color: var(--tahoe-label);
+  font: var(--tahoe-body)/16px var(--tahoe-font);
+}
+.tahoe-sidebar-group + .tahoe-sidebar-group { margin-top: var(--tahoe-sidebar-group-gap); }
+.tahoe-sidebar-row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 6px;
+  min-height: var(--tahoe-sidebar-row-height);
+  padding-inline: var(--tahoe-sidebar-inset);
+  border-radius: var(--tahoe-sidebar-row-radius);
+  text-align: start;
+  cursor: default;
+}
+.tahoe-sidebar-heading {
+  justify-content: space-between;
+  min-height: 16px;
+  margin-bottom: 4px;
+  color: var(--tahoe-text-secondary);
+  font-size: var(--tahoe-caption);
+  font-weight: 600;
+}
+.tahoe-sidebar .tahoe-sidebar-heading > svg { width: var(--tahoe-caption); height: var(--tahoe-caption); flex: none; }
+.tahoe-sidebar-heading[aria-expanded="true"] svg { transform: rotate(90deg); }
+.tahoe-sidebar-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tahoe-sidebar-icon { display: grid; flex: 0 0 calc(var(--tahoe-gap) * 2); place-items: center; color: var(--tahoe-accent); }
+.tahoe-sidebar .tahoe-sidebar-icon > svg { width: calc(var(--tahoe-gap) * 2); height: calc(var(--tahoe-gap) * 2); }
+.tahoe-sidebar-row:hover { background: var(--tahoe-fills-tertiary); }
+.tahoe-sidebar-row:active { background: var(--tahoe-fills-primary); }
+.tahoe-sidebar-row[aria-current] { background: var(--tahoe-selection); font-weight: 600; }
+.tahoe-sidebar-row:focus-visible, .tahoe-toolbar-group button:focus-visible {
+  outline: 2px solid var(--tahoe-accent);
+  outline-offset: -2px;
+}
+.tahoe-window-demo svg { width: 15px; height: 15px; flex: none; }
+.tahoe-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; padding: 8px 12px; min-height: var(--tahoe-toolbar-height); border-bottom: 1px solid var(--tahoe-separator); background: var(--tahoe-toolbar-surface); }
+.tahoe-toolbar-title { display: grid; }
+.tahoe-toolbar-title small { color: var(--tahoe-text-secondary); }
+.tahoe-toolbar-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-inline-start: auto; }
+.tahoe-toolbar-group { display: flex; gap: 2px; }
+.tahoe-toolbar-group .tahoe-button { display: grid; place-items: center; width: 24px; padding: 0; background: transparent; }
+.tahoe-toolbar-group .tahoe-button:hover { background: var(--tahoe-fills-tertiary); }
+.tahoe-toolbar-group .tahoe-button[aria-pressed="true"] { background: var(--tahoe-fills-primary); }
+.tahoe-toolbar-search { width: var(--tahoe-toolbar-search-width); max-width: 100%; }
+.tahoe-gallery-demo { min-height: 180px; padding: 12px; }
+.tahoe-gallery-demo ul { display: grid; gap: 8px; }
+.tahoe-gallery-demo li { display: flex; align-items: center; gap: 6px; padding: 10px; background: var(--tahoe-control); border-radius: 6px; overflow-wrap: anywhere; }
+.tahoe-window-zoom { display: flex; justify-content: center; align-items: center; gap: 6px; padding: 8px; }
+.tahoe-window-zoom input { width: 120px; max-width: 60%; }
+@media (max-width: 540px) {
+  .tahoe-window-demo[data-sidebar="true"] { grid-template-columns: minmax(0, 1fr); }
+  .tahoe-sidebar { border-inline-end: 0; border-block-end: 1px solid var(--tahoe-separator); }
+}
+.tahoe-window-demo[data-focus-area="toolbar"] .tahoe-toolbar {
+  box-shadow: inset 0 0 0 1px var(--tahoe-focus);
+}
+
+.tahoe-field-label { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.tahoe-text-input {
+  height: var(--tahoe-control-height);
+  max-width: 100%;
+  padding-inline: 8px;
+  border: 1px solid var(--tahoe-field-border);
+  border-radius: var(--tahoe-control-radius);
+  background: var(--tahoe-control);
+}
+.tahoe-text-input:focus-visible { outline: none; box-shadow: 0 0 0 3.5px var(--tahoe-focus); }
+.tahoe-stepper { display: inline-flex; height: 24px; width: 62px; font-variant-numeric: tabular-nums; border: 1px solid var(--tahoe-border); border-radius: 6px; }
+.tahoe-stepper[data-variant="none"] { width: 20px; border: 0; }
+.tahoe-stepper[data-variant="outside"] { width: 66px; gap: 4px; border: 0; }
+.tahoe-stepper output { display: grid; place-items: center; flex: 1; }
+.tahoe-stepper[data-variant="outside"] output { border: 1px solid var(--tahoe-border); border-radius: 6px; }
+.tahoe-stepper-arrows { display: grid; flex: 0 0 20px; grid-template-rows: repeat(2, 1fr); background: var(--tahoe-control); border-radius: 5px; }
+.tahoe-stepper-arrows button { display: grid; place-items: center; min-height: 0; }
+.tahoe-stepper-arrows button + button { border-top: 1px solid var(--tahoe-border); }
+.tahoe-stepper-arrows button:disabled { opacity: .35; }
+.tahoe-stepper-arrows button svg { width: 10px; height: 10px; }
+.tahoe-progress { width: 168px; max-width: 100%; height: 10px; accent-color: var(--tahoe-accent); }
+.tahoe-disclosure button { display: flex; align-items: center; gap: 6px; min-height: 24px; }
+.tahoe-disclosure [aria-expanded="true"] svg { transform: rotate(90deg); }
+.tahoe-disclosure > div { padding-inline-start: 20px; }
+
+:where([data-theme="tahoe"], .tahoe-doc, .tahoe-menu, .tahoe-overlay) {
+  --tahoe-font: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+  --tahoe-large-title: 26px;
+  --tahoe-title: 20px;
+  --tahoe-headline: 15px;
+  --tahoe-body: 13px;
+  --tahoe-caption: 11px;
+  --tahoe-gap: 8px;
+  --tahoe-sidebar-width: 220px;
+  --tahoe-window-surface: #f6f6f6;
+  --tahoe-content-surface: #fff;
+  --tahoe-toolbar-surface: var(--tahoe-window-surface);
+  --tahoe-sidebar-surface: var(--tahoe-vibrant-fills-tertiary);
+  --tahoe-destructive: var(--tahoe-accents-red);
+  --tahoe-selection: var(--tahoe-fills-primary);
+  --tahoe-separator: var(--tahoe-fills-secondary);
+  --tahoe-window-shadow: 0 12px 42px rgb(0 0 0 / 18%);
+  --tahoe-menu-shadow: 0 5px 20px rgb(0 0 0 / 20%);
+  --tahoe-focus-shadow: 0 0 0 3.5px var(--tahoe-focus);
+  --tahoe-motion: 120ms;
+}
+.dark :where([data-theme="tahoe"], .tahoe-doc, .tahoe-menu, .tahoe-overlay):not(:where([data-appearance="light"], [data-appearance="light"] *)),
+[data-theme="tahoe"][data-appearance="dark"],
+[data-appearance="dark"] :where([data-theme="tahoe"], .tahoe-doc, .tahoe-menu, .tahoe-overlay):not(:where([data-appearance="light"], [data-appearance="light"] *)) {
+  --tahoe-window-surface: #252527;
+  --tahoe-content-surface: #1c1c1e;
+  --tahoe-sidebar-surface: var(--tahoe-vibrant-fills-primary);
+}
+@media (prefers-reduced-motion: reduce) {
+  :where([data-theme="tahoe"], .tahoe-doc, .tahoe-menu, .tahoe-overlay) { --tahoe-motion: 0ms; }
+}
+
+[data-theme="tahoe"] :is(button, input, select, textarea):focus-visible {
+  outline-color: var(--tahoe-accent);
+}
+.tahoe-button {
+  transition: background-color var(--tahoe-motion), filter var(--tahoe-motion);
+}
+.tahoe-button:disabled { opacity: .5; }
+.tahoe-button[data-size="mini"] { min-height: 16px; border-radius: 4px; padding-inline: 7px; font-size: var(--tahoe-caption); }
+.tahoe-button[data-size="small"] { min-height: 20px; border-radius: 5px; padding-inline: 10px; }
+.tahoe-button[data-size="large"] { min-height: 28px; border-radius: 999px; }
+.tahoe-button[data-size="xl"] { min-height: 36px; border-radius: 999px; }
+.tahoe-button[data-variant="destructive"] { color: var(--tahoe-destructive); }
+.tahoe-button.tahoe-icon-button { display: inline-grid; place-items: center; min-width: var(--tahoe-control-height); padding-inline: 4px; }
+.tahoe-inline { display: flex; flex-wrap: wrap; align-items: center; gap: var(--tahoe-gap); }
+.tahoe-textarea { height: auto; min-height: 64px; padding-block: 4px; }
+.tahoe-tabs { display: inline-flex; flex-wrap: wrap; gap: 2px; padding: 2px; border-radius: 6px; background: var(--tahoe-control); }
+.tahoe-tabs button { min-height: 24px; border-radius: 4px; padding-inline: 10px; }
+.tahoe-tabs [data-selected] { background: var(--tahoe-selection); font-weight: 600; }
+.tahoe-tabs [data-disabled] { opacity: .5; }
+.tahoe-tab-panel, .tahoe-popover { padding: 8px; }
+.tahoe-menu :disabled { opacity: .5; }
+.tahoe-breadcrumb { display: flex; flex-wrap: wrap; gap: 8px; }
+.tahoe-breadcrumb li + li::before { content: "/"; margin-inline-end: 8px; color: var(--tahoe-text-secondary); }
+.tahoe-breadcrumb a { text-decoration: underline; }
+.tahoe-badge { display: inline-flex; align-items: center; min-height: 16px; border-radius: 999px; padding-inline: 6px; background: var(--tahoe-control); font-size: var(--tahoe-caption); }
+.tahoe-alert { padding: 10px; background: var(--tahoe-control); border: 1px solid var(--tahoe-border); border-radius: 6px; }
+.tahoe-alert[data-variant="error"] strong { color: var(--tahoe-destructive); }
+.tahoe-spinner { display: inline-flex; }
+.tahoe-spinner svg { width: 24px; height: 24px; animation: tahoe-spin 800ms linear infinite; }
+@keyframes tahoe-spin { to { transform: rotate(1turn); } }
+.tahoe-tooltip { display: inline-flex; position: relative; }
+.tahoe-tooltip [role="tooltip"] { display: none; position: absolute; z-index: 2; bottom: 100%; inset-inline-start: 0; width: max-content; max-width: 180px; padding: 4px 6px; border-radius: 5px; background: var(--tahoe-menu); color: var(--tahoe-label); box-shadow: var(--tahoe-menu-shadow); }
+.tahoe-tooltip:hover [role="tooltip"], .tahoe-tooltip:focus-within [role="tooltip"] { display: block; }
+.tahoe-overlay { color: var(--tahoe-label); font: var(--tahoe-body)/1.5 var(--tahoe-font); position: fixed; inset: 0; z-index: 60; }
+.tahoe-modal-backdrop { position: fixed; inset: 0; background: rgb(0 0 0 / 28%); }
+.tahoe-modal-position { position: relative; min-height: 100%; padding: 16px; display: grid; place-items: center; }
+.tahoe-modal-position[data-variant="sheet"] { place-items: start center; padding-top: 12vh; }
+.tahoe-modal-panel { width: min(100%, 360px); padding: 16px; border: 1px solid var(--tahoe-border); border-radius: var(--tahoe-window-radius); background: var(--tahoe-window-surface); box-shadow: var(--tahoe-window-shadow); }
+.tahoe-modal-panel h2 { font-size: var(--tahoe-headline); font-weight: 600; margin-bottom: 6px; }
+.tahoe-modal-panel button { margin-top: 12px; }
+.tahoe-window { width: 100%; min-width: 0; overflow: hidden; border: 1px solid var(--tahoe-border); border-radius: var(--tahoe-window-radius); box-shadow: var(--tahoe-window-shadow); background: var(--tahoe-content-surface); }
+.tahoe-title-bar { display: flex; align-items: center; flex-wrap: wrap; gap: var(--tahoe-gap); padding: 8px 12px; background: var(--tahoe-toolbar-surface); border-bottom: 1px solid var(--tahoe-separator); }
+.tahoe-traffic-lights { display: inline-flex; gap: 6px; }
+.tahoe-traffic-lights i { width: 12px; height: 12px; border-radius: 50%; background: var(--tahoe-accents-red); }
+.tahoe-traffic-lights i:nth-child(2) { background: var(--tahoe-accents-yellow); }
+.tahoe-traffic-lights i:nth-child(3) { background: var(--tahoe-accents-green); }
+.tahoe-split-view { display: grid; grid-template-columns: minmax(0, 1fr); width: 100%; }
+.tahoe-split-view[data-has-leading="true"] { grid-template-columns: minmax(0, min(35%, var(--tahoe-sidebar-width))) minmax(0, 1fr); }
+.tahoe-split-leading { min-width: 0; background: var(--tahoe-sidebar-surface); border-inline-end: 1px solid var(--tahoe-separator); }
+.tahoe-split-content, .tahoe-inspector { padding: 12px; min-width: 0; overflow-wrap: anywhere; }
+.tahoe-inspector { background: var(--tahoe-window-surface); }
+.tahoe-settings { width: 100%; padding: 8px 12px; border: 1px solid var(--tahoe-border); border-radius: 10px; }
+.tahoe-settings legend { padding-inline: 4px; font-weight: 600; }
+.tahoe-table-wrap { max-width: 100%; overflow-x: auto; }
+.tahoe-table { border-collapse: collapse; width: 100%; text-align: start; }
+.tahoe-table caption { text-align: start; font-weight: 600; }
+.tahoe-table :is(td, th) { padding: 3px 12px; text-align: start; border-bottom: 1px solid var(--tahoe-separator); }
+.tahoe-list li { padding: 4px 8px; border-bottom: 1px solid var(--tahoe-separator); }
+.tahoe-preview-controls[data-theme="tahoe"] { color: var(--tahoe-label); font-size: var(--tahoe-body); }
+.tahoe-code { margin-block: 12px; padding: 12px; overflow-x: auto; background: var(--tahoe-control); border-radius: var(--tahoe-control-radius); }
+
+/* Four-control fidelity pass. Color roles reuse the Figma palette where available. */
+:where([data-theme="tahoe"], .tahoe-doc, .tahoe-overlay) {
+  --tahoe-regular-type: 500 13px/16px var(--tahoe-font);
+  --tahoe-button-hover: var(--tahoe-fills-secondary);
+  --tahoe-button-pressed: rgb(0 0 0 / 15%);
+  --tahoe-accent-hover: color-mix(in srgb, var(--tahoe-accent), black 6%);
+  --tahoe-accent-pressed: color-mix(in srgb, var(--tahoe-accent), black 8%);
+  --tahoe-accent-disabled: color-mix(in srgb, var(--tahoe-accent) 25%, transparent);
+  --tahoe-accent-sheen: linear-gradient(rgb(255 255 255 / 26%), transparent 60%);
+  --tahoe-on-accent: #fff;
+  --tahoe-disabled-label: var(--tahoe-text-tertiary);
+  --tahoe-disabled-face: rgb(0 0 0 / 4%);
+  --tahoe-destructive-face: color-mix(in srgb, var(--tahoe-destructive) 25%, transparent);
+  --tahoe-control-rim: 0 0 0 1px var(--tahoe-field-border);
+  --tahoe-control-focus: 0 0 0 1px color-mix(in srgb, var(--tahoe-accent) 15%, transparent), 0 0 0 3.5px var(--tahoe-focus);
+  --tahoe-switch-width: 54px;
+  --tahoe-switch-height: 24px;
+  --tahoe-switch-thumb-width: 32px;
+  --tahoe-switch-inset: 2px;
+  --tahoe-switch-off: rgb(0 0 0 / 6%);
+  --tahoe-switch-thumb-color: rgb(255 255 255 / 87%);
+  --tahoe-switch-rim: 0 0 1px rgb(0 0 0 / 6%);
+  --tahoe-switch-thumb-shadow: 0 0 1px -0.25px rgb(0 0 0 / 5%), 0 0 4px -0.5px rgb(0 0 0 / 5%), 0 0 44px rgb(0 0 0 / 10%);
+  --tahoe-control-transition: 150ms;
+}
+.dark :where([data-theme="tahoe"], .tahoe-doc, .tahoe-overlay):not(:where([data-appearance="light"], [data-appearance="light"] *)),
+[data-theme="tahoe"][data-appearance="dark"],
+[data-appearance="dark"] :where([data-theme="tahoe"], .tahoe-doc, .tahoe-overlay):not(:where([data-appearance="light"], [data-appearance="light"] *)) {
+  --tahoe-button-hover: rgb(255 255 255 / 11%);
+  --tahoe-button-pressed: rgb(255 255 255 / 19%);
+  --tahoe-accent-hover: color-mix(in srgb, var(--tahoe-accent), white 6%);
+  --tahoe-accent-pressed: color-mix(in srgb, var(--tahoe-accent), white 10%);
+  --tahoe-accent-disabled: color-mix(in srgb, var(--tahoe-accent) 40%, transparent);
+  --tahoe-disabled-face: rgb(255 255 255 / 4%);
+  --tahoe-destructive-face: color-mix(in srgb, var(--tahoe-destructive) 20%, transparent);
+  --tahoe-switch-off: var(--tahoe-fills-primary);
+  --tahoe-switch-thumb-color: rgb(255 255 255 / 85%);
+}
+
+.tahoe-button[data-size]:not(.tahoe-toolbar-group *) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  block-size: var(--button-height, var(--tahoe-control-height));
+  padding-block: 0;
+  appearance: none;
+  box-shadow: var(--tahoe-control-rim);
+  font: var(--tahoe-regular-type);
+  font-size: var(--button-font-size, 13px);
+  line-height: 1;
+  letter-spacing: -.006em;
+  white-space: nowrap;
+  transition: background-color var(--tahoe-control-transition), box-shadow var(--tahoe-control-transition);
+}
+.tahoe-button[data-size="mini"] { --button-height: 16px; --button-font-size: 10px; }
+.tahoe-button[data-size="small"] { --button-height: 20px; --button-font-size: 11px; }
+.tahoe-button[data-size="large"] { --button-height: 28px; }
+.tahoe-button[data-size="xl"] { --button-height: 36px; }
+.tahoe-button[data-size]:not(.tahoe-toolbar-group *):hover:not(:disabled) { background-color: var(--tahoe-button-hover); }
+.tahoe-button[data-size]:not(.tahoe-toolbar-group *):active:not(:disabled) { background-color: var(--tahoe-button-pressed); filter: none; }
+.tahoe-button[data-size][data-variant="accent"]:not(.tahoe-toolbar-group *) { background: var(--tahoe-accent) var(--tahoe-accent-sheen); color: var(--tahoe-on-accent); }
+.tahoe-button[data-size][data-variant="accent"]:not(.tahoe-toolbar-group *):hover:not(:disabled) { background-color: var(--tahoe-accent-hover); }
+.tahoe-button[data-size][data-variant="accent"]:not(.tahoe-toolbar-group *):active:not(:disabled) { background-color: var(--tahoe-accent-pressed); }
+.tahoe-button[data-size][data-variant="destructive"]:not(.tahoe-toolbar-group *) { background-color: var(--tahoe-destructive-face); }
+.tahoe-button[data-size]:not(.tahoe-toolbar-group *):disabled { opacity: 1; box-shadow: none; background: var(--tahoe-disabled-face); color: var(--tahoe-disabled-label); }
+.tahoe-button[data-size][data-variant="accent"]:not(.tahoe-toolbar-group *):disabled { background: var(--tahoe-accent-disabled); color: var(--tahoe-on-accent); }
+
+.tahoe-field-label:has(> .tahoe-field-control) { gap: var(--tahoe-gap); }
+.tahoe-field-control.tahoe-text-input {
+  appearance: none;
+  padding-block: 0;
+  padding-inline: var(--tahoe-gap) calc(var(--tahoe-gap) / 2);
+  background: var(--tahoe-content-surface);
+  color: var(--tahoe-label);
+  font: var(--tahoe-regular-type);
+  font-weight: 400;
+  transition: box-shadow var(--tahoe-control-transition);
+}
+.tahoe-field-control::placeholder { color: var(--tahoe-text-secondary); opacity: 1; }
+.tahoe-field-control:disabled { opacity: .5; cursor: default; }
+.tahoe-field-control.tahoe-text-input:focus,
+.tahoe-button[data-size]:not(.tahoe-toolbar-group *):focus-visible {
+  outline: none;
+  box-shadow: var(--tahoe-control-focus);
+}
+
+.tahoe-switch {
+  font: var(--tahoe-regular-type);
+  font-weight: 400;
+  color: var(--tahoe-label);
+  cursor: default;
+}
+.tahoe-checkbox {
+  min-block-size: var(--tahoe-global-height);
+  gap: var(--tahoe-gap);
+  font: var(--tahoe-type-body-regular-weight) var(--tahoe-type-body-regular-size) /
+    var(--tahoe-type-body-regular-line-height) var(--tahoe-type-body-regular-font-family);
+  color: var(--tahoe-label);
+  cursor: default;
+}
+.tahoe-checkbox:has(input:disabled) { opacity: var(--tahoe-checkbox-disabled-opacity); }
+.tahoe-checkbox-control, .tahoe-switch-control { position: relative; display: inline-flex; flex: none; }
+.tahoe-checkbox-control input, .tahoe-switch-control input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+.tahoe-checkbox-box {
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+  width: var(--tahoe-checkbox-size);
+  height: var(--tahoe-checkbox-size);
+  border-radius: var(--tahoe-checkbox-radius);
+  background: var(--tahoe-control);
+  box-shadow: var(--tahoe-control-rim);
+  color: var(--tahoe-on-accent);
+}
+.tahoe-checkbox-box svg { width: var(--tahoe-checkbox-mark-width); height: var(--tahoe-checkbox-mark-height); opacity: 0; }
+.tahoe-checkbox-control input:checked + .tahoe-checkbox-box { background: var(--tahoe-accent); }
+.tahoe-checkbox-control input:checked + .tahoe-checkbox-box svg { opacity: 1; }
+.tahoe-checkbox:hover input:not(:disabled, :checked) + .tahoe-checkbox-box { background: var(--tahoe-button-hover); }
+:is(.tahoe-checkbox:active input, .tahoe-checkbox input:active):not(:disabled) + .tahoe-checkbox-box { background: var(--tahoe-button-pressed); }
+:is(.tahoe-checkbox:active input, .tahoe-checkbox input:active):checked:not(:disabled) + .tahoe-checkbox-box { background: var(--tahoe-accent-pressed); }
+
+.tahoe-switch-track {
+  position: relative;
+  width: var(--tahoe-switch-width);
+  height: var(--tahoe-switch-height);
+  border-radius: calc(var(--tahoe-switch-height) / 2);
+  background: var(--tahoe-switch-off);
+  box-shadow: var(--tahoe-switch-rim);
+  pointer-events: none;
+}
+.tahoe-switch-thumb {
+  position: absolute;
+  inset-block: var(--tahoe-switch-inset);
+  inset-inline-start: var(--tahoe-switch-inset);
+  width: var(--tahoe-switch-thumb-width);
+  border-radius: 999px;
+  background: var(--tahoe-switch-thumb-color);
+  box-shadow: var(--tahoe-switch-thumb-shadow);
+  transition: inset-inline-start var(--tahoe-control-transition) ease-out;
+}
+.tahoe-switch input:checked + .tahoe-switch-track { background: var(--tahoe-accent); box-shadow: none; }
+.tahoe-switch input:checked + .tahoe-switch-track .tahoe-switch-thumb { inset-inline-start: calc(100% - var(--tahoe-switch-thumb-width) - var(--tahoe-switch-inset)); }
+.tahoe-switch input:active:not(:disabled) + .tahoe-switch-track { background: var(--tahoe-button-pressed); }
+.tahoe-switch input:active:checked:not(:disabled) + .tahoe-switch-track { background: var(--tahoe-accent-pressed); }
+.tahoe-switch input:disabled + .tahoe-switch-track .tahoe-switch-thumb { opacity: .6; }
+.tahoe-checkbox-control input:focus-visible + .tahoe-checkbox-box,
+.tahoe-switch input:focus-visible + .tahoe-switch-track { box-shadow: var(--tahoe-control-focus); }
+@media (prefers-reduced-motion: reduce) {
+  :where([data-theme="tahoe"], .tahoe-doc, .tahoe-overlay) { --tahoe-control-transition: 0ms; }
+}
+@media (forced-colors: active) {
+  .tahoe-checkbox-control input, .tahoe-switch-control input { position: static; opacity: 1; }
+  .tahoe-checkbox-control input { width: var(--tahoe-checkbox-size); height: var(--tahoe-checkbox-size); }
+  .tahoe-switch-control input { width: 16px; height: 16px; }
+  .tahoe-checkbox-control input:focus-visible { outline: 2px solid Highlight; outline-offset: 2px; }
+  .tahoe-checkbox-box, .tahoe-switch-track { display: none; }
+  .tahoe-field-control.tahoe-text-input:focus,
+  .tahoe-button[data-size]:focus-visible,
+  .tahoe-button[data-size]:not(.tahoe-toolbar-group *):focus-visible { outline: 2px solid Highlight; }
+}
+
+.tahoe-image-view { display: block; max-inline-size: 100%; object-fit: contain; }
+.tahoe-image-view[data-fit="cover"] { object-fit: cover; }
+.tahoe-text-view[data-tone="secondary"] { color: var(--tahoe-text-secondary); }
+.tahoe-outline .tahoe-outline { padding-inline-start: 16px; }
+.tahoe-outline li { min-height: 24px; }
+.tahoe-outline summary { cursor: default; }
+.tahoe-scroll-view { overflow: auto; width: 100%; }
+
+/* Component defaults also apply when the consuming app has no Tailwind preflight. */
+@layer tahoe-reset {
+  [data-theme="tahoe"], [data-theme="tahoe"] *, .tahoe-overlay *, .tahoe-menu * { box-sizing: border-box; }
+  :where([data-theme="tahoe"], .tahoe-overlay, .tahoe-menu) :where(button, input, select, textarea) {
+    margin: 0;
+    color: inherit;
+    font: inherit;
+  }
+  :where(.tahoe-button, .tahoe-menu-trigger, .tahoe-sidebar-row, .tahoe-menu button, .tahoe-tabs button, .tahoe-stepper button, .tahoe-disclosure button) {
+    border: 0;
+    background: transparent;
+    padding: 0;
+  }
+  :where(.tahoe-sidebar ul, .tahoe-list, .tahoe-breadcrumb) { list-style: none; margin: 0; padding: 0; }
+}

@@ -1,0 +1,9 @@
+/* SF Symbols from Figma are Apple PUA glyphs, not portable cross-platform icon assets. */
+:root, [data-theme="tahoe"] {
+  --tahoe-icon-size-mini: 11px;
+  --tahoe-icon-size-small: 13px;
+  --tahoe-icon-size-medium: 16px;
+  --tahoe-icon-size-large: 20px;
+  --tahoe-icon-stroke-width: 1.75;
+  --tahoe-icon-alignment: center;
+}

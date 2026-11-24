@@ -1,0 +1,50 @@
+import { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFileLines, faFolder, faStar, faTrashCan } from '@fortawesome/free-regular-svg-icons'
+import { Sidebar } from '@macos-tahoe/ui'
+import '@macos-tahoe/ui/styles.css'
+
+export const navigationLabels = {
+  title: "Notes",
+  navigation: "Notes library",
+  favorites: "Favorites",
+  starred: "Starred",
+  all: "All Notes",
+  folders: "Folders",
+  work: "Work",
+  personal: "Personal",
+  deleted: "Recently Deleted",
+  current: "Selected collection",
+}
+
+export function SidebarNavigation({ labels = navigationLabels }: { labels?: typeof navigationLabels } = {}) {
+  const [selected, setSelected] = useState('starred')
+  const [collapsed, setCollapsed] = useState<string[]>([])
+  const groups = [
+    { id: 'favorites', label: labels.favorites, items: [
+      { id: 'starred', label: labels.starred, icon: <FontAwesomeIcon icon={faStar}/> },
+      { id: 'all', label: labels.all, icon: <FontAwesomeIcon icon={faFileLines}/> },
+    ] },
+    { id: 'folders', label: labels.folders, items: [
+      { id: 'work', label: labels.work, icon: <FontAwesomeIcon icon={faFolder}/> },
+      { id: 'personal', label: labels.personal, icon: <FontAwesomeIcon icon={faFolder}/> },
+      { id: 'deleted', label: labels.deleted, icon: <FontAwesomeIcon icon={faTrashCan}/> },
+    ] },
+  ]
+  const current = groups.flatMap(group => group.items).find(item => item.id === selected)?.label
+
+  return (
+    <div data-theme="tahoe" style={{ width: '100%', minWidth: 0, display: 'grid', gap: 'var(--tahoe-gap)' }}>
+      <div style={{ padding: 'calc(var(--tahoe-gap) * 2)', borderRadius: 'var(--tahoe-window-radius)',
+        background: 'linear-gradient(135deg, var(--tahoe-accents-yellow), var(--tahoe-accents-green))' }}>
+        <div style={{ width: 'var(--tahoe-sidebar-width)', maxWidth: '100%', overflow: 'hidden',
+          borderRadius: 'var(--tahoe-control-radius)', background: 'var(--tahoe-content-surface)' }}>
+          <h4 style={{ padding: 'calc(var(--tahoe-gap) * 2)', fontSize: 'var(--tahoe-title)', fontWeight: 600 }}>{labels.title}</h4>
+          <Sidebar label={labels.navigation} groups={groups} selected={selected} collapsed={collapsed} onSelect={setSelected}
+            onToggle={id => setCollapsed(previous => previous.includes(id) ? previous.filter(group => group !== id) : [...previous, id])}/>
+        </div>
+      </div>
+      <output style={{ overflowWrap: 'anywhere' }}>{labels.current}: {current}</output>
+    </div>
+  )
+}

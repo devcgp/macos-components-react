@@ -1,0 +1,13 @@
+/* Apply appearance independently of size and context. Keep scopes in sync with the palette generator. */
+:root,
+[data-appearance="light"]:where(:root, [data-theme="tahoe"], [data-theme="tahoe"] *) {
+  color-scheme: light;
+  --tahoe-appearance: "light";
+}
+
+:root.dark:not([data-appearance="light"]),
+.dark [data-theme="tahoe"]:not([data-appearance], [data-appearance] *),
+[data-appearance="dark"]:where(:root, [data-theme="tahoe"], [data-theme="tahoe"] *) {
+  color-scheme: dark;
+  --tahoe-appearance: "dark";
+}

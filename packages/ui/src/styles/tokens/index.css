@@ -1,0 +1,10 @@
+/* Token-only entrypoint. Do not replace tahoe-tokens.css (that file also contains component rules). */
+@import "./palette.tokens.css";
+@import "./semantic.tokens.css";
+@import "./typography.tokens.css";
+@import "./size.tokens.css";
+@import "./material.tokens.css";
+@import "./context.tokens.css";
+@import "./icon.tokens.css";
+@import "./component.tokens.css";
+@import "./theme.tokens.css";

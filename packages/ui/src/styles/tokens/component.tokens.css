@@ -1,0 +1,24 @@
+/* Supplemental component tokens. Existing component selector rules remain authoritative until integrated. */
+:root,
+[data-theme="tahoe"],
+[data-theme="tahoe"] :where([data-size], [data-appearance]) {
+  --tahoe-kit-component-fill: var(--tahoe-fills-primary);
+  --tahoe-kit-section-fill: var(--tahoe-fills-primary);
+  --tahoe-kit-subcomponent-fill: var(--tahoe-fills-primary);
+  --tahoe-kit-component-stroke-source: rgba(195, 153, 255, 1);
+  --tahoe-kit-section-stroke-source: rgba(0, 0, 0, .4);
+  --tahoe-kit-subcomponent-stroke-source: rgba(0, 0, 0, .4);
+  --tahoe-kit-link-source: rgba(152, 204, 255, 1);
+  --tahoe-kit-image-source: img;
+  --tahoe-checkbox-size-token: var(--tahoe-checkboxes-width);
+  --tahoe-checkbox-radius-token: var(--tahoe-checkboxes-radius);
+  --tahoe-checkbox-size: var(--tahoe-checkbox-size-token);
+  --tahoe-checkbox-radius: var(--tahoe-checkbox-radius-token);
+  --tahoe-checkbox-mark-width: var(--tahoe-checkboxes-width-checkmark);
+  --tahoe-checkbox-mark-height: var(--tahoe-checkboxes-height-checkmark);
+  --tahoe-checkbox-disabled-opacity: .5;
+  --tahoe-switch-width-token: var(--tahoe-toggle-switch-track-width);
+  --tahoe-switch-height-token: var(--tahoe-toggle-switch-track-height);
+  --tahoe-button-padding-inline-token: var(--tahoe-button-padding-horizontal);
+  --tahoe-button-radius-token: var(--tahoe-button-radius);
+}

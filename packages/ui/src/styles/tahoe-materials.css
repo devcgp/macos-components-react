@@ -1,0 +1,16 @@
+[data-theme="tahoe"] { font-family: var(--tahoe-font); }
+[data-theme="tahoe"] [data-material] { background: var(--tahoe-content-surface); }
+[data-theme="tahoe"] [data-material="vibrant"] { background: var(--tahoe-sidebar-surface); }
+@supports (backdrop-filter: blur(1px)) {
+  [data-theme="tahoe"] [data-material="glass-regular"] {
+    background: color-mix(in srgb, var(--tahoe-window-surface) 80%, transparent);
+    backdrop-filter: blur(24px) saturate(140%);
+  }
+  [data-theme="tahoe"] [data-material="glass-clear"] {
+    background: color-mix(in srgb, var(--tahoe-window-surface) 58%, transparent);
+    backdrop-filter: blur(16px) saturate(130%);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  [data-theme="tahoe"] [data-material] { background: var(--tahoe-content-surface); backdrop-filter: none; }
+}
