@@ -108,7 +108,7 @@ export default function App() {
     document.documentElement.classList.toggle('dark', dark)
   }, [dark])
   useEffect(() => {
-    document.title = (entryTitle ? entryTitle + ' · ' : '') + 'macOS Tahoe Components'
+    document.title = (entryTitle ? entryTitle + ' · ' : '') + 'macOS Components for React'
   }, [entryTitle])
   useEffect(() => { document.documentElement.lang = locale }, [locale])
 
@@ -120,7 +120,7 @@ export default function App() {
   const sectionId = navigationByHref.get(route)?.ancestors[0]
   const section = navigation.find(item => item.id === sectionId)
   const header = <header className="site-header">
-    <a className="brand" href={start}>macOS Tahoe Components</a>
+    <a className="brand" href={start}>macOS Components for React</a>
     <nav className="header-sections" aria-label={tr('一级目录', 'Documentation sections')}>
       {navigation.map(item => {
         const firstPage = navigationPages.find(({ ancestors }) => ancestors[0] === item.id)
