@@ -113,7 +113,7 @@ export default function TahoeTokensPage() {
   const { tr } = useLocale()
   return <article className="markdown tahoe-token-doc">
     <section id={tahoeTokenSections[0].id} className="doc-section">
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{tr(tokensZh, tokensEn)}</ReactMarkdown>
+      <ReactMarkdown remarkPlugins={[remarkGfm]} components={{h1:()=>null}}>{tr(tokensZh, tokensEn)}</ReactMarkdown>
     </section>
     <ScopePreview/>
     <TypographyPreview/>

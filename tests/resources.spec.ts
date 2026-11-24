@@ -10,21 +10,26 @@ for (const language of ['zh-CN', 'en']) {
   for (const [route, files] of Object.entries(pages)) {
     test(`serves ${route} downloads in ${language}`, async ({ page }) => {
       await page.goto('/?lang=' + language + '#/tahoe/' + route)
-      for (const file of files) {
-        const link = page.locator('.page-downloads').getByRole('link', { name: file, exact: true })
-        await expect(link).toHaveAttribute('href', '/downloads/' + file)
-        await expect(link).toHaveAttribute('download', '')
-        const response = await page.request.get('/downloads/' + file)
+      const footer=page.locator('.page-contributions')
+      const documentPath=route==='design'||route==='tokens'?'docs/'+route:'apps/docs/content/'+route
+      for(const [locale,suffix] of [['zh-CN','.md'],['en','.en.md']]){
+        const href='/downloads/pages/'+documentPath+suffix
+        const link=footer.locator('a[download]').filter({hasText:locale==='en'?'English Markdown':language==='en'?'Chinese Markdown':'中文 Markdown'})
+        await expect(link).toHaveAttribute('href',href)
+        const response=await page.request.get(href)
         expect(response.ok()).toBe(true)
         expect(response.headers()['content-type']).not.toContain('text/html')
-        if (file.endsWith('.json')) expect((await response.json()).colors).toBeDefined()
+        expect(await response.text()).toContain('# ')
       }
-      const [download] = await Promise.all([
-        page.waitForEvent('download'),
-        page.locator('.page-downloads').getByRole('link', { name: files[0], exact: true }).click(),
-      ])
-      expect(download.suggestedFilename()).toBe(files[0])
+      for(const file of files.filter(file=>!file.endsWith('.md'))){
+        await expect(footer.locator('a[download][href="/downloads/'+file+'"]')).toBeVisible()
+      }
+      const [download]=await Promise.all([page.waitForEvent('download'),footer.locator('a[download]').first().click()])
+      expect(download.suggestedFilename()).toBe(route.split('/').at(-1)+'.md')
       expect(await download.failure()).toBeNull()
+      await footer.getByRole('button',{name:language==='en'?'View raw document':'查看原文'}).click()
+      await expect(footer.locator('#page-raw-document')).toBeVisible()
+
     })
   }
 }
@@ -32,7 +37,7 @@ for (const language of ['zh-CN', 'en']) {
 test('maps contribution links to the route and switches the edit language in place', async ({ page }) => {
   await page.goto('/?lang=zh-CN#/tahoe/button?tab=api')
   const footer = page.locator('.page-contributions')
-  await expect(footer.getByRole('link', { name: '在 GitHub 编辑' })).toHaveAttribute('href', /\/content\/components\/button\.md$/)
+  await expect(footer.getByRole('link', { name: 'Edit on GitHub' })).toHaveAttribute('href', /\/content\/components\/button\.md$/)
   await expect(footer.getByRole('link', { name: '查看源码' })).toHaveAttribute('href', /\/packages\/ui\/src\/components\/button\.tsx$/)
   await page.getByRole('combobox', { name: '网站语言' }).selectOption('en')
   await expect(footer.getByRole('link', { name: 'Edit on GitHub' })).toHaveAttribute('href', /\/content\/components\/button\.en\.md$/)

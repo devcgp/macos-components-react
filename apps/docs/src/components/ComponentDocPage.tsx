@@ -59,7 +59,7 @@ function MarkdownCode({ children }: { children?: ReactNode }) {
   return <CopyCode source={children.props.children.trimEnd()} label={tr('复制代码', 'Copy code')}>{pre}</CopyCode>
 }
 
-const markdownComponents: Components = { h2: SectionHeading, pre: MarkdownCode }
+const markdownComponents: Components = { h1:()=>null, h2: SectionHeading, pre: MarkdownCode }
 
 export default function ComponentDocPage({ id, markdown, hash }: { id: string; markdown: string; hash: string }) {
   return <article className="markdown">

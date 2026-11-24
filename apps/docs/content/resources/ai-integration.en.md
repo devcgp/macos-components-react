@@ -14,3 +14,5 @@ Give your coding assistant the design guidelines, token JSON and built component
 Read design.en.md and tokens.json, then inspect the component types in this project.
 Use Tahoe components and semantic variables. Preserve product copy and verify keyboard behavior and both appearances.
 ```
+
+Read [Guidelines](#/tahoe/design), [Tokens](#/tahoe/tokens) and the relevant [component API](#/tahoe/button). Detailed visual specifications belong to [Foundations](#/tahoe/foundations/control-geometry), not this workflow.
