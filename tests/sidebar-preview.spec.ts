@@ -86,7 +86,7 @@ test('retains window selection while hiding the sidebar and wrapping at narrow w
     await page.setViewportSize({ width, height: 852 })
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width)
     const navigationCard = page.getByRole('region', { name: 'Sidebar Navigation', exact: true })
-    await expect(navigationCard.locator('.preview-content')).toHaveCSS('padding-block-start', '160px')
+    await expect(navigationCard.locator('.preview-content')).toHaveCSS('padding-block-start', width <= 680 ? '32px' : '160px')
     await expect(navigationCard.getByRole('navigation')).toHaveCSS('width', '220px')
   }
 })

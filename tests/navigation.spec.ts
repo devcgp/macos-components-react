@@ -82,16 +82,28 @@ test('opens active ancestors, keeps independent toggle state, and supports keybo
   await expect(nav.getByRole('link', { name: 'Icon Button', exact: true })).toHaveAttribute('aria-current', 'page')
 })
 
-test('keeps the narrow sidebar scrollable and renders Font Awesome in site and component UI', async ({ page }) => {
+test('opens a scrollable mobile navigation drawer and closes after selecting a route', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 800 })
   await page.goto('/?lang=zh-CN#/desktop/search-field')
-  const nav = page.getByRole('navigation', { name: '文档分类' })
-  await expect(page.locator('.header-sections').getByRole('link', { name: '界面组件', exact: true })).toHaveAttribute('aria-current', 'true')
-  await expect(nav.getByRole('button', { name: '导航与搜索', exact: true })).toHaveAttribute('aria-expanded', 'true')
-  await expect(nav.getByRole('link', { name: 'Search Field', exact: true })).toHaveAttribute('aria-current', 'page')
+  const trigger = page.getByRole('button', { name: '打开文档导航' })
+  await expect(page.getByRole('navigation', { name: '文档分类' })).toHaveCount(0)
   await expect(page.getByRole('button', { name: '搜索', exact: true }).locator('svg[data-icon="magnifying-glass"]')).toBeVisible()
   await expect(page.locator('.live-preview .desktop-search svg[data-icon="magnifying-glass"]').first()).toBeVisible()
-  expect(await page.locator('.docs-nav').evaluate(sidebar => sidebar.scrollHeight > sidebar.clientHeight)).toBe(true)
+
+  await trigger.click()
+  const dialog = page.getByRole('dialog', { name: '文档导航' })
+  await expect(dialog.getByRole('button', { name: '关闭导航' })).toBeFocused()
+  await expect(dialog.getByRole('button', { name: '界面组件', exact: true })).toHaveAttribute('aria-expanded', 'true')
+  await expect(dialog.getByRole('link', { name: 'Search Field', exact: true })).toHaveAttribute('aria-current', 'page')
+  expect(await dialog.locator('.docs-nav').evaluate(sidebar => sidebar.scrollHeight > sidebar.clientHeight)).toBe(true)
+  await page.keyboard.press('Escape')
+  await expect(trigger).toBeFocused()
+
+  await trigger.click()
+  await dialog.getByRole('button', { name: '设计基础', exact: true }).click()
+  await dialog.getByRole('link', { name: '色彩', exact: true }).click()
+  await expect(dialog).toBeHidden()
+  await expect(page.getByRole('heading', { name: '色彩', exact: true, level: 1 })).toBeVisible()
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
 })
 
@@ -150,20 +162,18 @@ test('pins the frosted header and desktop navigation while aligning titles acros
   expect((await title.boundingBox())?.y).toBeCloseTo(initialTitle.y)
 })
 
-test('keeps title spacing and the navigation pane stable on narrow screens', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 800 })
+test('shows the document first and keeps the page outline usable at 320px', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 720 })
   await page.goto('/?lang=zh-CN#/desktop/foundations/color')
-  const sidebar = page.locator('.docs-nav')
   const header = page.locator('.site-header')
   const title = page.getByRole('main').getByRole('heading', { level: 1 })
   await expect(title).toHaveText('色彩')
+  expect((await title.boundingBox())!.y - (await header.boundingBox())!.height).toBeLessThan(80)
 
-  const nav = (await sidebar.boundingBox())!
-  const bar = (await header.boundingBox())!
-  expect(nav.y).toBeCloseTo(bar.y + bar.height)
-  expect((await page.locator('.desktop-document-heading').boundingBox())!.y).toBeGreaterThanOrEqual(nav.y + nav.height)
-  await sidebar.getByRole('button', { name: '设计原则' }).click()
-  await expect(sidebar.getByRole('button', { name: '设计原则' })).toHaveAttribute('aria-expanded', 'false')
-  expect((await sidebar.boundingBox())?.height).toBeCloseTo(nav.height)
-  expect((await page.locator('.desktop-document-heading').boundingBox())!.y).toBeGreaterThanOrEqual(nav.y + nav.height)
+  const outline = page.locator('.mobile-toc')
+  await outline.getByText('本页目录', { exact: true }).click()
+  await outline.getByRole('button', { name: '灰阶', exact: true }).click()
+  await expect(outline).not.toHaveAttribute('open')
+  await expect(page.getByRole('heading', { name: '灰阶', exact: true })).toBeInViewport()
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320)
 })
