@@ -8,6 +8,7 @@ import { faCodeBranch, faMagnifyingGlass } from '@fortawesome/free-solid-svg-ico
 import { Button } from '@macos-tahoe/ui'
 import { DarkAppearanceContext } from './appearance'
 import { LocaleContext, localizeTitle, readLocale, type Locale } from './locale'
+import DocumentHeading from '../components/DocumentHeading'
 import DocsLayout from '../layouts/DocsLayout'
 import { PageResources, repository } from '../components/PageResources'
 import ComponentDocPage from '../components/ComponentDocPage'
@@ -137,6 +138,7 @@ export default function App() {
 
   return <LocaleContext.Provider value={locale}><DarkAppearanceContext.Provider value={dark}><div data-theme="tahoe">
     <DocsLayout header={header} navigation={section?.children ?? []} current={route} toc={toc}>
+      {entryTitle&&<DocumentHeading title={entryTitle} category={section?{title:navigationTitle(section,locale),href:navigationPages.find(item=>item.ancestors[0]===section.id)?.page.href??start}:undefined}/>}
       {ComponentPage ? <Suspense fallback={<p role="status">{tr('正在加载组件文档…', 'Loading component documentation…')}</p>}>
           <ComponentPage key={locale + id} id={id} hash={hash}/>
         </Suspense>
@@ -145,7 +147,7 @@ export default function App() {
         : markdown ? <article className="markdown"><ReactMarkdown remarkPlugins={[remarkGfm]} components={{ h1: ({ children }) => <h1>{id.includes("/") ? entryTitle ?? children : children}</h1> }}>{markdown}</ReactMarkdown>
           {id.includes('/') && !id.startsWith('resources/') && <p><a href={hig}>Apple Human Interface Guidelines</a></p>}</article>
         : <article><h1>{tr('未找到页面', 'Page not found')}</h1><p><a href={start}>{tr('前往 Tahoe 文档', 'Go to Tahoe documentation')}</a></p></article>}
-      {entryTitle && <PageResources id={id} route={route} title={entryTitle} component={Boolean(doc)}/>}
+      {entryTitle && <PageResources key={id+locale} id={id} route={route} title={entryTitle} component={Boolean(doc)}/>}
       {index >= 0 && <nav className="page-neighbors" aria-label={tr("上一页和下一页", "Previous and next pages")}>
         {entries[index - 1] && <a href={entries[index - 1].href}>← {navigationTitle(entries[index - 1], locale)}</a>}
         {entries[index + 1] && <a href={entries[index + 1].href}>{navigationTitle(entries[index + 1], locale)} →</a>}

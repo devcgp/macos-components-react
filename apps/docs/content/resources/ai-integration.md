@@ -14,3 +14,5 @@
 先阅读 design.md 和 tokens.json，再检查本项目真实的组件类型。
 使用 Tahoe 组件与语义变量。保留业务文案，验证键盘操作和浅深外观。
 ```
+
+实现前引用[设计原则](#/tahoe/design)、[Tokens](#/tahoe/tokens)与对应[组件 API](#/tahoe/button)。详细视觉规范见 [Foundations](#/tahoe/foundations/control-geometry)，本页只维护操作流程。

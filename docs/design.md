@@ -9,26 +9,18 @@
 | Third-party Measured | 常规 Button 与 Text Field 24px 高、6px 圆角，Checkbox 16 × 16px / 5.5px，Switch 54 × 24px。参见第三方 README。 |
 | Project-defined Web Approximation | CSS 材质、窗口装饰、固定比例分栏、工具栏和文档场景。已导入色板保留来源，不作为 Tahoe 26 官方认证色值。 |
 
-## 核心控件
+## 设计原则
 
-- Button 使用 16 / 20 / 24 / 28 / 36px 尺寸。常规左右内边距 16px，围绕焦点使用双层光环。
-- Text Field 常规高 24px，圆角 6px，单像素平面边框。浅色内容白，深色使用内容表面。
-- Checkbox 使用 16 × 16px 色盒与 5.5px 圆角，保留实际 HTML 复选框。
-- Switch 使用 54 × 24px 轨道、32 × 20px 滑块、2px 边距；开启后滑块移动 18px。
-- Radio 保留浏览器的表单与键盘语义。Slider 采用 6px 轨道和 20 × 16px 滑块。
-- Segmented Control 常规外框 24px，Pop-up Button 最小 84 × 24px、6px 圆角，菜单项至少 24px。
+保持内容可读、交互可预期、焦点清晰。明确区分 Apple 指南、第三方测量和项目自定义网页近似，不将网页近似称为 Apple 官方认证。
 
-## 桌面布局
+## 跨组件规则
 
-Sidebar 组间距 16px，行高 28px、圆角 5px、内缩 8px。组标题 11px，目录文字 13px。当前项使用灰色背景与 aria-current。Toolbar 示例最小高 52px，搜索宽 150px，窄容器允许换行。Window 的 16px 圆角与窗口层级使用网页实现。
+复用语义变量与实际组件 API，保留键盘语义，区分焦点、选中和禁用状态。设计变更先在系统确认，再向下游应用；核对浅深外观和减少动态效果。
 
-## 外观与材质
+## Foundations 详细规范
 
-组件位于 `data-theme="tahoe"` 容器中，深色通过根节点 `.dark` 切换。颜色和状态使用同一份 CSS 变量。内容采用实色，Glass 示例通过浏览器 backdrop-filter 近似并有实色回退。焦点和选中采用独立的样式。禁用控件保留原生语义，减少动态模式关闭装饰性过渡。
+具体数值与预览集中在[色彩](#/tahoe/foundations/color)、[字体](#/tahoe/foundations/typography)、[控件几何](#/tahoe/foundations/control-geometry)、[布局](#/tahoe/foundations/layout)和[材质](#/tahoe/foundations/materials)。各组件精确尺寸与 API 见对应组件文档。
 
-更多见 [Tokens](#/tahoe/tokens)。
+## 实现入口
 
-- [Apple HIG](https://developer.apple.com/design/human-interface-guidelines/)
-- [Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos)
-- [Apple Design Resources](https://developer.apple.com/design/resources/)
-- [第三方 macOS Components](https://github.com/tamnguyenvan/macos-components)
+数据、作用域和导出见 [Design Tokens](#/tahoe/tokens)，AI 操作流程见 [AI Integration](#/tahoe/resources/ai-integration)。数值仍使用现有 Token 定义；本次结构整理不改变组件行为。

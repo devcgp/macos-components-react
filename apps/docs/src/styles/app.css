@@ -236,21 +236,47 @@ article :is(td, th) { padding: 6px 9px; text-align: start; border: 1px solid var
 
 .documentation-tabs {
   display: flex;
-  gap: var(--tahoe-gap);
-  margin-block-start: var(--docs-title-inset);
-  padding: 4px;
+  gap: 16px;
+  margin-block-start: 16px;
+  padding: 0;
   overflow-x: auto;
-  border-block-end: 1px solid var(--tahoe-separator);
+  border: 0;
+  border-bottom: 1px solid var(--tahoe-separator);
+  border-radius: 0;
+  background: transparent;
 }
 .documentation-tabs button {
+  position: relative;
   flex: none;
-  padding: 4px var(--tahoe-button-padding-horizontal);
-  border-radius: var(--tahoe-control-radius);
+  min-height: 36px;
+  padding: 8px 4px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 500;
   color: var(--tahoe-text-secondary);
   white-space: nowrap;
 }
-.documentation-tabs button:hover { background: var(--tahoe-fills-tertiary); }
-.documentation-tabs button[data-selected] { background: var(--tahoe-selection); color: var(--tahoe-label); font-weight: 650; }
+.documentation-tabs button::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: transparent;
+}
+.documentation-tabs button:hover { background: transparent; color: var(--tahoe-text-primary); }
+.documentation-tabs button:hover::after { background: var(--tahoe-separator); }
+.documentation-tabs button[data-selected] {
+  background: transparent;
+  color: var(--tahoe-accents-blue);
+  font-weight: 600;
+  box-shadow: none;
+}
+.documentation-tabs button[data-selected]::after { background: var(--tahoe-accents-blue); }
+.documentation-tabs button:focus-visible { outline: 2px solid var(--tahoe-accents-blue); outline-offset: -3px; border-radius: 4px; }
 
 .page-contributions {
   margin-block: 2rem 1rem;
@@ -268,3 +294,37 @@ article :is(td, th) { padding: 6px 9px; text-align: start; border: 1px solid var
 }
 .page-downloads { margin-block: 2rem; }
 .page-downloads ul { list-style: none; padding: 0; }
+
+.page-resource-card { padding: 20px; border: 1px solid var(--tahoe-separator); border-radius: 12px; background: var(--tahoe-fills-tertiary); }
+.page-resource-card h2 { font-size: 15px; font-weight: 600; margin: 0 0 14px; }
+.page-resource-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 16px; }
+.page-resource-card :is(a,button) { font: inherit; font-size: 13px; }
+.page-resource-actions>a:not(.page-download-button),.page-resource-actions>button { color: var(--tahoe-accents-blue); background: none; border: 0; padding: 6px 0; text-decoration: none; }
+.page-resource-card .page-download-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 34px; padding: 6px 12px; border: 1px solid var(--tahoe-border); border-radius: 7px; background: var(--tahoe-content-surface); color: var(--tahoe-text-primary); text-decoration: none; }
+.page-resource-card .page-download-button:hover { border-color: var(--tahoe-accents-blue); }
+.page-resource-card .page-resource-links { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--tahoe-separator); }
+.page-resource-links a { color: var(--tahoe-text-secondary); text-decoration: none; }
+.page-resource-card .page-resource-exports { margin-top: 10px; }
+.page-resource-card .page-raw-document { max-height: 400px; margin: 16px 0 0; padding: 16px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; background: var(--tahoe-content-surface); border-radius: 7px; }
+@media(max-width:600px) { .page-resource-card { padding: 16px; } }
+
+.desktop-document-heading { position: sticky; top: var(--docs-header-height); z-index: 5; background: var(--tahoe-content-surface); border-bottom: 1px solid var(--tahoe-separator); padding-block: 12px; margin-bottom: 16px; }
+.desktop-document-heading nav ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 10px; padding: 0; margin: 0; font-size: 12px; color: var(--tahoe-text-secondary); }
+.desktop-document-heading nav li { display: inline-flex; gap: 10px; }
+.desktop-document-heading a:hover { text-decoration: underline; }
+.desktop-document-heading h1 { font-size: 26px; line-height: 1.3; font-weight: 650; margin: 6px 0 0; }
+#main>.markdown>h1 { display: none; }
+#main :is(.doc-section,h2[id],h3[id]) { scroll-margin-block-start: calc(var(--docs-header-height) + var(--page-heading-height,90px) + 16px); }
+
+/* Component navigation stays directly beneath the measured document heading. */
+#main:has(.documentation-tabs) .documentation-tabs {
+  position: sticky;
+  top: calc(var(--docs-header-height) + var(--page-heading-height, 90px));
+  z-index: 4;
+  margin-block-start: 0;
+  background: var(--tahoe-content-surface);
+}
+#main:has(.documentation-tabs) .desktop-document-heading { margin-bottom: 0; }
+#main:has(.documentation-tabs) :is(.doc-section,h2[id],h3[id]) {
+  scroll-margin-block-start: calc(var(--docs-header-height) + var(--page-heading-height, 90px) + 54px);
+}

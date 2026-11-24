@@ -41,3 +41,7 @@ import '@macos-tahoe/ui/styles.css'
 所有新建和后续更新的控件都以最新版 Tahoe Design Tokens 为准。已有 Token 覆盖的颜色、尺寸、圆角、内边距、字体和图标规格，应在 CSS 中直接引用对应变量或语义别名。需要新的设计值时，先补进 Token 定义，再由控件引用。
 
 迁移时保留现有公开属性。例如迁移 Button 的尺寸规则时，公开 API 的 `regular` 对应 Token 的 `medium`。控件文档和 Live Preview 应反映同一套 Token 及其在浅色、深色中的渲染结果。
+
+## 文档职责
+
+本页负责 Token 数据、引用关系、作用域、主题与导出。详细视觉规范由 [Foundations](#/tahoe/foundations/control-geometry) 维护。交互预览读取已有 JSON/CSS 数据源，不另建数值基准。JSON 和构建 CSS 在下载区提供。

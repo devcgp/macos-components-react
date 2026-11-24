@@ -1,4 +1,4 @@
-import { copyFileSync, mkdirSync } from 'node:fs'
+import { copyFileSync, mkdirSync, readdirSync } from 'node:fs'
 
 const root = new URL('../../../', import.meta.url)
 const downloads = new URL('apps/docs/public/downloads/', root)
@@ -16,3 +16,17 @@ const sources = {
 for (const [name, source] of Object.entries(sources)) {
   copyFileSync(new URL(source, root), new URL(name, downloads))
 }
+
+// Publish actual document files, preserving repository paths for both languages.
+for (const folder of ['docs','apps/docs/content']) {
+  for (const file of readdirSync(new URL(folder+'/',root),{recursive:true}).filter(name=>name.endsWith('.md'))) {
+    const source=folder+'/'+file
+    const target=new URL('pages/'+source,downloads)
+    mkdirSync(new URL('./',target),{recursive:true})
+    copyFileSync(new URL(source,root),target)
+  }
+}
+const colorPath='packages/ui/src/styles/figma-colors.json'
+const colorTarget=new URL('pages/'+colorPath,downloads)
+mkdirSync(new URL('./',colorTarget),{recursive:true})
+copyFileSync(new URL(colorPath,root),colorTarget)

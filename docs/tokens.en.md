@@ -41,3 +41,7 @@ Available `data-material` values are `solid`, `vibrant`, `glass-regular`, and `g
 Build new components and update existing components against the latest Tahoe Design Tokens. Where a token covers a color, size, radius, inset, type or icon specification, reference its CSS variable or semantic alias. Add any new design value to the token definitions before using it in a component.
 
 Preserve existing public props during migration. For example, Button's public `regular` size maps to the `medium` token mode. The component documentation and Live Preview should reflect the same tokens and their rendered Light and Dark appearances.
+
+## Documentation boundaries
+
+This page owns token data, references, scope, themes and exports. Visual specifications live in [Foundations](#/tahoe/foundations/control-geometry). Interactive previews read the existing JSON/CSS sources and do not define a separate set of values. JSON and built CSS are available in the downloads section.
