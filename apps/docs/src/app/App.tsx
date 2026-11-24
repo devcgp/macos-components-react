@@ -144,7 +144,7 @@ export default function App() {
         </Suspense>
         : id === 'colors' ? <TahoeColorsPage/>
         : id === 'tokens' ? <TahoeTokensPage/>
-        : markdown ? <article className="markdown"><ReactMarkdown remarkPlugins={[remarkGfm]} components={{ h1: ({ children }) => <h1>{id.includes("/") ? entryTitle ?? children : children}</h1> }}>{markdown}</ReactMarkdown>
+        : markdown ? <article className="markdown"><ReactMarkdown remarkPlugins={[remarkGfm]} components={{h1:()=>null}}>{markdown}</ReactMarkdown>
           {id.includes('/') && !id.startsWith('resources/') && <p><a href={hig}>Apple Human Interface Guidelines</a></p>}</article>
         : <article><h1>{tr('未找到页面', 'Page not found')}</h1><p><a href={start}>{tr('前往 Tahoe 文档', 'Go to Tahoe documentation')}</a></p></article>}
       {entryTitle && <PageResources key={id+locale} id={id} route={route} title={entryTitle} component={Boolean(doc)}/>}

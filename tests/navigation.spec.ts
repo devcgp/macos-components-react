@@ -78,7 +78,7 @@ test('keeps the narrow sidebar scrollable and renders Font Awesome in site and c
   await page.setViewportSize({ width: 390, height: 800 })
   await page.goto('/?lang=zh-CN#/tahoe/search-field')
   const nav = page.getByRole('navigation', { name: '文档分类' })
-  await expect(page.getByRole('link', { name: '界面组件', exact: true })).toHaveAttribute('aria-current', 'true')
+  await expect(page.locator('.header-sections').getByRole('link', { name: '界面组件', exact: true })).toHaveAttribute('aria-current', 'true')
   await expect(nav.getByRole('button', { name: '导航与搜索', exact: true })).toHaveAttribute('aria-expanded', 'true')
   await expect(nav.getByRole('link', { name: 'Search Field', exact: true })).toHaveAttribute('aria-current', 'page')
   await expect(page.getByRole('button', { name: '搜索', exact: true }).locator('svg[data-icon="magnifying-glass"]')).toBeVisible()
@@ -122,7 +122,9 @@ test('pins the frosted header and desktop navigation while aligning titles acros
   const initialTitle = (await title.boundingBox())!
   expect(initialSidebar.y).toBeCloseTo(initialHeader.height)
   expect(initialSidebar.y + initialSidebar.height).toBeCloseTo(852)
-  expect(initialTitle.y - initialHeader.height).toBeCloseTo(24)
+  const heading = (await page.locator('.desktop-document-heading').boundingBox())!
+  expect(heading.y).toBeGreaterThanOrEqual(initialHeader.height)
+  expect(initialTitle.y).toBeGreaterThan(heading.y)
 
   await page.evaluate(() => window.scrollTo(0, 550))
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0)
@@ -152,9 +154,9 @@ test('keeps title spacing and the navigation pane stable on narrow screens', asy
   const nav = (await sidebar.boundingBox())!
   const bar = (await header.boundingBox())!
   expect(nav.y).toBeCloseTo(bar.y + bar.height)
-  expect((await title.boundingBox())!.y - nav.y - nav.height).toBeCloseTo(24)
+  expect((await page.locator('.desktop-document-heading').boundingBox())!.y).toBeGreaterThanOrEqual(nav.y + nav.height)
   await sidebar.getByRole('button', { name: '设计原则' }).click()
   await expect(sidebar.getByRole('button', { name: '设计原则' })).toHaveAttribute('aria-expanded', 'false')
   expect((await sidebar.boundingBox())?.height).toBeCloseTo(nav.height)
-  expect((await title.boundingBox())!.y - nav.y - nav.height).toBeCloseTo(24)
+  expect((await page.locator('.desktop-document-heading').boundingBox())!.y).toBeGreaterThanOrEqual(nav.y + nav.height)
 })

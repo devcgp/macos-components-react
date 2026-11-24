@@ -65,7 +65,6 @@ function swatchName(name: string) {
 export default function TahoeColorsPage() {
   const { tr } = useLocale()
   return <article className="tahoe-doc">
-    <h1>{tr('系统色彩', 'System Colors')}</h1>
     <p>{tr(
       '每张色卡并排显示同一个 CSS 变量在浅色与深色下的值。棋盘格用于查看透明填充和文本色的实际叠加效果。',
       'Each card shows the Light and Dark values of the same CSS variable. The checkerboard shows how translucent fills and text colors composite.',
