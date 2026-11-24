@@ -26,7 +26,7 @@ import '@macos-tahoe/ui/styles.css'
 
 | 用途 | 示例 | 来源 |
 | --- | --- | --- |
-| 色板 | `--tahoe-accents-blue`、`--tahoe-vibrant-fills-secondary` | `tokens.json` 的浅色和深色映射，可在[系统色彩](#/tahoe/colors)查看。 |
+| 色板 | `--tahoe-accents-blue`、`--tahoe-vibrant-fills-secondary` | `tokens.json` 的浅色和深色映射，可在[系统色彩](#/tahoe/foundations/color)查看。 |
 | 语义色 | `--tahoe-window-background-figma`、`--tahoe-miscellaneous-scrollbar` | 由同一份颜色源生成。 |
 | 尺寸、排印 | `--tahoe-global-height`、`--tahoe-type-body-regular-size` | 源文件的尺寸与文字样式，经归一化后写入 CSS。 |
 | 组件已有变量 | `--tahoe-accent`、`--tahoe-label`、`--tahoe-control-height` | 组件仍沿用原有调用方式与 Web 几何规则。 |

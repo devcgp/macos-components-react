@@ -55,7 +55,7 @@ The example is at least 52px high with a 150px search field.
 
 These values describe the web implementation. Verification against official nodes and individual states is pending.
 
-[Design guide and sources](#/tahoe/design)
+[Design guide and sources](/downloads/design.en.md)
 
 ## References
 

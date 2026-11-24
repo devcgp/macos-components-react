@@ -2,8 +2,8 @@ import { expect, test } from '@playwright/test'
 
 test('renders token scopes and typography from the active CSS on mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 800 })
-  await page.goto('/?lang=en#/tahoe/tokens')
-  await expect(page.getByRole('heading', { name: 'Tahoe Tokens', level: 1 })).toBeVisible()
+  await page.goto('/?lang=en#/tahoe/foundations/control-geometry')
+  await expect(page.getByRole('heading', { name: 'Control Geometry', level: 1 })).toBeVisible()
 
   const sample = page.locator('.tahoe-token-sample')
   const control = sample.locator('.tahoe-token-control')
@@ -22,6 +22,7 @@ test('renders token scopes and typography from the active CSS on mobile', async 
     getComputedStyle(element).getPropertyValue('--tahoe-context-is-over-glass').trim(),
   )).toBe('1')
 
+  await page.goto('/?lang=en#/tahoe/foundations/typography')
   const typography = page.getByRole('region', { name: 'Typography comparison' })
   await expect(typography.getByRole('row')).toHaveCount(12)
   await expect(typography.getByText('Sample text', { exact: true })).toHaveCount(22)
@@ -29,15 +30,17 @@ test('renders token scopes and typography from the active CSS on mobile', async 
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
 
   await page.getByRole('combobox', { name: 'Site language' }).selectOption('zh-CN')
-  await expect(page.getByRole('heading', { name: '作用域预览' })).toBeVisible()
-  await page.getByRole('link', { name: '系统色彩', exact: true }).last().click()
-  await expect(page.getByRole('heading', { name: '系统色彩', level: 1 })).toBeVisible()
+  await expect(page.getByRole('heading', { name: '字体排印' })).toBeVisible()
+  await page.locator('.docs-nav').getByRole('link', { name: '色彩', exact: true }).click()
+  await expect(page.getByRole('heading', { name: '色彩', level: 1 })).toBeVisible()
 })
 
 test('shows all 62 system colors with stable Light and Dark swatches', async ({ page }) => {
   await page.goto('/?lang=en#/tahoe/colors')
-  await expect(page.getByRole('heading', { name: 'System Colors', level: 1 })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Color', level: 1 })).toBeVisible()
+  await expect(page).toHaveURL(/#\/tahoe\/foundations\/color$/)
   await expect(page.locator('.tahoe-color-grid > li')).toHaveCount(62)
+  await expect(page.locator('.tahoe-color-grid > li').first()).toHaveCSS('list-style-type', 'none')
   await expect(page.getByRole('heading', { name: 'Semantic Colors', exact: true })).toBeVisible()
   const card = page.locator('#tahoe-color-vibrant-fills li').filter({
     has: page.getByText('--tahoe-vibrant-fills-secondary', { exact: true }),
@@ -53,4 +56,13 @@ test('shows all 62 system colors with stable Light and Dark swatches', async ({ 
   await expect(dark).toHaveCSS('background-color', 'rgb(20, 20, 20)')
   await page.getByRole('button', { name: 'Grayscale', exact: true }).click()
   await expect(page.getByRole('heading', { name: 'Grayscale', exact: true })).toBeInViewport()
+})
+
+test('keeps the complete Tokens reference in Foundations', async ({ page }) => {
+  await page.goto('/?lang=en#/tahoe/tokens')
+  const main = page.getByRole('main')
+  for (const heading of ['Setup and scope', 'Variables and sources', 'Component development', 'Scope preview', 'Typography']) {
+    await expect(main.getByRole('heading', { name: heading, exact: true })).toBeVisible()
+  }
+  await expect(main.getByRole('link', { name: 'tokens.json' })).toBeVisible()
 })

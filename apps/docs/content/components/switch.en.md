@@ -61,7 +61,7 @@ export function Example() {
 Verification against individual Tahoe 26 UI Kit nodes is pending.
 [Third-party reference](https://github.com/tamnguyenvan/macos-components/tree/e82dbfa3702a156e4b9947337dea3d496a162905)
 
-[Design guide and sources](#/tahoe/design)
+[Design guide and sources](/downloads/design.en.md)
 
 ## References
 

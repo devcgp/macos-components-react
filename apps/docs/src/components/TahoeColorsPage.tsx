@@ -64,7 +64,7 @@ function swatchName(name: string) {
 
 export default function TahoeColorsPage() {
   const { tr } = useLocale()
-  return <article className="tahoe-doc">
+  return <div className="tahoe-doc">
     <p>{tr(
       '每张色卡并排显示同一个 CSS 变量在浅色与深色下的值。棋盘格用于查看透明填充和文本色的实际叠加效果。',
       'Each card shows the Light and Dark values of the same CSS variable. The checkerboard shows how translucent fills and text colors composite.',
@@ -74,13 +74,13 @@ export default function TahoeColorsPage() {
       'Swatches render the theme’s CSS variables. Their values come from the project tokens used to generate the palette. Vibrant swatches show the variable itself. Material effects also depend on the backdrop and blending.',
     )}</p>
     <p>
-      <a href="#/tahoe/tokens">{tr('查看 Tahoe Tokens 的使用方式', 'Learn how to use Tahoe Tokens')}</a>
+      <a href="#/tahoe/tokens">{tr('下载设计 Tokens', 'Download design tokens')}</a>
       {' · '}
       <a href="https://www.figma.com/design/0Moxn0hZAwA13h5DRFhK2h?node-id=0-765">{tr('查看 Figma 色板', 'View Figma palette')}</a>
     </p>
     {tahoeColorSections.map(group => <section key={group.id} id={group.id} className="doc-section">
       <h2>{tr(group.titleZh, group.title)}</h2>
-      <ul className="tahoe-color-grid">
+      <ul className="tahoe-color-grid" role="list">
         {group.swatches.map(({ token, name }) => <li key={token}>
           <h3>{tr(namesZh[name] ?? swatchName(name), swatchName(name))}</h3>
           <code className="tahoe-color-token">{token}</code>
@@ -91,5 +91,5 @@ export default function TahoeColorsPage() {
         </li>)}
       </ul>
     </section>)}
-  </article>
+  </div>
 }

@@ -3,7 +3,6 @@ import { expect, test } from '@playwright/test'
 for (const language of ['zh-CN', 'en']) {
   const suffix = language === 'en' ? '.en.md' : '.md'
   const pages = {
-    design: ['design' + suffix],
     tokens: ['tokens' + suffix, 'tokens.json', 'styles.css'],
     'resources/ai-integration': ['ai-integration' + suffix, 'design' + suffix, 'tokens.json', 'styles.css'],
   }
@@ -11,7 +10,7 @@ for (const language of ['zh-CN', 'en']) {
     test(`serves ${route} downloads in ${language}`, async ({ page }) => {
       await page.goto('/?lang=' + language + '#/tahoe/' + route)
       const footer=page.locator('.page-contributions')
-      const documentPath=route==='design'||route==='tokens'?'docs/'+route:'apps/docs/content/'+route
+      const documentPath=route==='tokens'?'docs/'+route:'apps/docs/content/'+route
       for(const [locale,suffix] of [['zh-CN','.md'],['en','.en.md']]){
         const href='/downloads/pages/'+documentPath+suffix
         const link=footer.locator('a[download]').filter({hasText:locale==='en'?'English Markdown':language==='en'?'Chinese Markdown':'中文 Markdown'})

@@ -26,7 +26,7 @@ There are five size modes with 64 geometry values each. Each component's API def
 
 | Use | Examples | Source |
 | --- | --- | --- |
-| Palette | `--tahoe-accents-blue`, `--tahoe-vibrant-fills-secondary` | Light and Dark mappings in `tokens.json`. Browse them in [System Colors](#/tahoe/colors). |
+| Palette | `--tahoe-accents-blue`, `--tahoe-vibrant-fills-secondary` | Light and Dark mappings in `tokens.json`. Browse them in [System Colors](#/tahoe/foundations/color). |
 | Semantic colors | `--tahoe-window-background-figma`, `--tahoe-miscellaneous-scrollbar` | Generated from the same color source. |
 | Size and type | `--tahoe-global-height`, `--tahoe-type-body-regular-size` | Geometry and text styles normalized from the source exports into CSS. |
 | Existing component variables | `--tahoe-accent`, `--tahoe-label`, `--tahoe-control-height` | Components retain their existing variables and web geometry rules. |

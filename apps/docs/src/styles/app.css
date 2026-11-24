@@ -143,7 +143,9 @@ article :is(td, th) { padding: 6px 9px; text-align: start; border: 1px solid var
   }
 }
 
-.tahoe-color-grid {
+.markdown .tahoe-color-grid {
+  list-style: none;
+  padding: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
   gap: 12px;

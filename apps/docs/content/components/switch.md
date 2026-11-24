@@ -61,7 +61,7 @@ export function Example() {
 官方 Tahoe 26 UI Kit 节点仍待逐项比对。
 [第三方参考](https://github.com/tamnguyenvan/macos-components/tree/e82dbfa3702a156e4b9947337dea3d496a162905)
 
-[设计规范与来源](#/tahoe/design)
+[设计规范与来源](/downloads/design.md)
 
 ## References
 

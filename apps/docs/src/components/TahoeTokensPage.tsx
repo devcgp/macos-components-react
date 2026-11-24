@@ -20,7 +20,7 @@ const metrics = [
   ['--tahoe-toggle-switch-track-width', '开关轨道宽度', 'Switch track width'],
 ] as const
 
-function ScopePreview() {
+export function ScopePreview() {
   const { tr } = useLocale()
   const [size, setSize] = useState<TahoeSize>('medium')
   const [appearance, setAppearance] = useState<'light' | 'dark'>('light')
@@ -71,7 +71,7 @@ const typographyNames: Record<keyof typeof tahoeTypography, [string, string]> = 
   'caption-1': ['说明 1', 'Caption 1'], 'caption-2': ['说明 2', 'Caption 2'],
 }
 
-function TypographyPreview() {
+export function TypographyPreview() {
   const { tr } = useLocale()
   return <section id={tahoeTokenSections[2].id} className="doc-section">
     <h2>{tr(tahoeTokenSections[2].titleZh, tahoeTokenSections[2].title)}</h2>
@@ -113,9 +113,21 @@ export default function TahoeTokensPage() {
   const { tr } = useLocale()
   return <article className="markdown tahoe-token-doc">
     <section id={tahoeTokenSections[0].id} className="doc-section">
-      <ReactMarkdown remarkPlugins={[remarkGfm]} components={{h1:()=>null}}>{tr(tokensZh, tokensEn)}</ReactMarkdown>
+      <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ h1: () => null }}>{tr(tokensZh, tokensEn)}</ReactMarkdown>
     </section>
     <ScopePreview/>
     <TypographyPreview/>
+    <section className="doc-section">
+      <h2>{tr('按主题浏览', 'Browse by topic')}</h2>
+      <p>{tr('查看设计基础中实际渲染的 Token，或下载完整数据和 CSS。', 'Browse rendered tokens in Foundations, or download the complete data and CSS.')}</p>
+      <ul>{[
+        ['color', '色彩', 'Color'], ['dark-mode', '深色模式', 'Dark Mode'],
+        ['typography', '排版', 'Typography'], ['layout', '布局', 'Layout'],
+        ['materials', '材质', 'Materials'], ['liquid-glass', 'Liquid Glass', 'Liquid Glass'],
+        ['motion', '动效', 'Motion'], ['icons', '图标', 'Icons'],
+        ['sf-symbols-guidance', 'SF Symbols 指南', 'SF Symbols Guidance'],
+        ['spacing', '间距', 'Spacing'], ['control-geometry', '控件尺寸', 'Control Geometry'],
+      ].map(([id, zh, en]) => <li key={id}><a href={'#/tahoe/foundations/' + id}>{tr(zh, en)}</a></li>)}</ul>
+    </section>
   </article>
 }

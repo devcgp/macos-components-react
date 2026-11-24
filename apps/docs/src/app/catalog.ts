@@ -49,7 +49,7 @@ export const componentDocs: ComponentEntry[] = [
 
 export const topicGroups = [
   { title: 'Getting Started', folder: 'getting-started', items: ['Introduction', 'Installation', 'Quick Start', 'Designing for macOS', 'Browser vs Native macOS'] },
-  { title: 'Foundations', folder: 'foundations', items: ['Accessibility', 'Color', 'Dark Mode', 'Typography', 'Layout', 'Materials', 'Liquid Glass', 'Motion', 'Icons', 'SF Symbols Guidance', 'Spacing', 'Control Geometry'] },
+  { title: 'Foundations', folder: 'foundations', items: ['Color', 'Dark Mode', 'Typography', 'Layout', 'Materials', 'Liquid Glass', 'Motion', 'Icons', 'SF Symbols Guidance', 'Spacing', 'Control Geometry'] },
   { title: 'Patterns', folder: 'patterns', items: ['Searching', 'Settings', 'File Management', 'Drag and Drop', 'Feedback', 'Loading', 'Modality', 'Undo and Redo', 'Keyboard Shortcuts'] },
   { title: 'Inputs', folder: 'inputs', items: ['Keyboard', 'Pointing Devices', 'Focus and Selection', 'Gestures'] },
   { title: 'Technologies', folder: 'technologies', items: ['React Integration', 'Tailwind CSS Integration', 'Theme System', 'Browser Compatibility', 'Accessibility Implementation'] },
