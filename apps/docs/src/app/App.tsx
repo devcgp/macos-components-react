@@ -4,13 +4,14 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun } from '@fortawesome/free-regular-svg-icons'
-import { faCodeBranch, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faCodeBranch, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '@cgpdesktopui/ui'
 import { DarkAppearanceContext } from './appearance'
 import { LocaleContext, localizeTitle, readLocale, type Locale } from './locale'
 import { FoundationTokens, foundationTokenSections } from '../components/FoundationTokens'
 import DocumentHeading from '../components/DocumentHeading'
 import DocsLayout from '../layouts/DocsLayout'
+import DocsNavigation from '../layouts/DocsNavigation'
 import { PageResources, repository } from '../components/PageResources'
 import ComponentDocPage from '../components/ComponentDocPage'
 import { documentationTab } from './component-headings'
@@ -61,6 +62,7 @@ export default function App() {
   const [hash, setRoute] = useState(currentRoute)
   const route = '#' + hash.slice(1).split(/[?#]/)[0]
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'))
+  const [menu, setMenu] = useState(false)
   const [search, setSearch] = useState(false)
   const [query, setQuery] = useState('')
   const id = route.replace('#/desktop/', '')
@@ -87,11 +89,13 @@ export default function App() {
       if (location.hash && !location.hash.startsWith('#/')) return
       setRoute(currentRoute())
       setSearch(false)
+      setMenu(false)
       window.scrollTo(0, 0)
     }
     const key = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault()
+        setMenu(false)
         setSearch(value => !value)
       }
     }
@@ -104,6 +108,13 @@ export default function App() {
       window.removeEventListener('keydown', key)
     }
   }, [])
+  useEffect(() => {
+    if (!menu) return
+    const desktop = matchMedia('(min-width: 681px)')
+    const closeMenuOnDesktop = () => { if (desktop.matches) setMenu(false) }
+    desktop.addEventListener('change', closeMenuOnDesktop)
+    return () => desktop.removeEventListener('change', closeMenuOnDesktop)
+  }, [menu])
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark)
   }, [dark])
@@ -119,17 +130,7 @@ export default function App() {
 
   const sectionId = navigationByHref.get(route)?.ancestors[0]
   const section = navigation.find(item => item.id === sectionId)
-  const header = <header className="site-header">
-    <a className="brand" href={start}>macOS Components for React</a>
-    <nav className="header-sections" aria-label={tr('一级目录', 'Documentation sections')}>
-      {navigation.map(item => {
-        const firstPage = navigationPages.find(({ ancestors }) => ancestors[0] === item.id)
-        return firstPage && <a key={item.id} href={firstPage.page.href}
-          aria-current={item.id === sectionId ? 'true' : undefined}>{navigationTitle(item, locale)}</a>
-      })}
-    </nav>
-    <div className="header-actions">
-      <Button onClick={() => { setQuery(''); setSearch(true) }}><FontAwesomeIcon icon={faMagnifyingGlass} className="site-icon" aria-hidden="true"/> {tr('搜索', 'Search')}</Button>
+  const settings = <>
       <Button aria-label={dark ? tr('切换浅色', 'Switch to light mode') : tr('切换深色', 'Switch to dark mode')} onClick={() => changeAppearance(!dark)}><FontAwesomeIcon icon={dark ? faMoon : faSun} className="site-icon" aria-hidden="true"/> {tr('外观', 'Appearance')}</Button>
       <select className="language-select" aria-label={tr('网站语言', 'Site language')} value={locale} onChange={event => {
         const next = event.target.value as Locale
@@ -143,12 +144,34 @@ export default function App() {
         <option value="zh-CN" lang="zh-CN">简体中文</option>
       </select>
       <a href={repository}><FontAwesomeIcon icon={faCodeBranch} className="site-icon" aria-hidden="true"/> GitHub</a>
+  </>
+  const header = <header className="site-header">
+    <a className="brand" href={start}>macOS Components for React</a>
+    <nav className="header-sections" aria-label={tr('一级目录', 'Documentation sections')}>
+      {navigation.map(item => {
+        const firstPage = navigationPages.find(({ ancestors }) => ancestors[0] === item.id)
+        return firstPage && <a key={item.id} href={firstPage.page.href}
+          aria-current={item.id === sectionId ? 'true' : undefined}>{navigationTitle(item, locale)}</a>
+      })}
+    </nav>
+    <div className="header-actions">
+      <Button className="header-search" aria-label={tr('搜索', 'Search')} onClick={() => { setQuery(''); setSearch(true) }}>
+        <FontAwesomeIcon icon={faMagnifyingGlass} className="site-icon" aria-hidden="true"/> <span>{tr('搜索', 'Search')}</span>
+      </Button>
+      <div className="desktop-settings">{settings}</div>
+      <Button className="mobile-menu-trigger" aria-label={tr('打开文档导航', 'Open documentation menu')} aria-haspopup="dialog" aria-expanded={menu} onClick={() => setMenu(true)}>
+        <FontAwesomeIcon icon={faBars} className="site-icon" aria-hidden="true"/>
+      </Button>
     </div>
   </header>
 
   return <LocaleContext.Provider value={locale}><DarkAppearanceContext.Provider value={dark}><div data-theme="desktop">
-    <DocsLayout header={header} navigation={section?.children ?? []} current={route} toc={toc}>
-      {entryTitle&&<DocumentHeading title={entryTitle} category={section?{title:navigationTitle(section,locale),href:navigationPages.find(item=>item.ancestors[0]===section.id)?.page.href??start}:undefined}/>}
+    <DocsLayout header={header} navigation={section?.children ?? []} current={route} toc={toc} heading={
+      entryTitle && <DocumentHeading title={entryTitle} category={section ? {
+        title: navigationTitle(section, locale),
+        href: navigationPages.find(item => item.ancestors[0] === section.id)?.page.href ?? start,
+      } : undefined}/>
+    }>
       {ComponentPage ? <Suspense fallback={<p role="status">{tr('正在加载组件文档…', 'Loading component documentation…')}</p>}>
           <ComponentPage key={locale + id} id={id} hash={hash}/>
         </Suspense>
@@ -163,6 +186,19 @@ export default function App() {
         {entries[index + 1] && <a href={entries[index + 1].href}>{navigationTitle(entries[index + 1], locale)} →</a>}
       </nav>}
     </DocsLayout>
+    <Dialog open={menu} onClose={setMenu} className="mobile-navigation" data-theme="desktop">
+      <DialogBackdrop className="search-backdrop"/>
+      <DialogPanel className="mobile-navigation-panel">
+        <div className="mobile-navigation-heading">
+          <DialogTitle>{tr('文档导航', 'Documentation menu')}</DialogTitle>
+          <Button data-autofocus aria-label={tr('关闭导航', 'Close menu')} onClick={() => setMenu(false)}>
+            <FontAwesomeIcon icon={faXmark} aria-hidden="true"/>
+          </Button>
+        </div>
+        <div className="mobile-settings">{settings}</div>
+        <DocsNavigation items={navigation} current={route} onNavigate={() => setMenu(false)}/>
+      </DialogPanel>
+    </Dialog>
     <Dialog open={search} onClose={setSearch} className="search-dialog" data-theme="desktop">
       <DialogBackdrop className="search-backdrop"/>
       <DialogPanel className="search-panel">

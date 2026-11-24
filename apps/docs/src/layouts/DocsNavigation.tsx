@@ -6,20 +6,21 @@ import { navigationByHref, navigationTitle, type NavigationItem } from '../app/n
 import { useLocale } from '../app/locale'
 
 type TreeProps = {
+  onNavigate?: () => void
   items: NavigationItem[]
   current: string
   collapsed: ReadonlySet<string>
   toggle: (id: string) => void
 }
 
-function NavigationTree({ items, current, collapsed, toggle }: TreeProps) {
+function NavigationTree({ items, current, collapsed, toggle, onNavigate }: TreeProps) {
   const { locale, tr } = useLocale()
   const idPrefix = useId()
   return <ul className="docs-nav-list">
     {items.map(item => {
       const title = navigationTitle(item, locale)
       if (item.href) {
-        return <li key={item.id}><a href={item.href} aria-current={item.href === current ? 'page' : undefined}><span>{title}</span>{item.status === 'reference' && <Badge className="docs-nav-reference" aria-hidden="true">{tr('简要文档', 'Quick reference')}</Badge>}</a></li>
+        return <li key={item.id}><a href={item.href} onClick={onNavigate} aria-current={item.href === current ? 'page' : undefined}><span>{title}</span>{item.status === 'reference' && <Badge className="docs-nav-reference" aria-hidden="true">{tr('简要文档', 'Quick reference')}</Badge>}</a></li>
       }
       if (!item.children?.length) return null
       const open = !collapsed.has(item.id)
@@ -30,19 +31,19 @@ function NavigationTree({ items, current, collapsed, toggle }: TreeProps) {
           {title}
         </button>
         <div id={region} hidden={!open}>
-          <NavigationTree items={item.children} current={current} collapsed={collapsed} toggle={toggle}/>
+          <NavigationTree items={item.children} current={current} collapsed={collapsed} toggle={toggle} onNavigate={onNavigate}/>
         </div>
       </li>
     })}
   </ul>
 }
 
-export default function DocsNavigation({ items, current }: { items: NavigationItem[]; current: string }) {
+export default function DocsNavigation({ items, current, onNavigate }: { items: NavigationItem[]; current: string; onNavigate?: () => void }) {
   const { tr } = useLocale()
   const panel = useRef<HTMLElement>(null)
   const lastScrolledRoute = useRef<string>(undefined)
   const ancestors = navigationByHref.get(current)?.ancestors
-  const [collapsed, setCollapsed] = useState(() => new Set<string>())
+  const [collapsed, setCollapsed] = useState(() => new Set(onNavigate ? items.filter(item => !ancestors?.includes(item.id)).map(item => item.id) : []))
 
   useEffect(() => {
     if (ancestors) {
@@ -73,7 +74,7 @@ export default function DocsNavigation({ items, current }: { items: NavigationIt
 
   return <aside className="docs-nav" ref={panel}>
     <nav aria-label={tr('文档分类', 'Documentation categories')}>
-      <NavigationTree items={items} current={current} collapsed={collapsed} toggle={toggle}/>
+      <NavigationTree items={items} current={current} collapsed={collapsed} toggle={toggle} onNavigate={onNavigate}/>
     </nav>
   </aside>
 }

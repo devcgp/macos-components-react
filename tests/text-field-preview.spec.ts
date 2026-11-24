@@ -114,7 +114,9 @@ test('isolates card appearance, keeps typing state, and copies all localized Tex
     'box-shadow': lightColor.focus,
   })) await expect(input).not.toHaveCSS(property, value)
 
+  await page.getByRole('button', { name: '打开文档导航' }).click()
   await page.getByRole('button', { name: '切换深色', exact: true }).click()
+  await page.getByRole('button', { name: '关闭导航' }).click()
   await basics.getByRole('button', { name: '浅色', exact: true }).click()
   await expect(page.locator('html')).toHaveClass('dark')
   await expect(basics).toHaveAttribute('data-appearance', 'light')

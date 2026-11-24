@@ -29,9 +29,12 @@ test('renders token scopes and typography from the active CSS on mobile', async 
   await expect(typography.getByText('Sample text', { exact: true }).first()).toHaveCSS('font-size', '26px')
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
 
+  await page.getByRole('button', { name: 'Open documentation menu' }).click()
   await page.getByRole('combobox', { name: 'Site language' }).selectOption('zh-CN')
+  await page.getByRole('button', { name: '关闭导航' }).click()
   await expect(page.getByRole('heading', { name: '字体排印' })).toBeVisible()
-  await page.locator('.docs-nav').getByRole('link', { name: '色彩', exact: true }).click()
+  await page.getByRole('button', { name: '打开文档导航' }).click()
+  await page.getByRole('dialog').getByRole('link', { name: '色彩', exact: true }).click()
   await expect(page.getByRole('heading', { name: '色彩', level: 1 })).toBeVisible()
 })
 

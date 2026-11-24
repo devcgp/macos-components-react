@@ -88,7 +88,9 @@ test('follows global appearance while keeping card views and copy actions indepe
   await expect(sizes.getByRole('button', { name: 'Regular' })).toHaveCSS('background-color', 'rgba(0, 0, 0, 0.05)')
   await expect(variants.getByRole('button', { name: 'Neutral' })).toHaveCSS('background-color', 'rgba(0, 0, 0, 0.05)')
 
+  await page.getByRole('button', { name: 'Open documentation menu' }).click()
   await page.getByRole('button', { name: 'Switch to dark mode', exact: true }).click()
+  await page.getByRole('button', { name: 'Close menu' }).click()
   await expect(sizes.getByRole('button', { name: 'Regular' })).toHaveCSS('background-color', 'rgba(255, 255, 255, 0.07)')
   await expect(variants.getByRole('button', { name: 'Neutral' })).toHaveCSS('background-color', 'rgba(255, 255, 255, 0.07)')
   await expect(variants.getByRole('button', { name: 'Accent' })).toHaveCSS('background-color', 'rgb(0, 145, 255)')
@@ -112,7 +114,9 @@ test('follows global appearance while keeping card views and copy actions indepe
     await expect(card.getByText('Copied', { exact: true })).toBeVisible()
   }
 
+  await page.getByRole('button', { name: 'Open documentation menu' }).click()
   await page.getByRole('button', { name: 'Switch to light mode', exact: true }).click()
+  await page.getByRole('button', { name: 'Close menu' }).click()
   await expect(sizes.getByRole('tab', { name: 'Code', exact: true })).toHaveAttribute('aria-selected', 'true')
   await sizes.getByRole('tab', { name: 'Preview', exact: true }).click()
   await expect(sizes.getByRole('button', { name: 'Regular' })).toHaveCSS('background-color', 'rgba(0, 0, 0, 0.05)')
