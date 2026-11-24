@@ -105,6 +105,10 @@ test('opens a scrollable mobile navigation drawer and closes after selecting a r
   await expect(dialog).toBeHidden()
   await expect(page.getByRole('heading', { name: '色彩', exact: true, level: 1 })).toBeVisible()
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
+
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await expect(trigger).toBeHidden()
+  await expect(page.locator('.docs-layout > .docs-nav')).toBeVisible()
 })
 
 test('keeps specification routes and legacy entry aliases accessible', async ({ page }) => {
