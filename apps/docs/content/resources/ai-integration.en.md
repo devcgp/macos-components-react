@@ -15,4 +15,4 @@ Read design.en.md and tokens.json, then inspect the component types in this proj
 Use Tahoe components and semantic variables. Preserve product copy and verify keyboard behavior and both appearances.
 ```
 
-Read [Guidelines](#/tahoe/design), [Tokens](#/tahoe/tokens) and the relevant [component API](#/tahoe/button). Detailed visual specifications belong to [Foundations](#/tahoe/foundations/control-geometry), not this workflow.
+Read [Guidelines](/downloads/design.en.md), [Tokens](#/tahoe/tokens) and the relevant [component API](#/tahoe/button). Detailed visual specifications belong to [Foundations](#/tahoe/foundations/control-geometry), not this workflow.

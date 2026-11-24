@@ -18,8 +18,6 @@ import TahoeColorsPage, { tahoeColorSections } from '../components/TahoeColorsPa
 import TahoeTokensPage, { tahoeTokenSections } from '../components/TahoeTokensPage'
 import { componentDocs, hig, slug } from './catalog'
 import { navigation, navigationByHref, navigationPages, navigationTitle } from './navigation'
-import design from '../../../../docs/design.md?raw'
-import designEn from '../../../../docs/design.en.md?raw'
 
 const documents = import.meta.glob<string>(
   ['../../content/*/*.md', '!../../content/components/*.md'],
@@ -44,6 +42,11 @@ function currentRoute() {
   const hash = location.hash
   if (!hash.startsWith('#/')) return start
   if (hash === '#/overview' || hash === '#/tahoe/showcase') return start
+  if (hash === '#/tahoe/design') {
+    const foundations = '#/tahoe/foundations/control-geometry'
+    history.replaceState(history.state, '', foundations)
+    return foundations
+  }
   if (hash === '#/tahoe/colors' || hash === '#/tahoe/foundations/accessibility') {
     const color = '#/tahoe/foundations/color'
     history.replaceState(history.state, '', color)
@@ -67,7 +70,7 @@ export default function App() {
   const entryTitle = entry && navigationTitle(entry, locale)
   const extension = tr('.md', '.en.md')
   const ComponentPage = doc && componentPages['../../content/components/' + id + extension]
-  const markdown = id === 'design' ? tr(design, designEn) : documents['../../content/' + id + extension]
+  const markdown = documents['../../content/' + id + extension]
   const searchTerm = query.trim().toLowerCase()
   const matches = search ? entries.filter(item =>
     [item.title, navigationTitle(item, 'zh-CN'), item.href, ...(item.keywords ?? [])].some(value =>
@@ -145,7 +148,7 @@ export default function App() {
 
   return <LocaleContext.Provider value={locale}><DarkAppearanceContext.Provider value={dark}><div data-theme="tahoe">
     <DocsLayout header={header} navigation={section?.children ?? []} current={route} toc={toc}>
-      {entryTitle&&<DocumentHeading title={id==='design'?tr('macOS Tahoe 26 设计规范','macOS Tahoe 26 Design Guide'):entryTitle} category={section?{title:navigationTitle(section,locale),href:navigationPages.find(item=>item.ancestors[0]===section.id)?.page.href??start}:undefined}/>}
+      {entryTitle&&<DocumentHeading title={entryTitle} category={section?{title:navigationTitle(section,locale),href:navigationPages.find(item=>item.ancestors[0]===section.id)?.page.href??start}:undefined}/>}
       {ComponentPage ? <Suspense fallback={<p role="status">{tr('正在加载组件文档…', 'Loading component documentation…')}</p>}>
           <ComponentPage key={locale + id} id={id} hash={hash}/>
         </Suspense>

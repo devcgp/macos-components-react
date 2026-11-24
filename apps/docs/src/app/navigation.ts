@@ -87,23 +87,19 @@ export const componentInventory = [
   ]),
 ]
 
-const design = page('design', 'Design Guidelines', '设计规范')
 const tokens = page('tokens', 'Design Tokens', '设计 Tokens')
 
 function topicSection(
   folder: string, titleZh: string, category: Omit<NavigationItem, 'children'>,
-  additional: NavigationItem[] = [],
 ) {
   const topic = topicGroups.find(topic => topic.folder === folder)!
   const children = topic.items.map(title => page(folder + '/' + slug(title), title))
-  return group(folder, topic.title, titleZh, [{ ...category, children }, ...additional])
+  return group(folder, topic.title, titleZh, [{ ...category, children }])
 }
 
 export const navigation = [
   topicSection('getting-started', '入门指南', { id: 'start-here', title: 'Start Here', titleZh: '开始使用' }),
-  topicSection('foundations', '设计基础', { id: 'design-principles', title: 'Design Principles', titleZh: '设计原则' }, [
-    group('specifications', 'Specifications and Verification', '规范与验证', [design]),
-  ]),
+  topicSection('foundations', '设计基础', { id: 'design-principles', title: 'Design Principles', titleZh: '设计原则' }),
   topicSection('patterns', '交互模式', { id: 'interaction-patterns', title: 'Interaction Patterns', titleZh: '常用交互' }),
   group('components', 'Components', '界面组件', componentInventory.map(category =>
     group(category.id, category.title, category.titleZh, [

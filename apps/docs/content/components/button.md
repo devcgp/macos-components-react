@@ -155,7 +155,7 @@ export function ButtonVariants() {
 | 动效 | `--tahoe-control-transition`，支持减少动态效果偏好 |
 | 材质 | CSS 表面与颜色近似 |
 
-来源为现有组件代码、样式、[设计规范](#/tahoe/design)和 [Tahoe Tokens](#/tahoe/tokens)。几何与视觉处理参考第三方资料及项目网页实现。
+来源为现有组件代码、样式、[设计规范](/downloads/design.md)和 [Tahoe Tokens](#/tahoe/tokens)。几何与视觉处理参考第三方资料及项目网页实现。
 
 ## References
 

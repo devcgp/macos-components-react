@@ -80,7 +80,7 @@ export default function TahoeColorsPage() {
     </p>
     {tahoeColorSections.map(group => <section key={group.id} id={group.id} className="doc-section">
       <h2>{tr(group.titleZh, group.title)}</h2>
-      <ul className="tahoe-color-grid">
+      <ul className="tahoe-color-grid" role="list">
         {group.swatches.map(({ token, name }) => <li key={token}>
           <h3>{tr(namesZh[name] ?? swatchName(name), swatchName(name))}</h3>
           <code className="tahoe-color-token">{token}</code>

@@ -40,6 +40,7 @@ test('shows all 62 system colors with stable Light and Dark swatches', async ({ 
   await expect(page.getByRole('heading', { name: 'Color', level: 1 })).toBeVisible()
   await expect(page).toHaveURL(/#\/tahoe\/foundations\/color$/)
   await expect(page.locator('.tahoe-color-grid > li')).toHaveCount(62)
+  await expect(page.locator('.tahoe-color-grid > li').first()).toHaveCSS('list-style-type', 'none')
   await expect(page.getByRole('heading', { name: 'Semantic Colors', exact: true })).toBeVisible()
   const card = page.locator('#tahoe-color-vibrant-fills li').filter({
     has: page.getByText('--tahoe-vibrant-fills-secondary', { exact: true }),

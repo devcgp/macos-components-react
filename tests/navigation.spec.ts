@@ -17,7 +17,7 @@ test('keeps the HIG sections, resources, component topics, and existing routes',
   const expectedIds = [
     ...topicGroups.flatMap(group => group.items.map(title => group.folder + '/' + slug(title))),
     ...componentDocs.map(doc => doc.id),
-    'design', 'tokens', 'resources/ai-integration', 'resources/community',
+    'tokens', 'resources/ai-integration', 'resources/community',
   ]
   expect(navigationPages.map(({ page }) => page.href).sort()).toEqual(
     expectedIds.map(id => '#/tahoe/' + id).sort(),
@@ -89,7 +89,6 @@ test('keeps the narrow sidebar scrollable and renders Font Awesome in site and c
 
 test('keeps specification routes and legacy entry aliases accessible', async ({ page }) => {
   const titles = [
-    ['design', 'Design Guidelines'],
     ['tokens', 'Design Tokens'],
     ['foundations/color', 'Color'],
   ]

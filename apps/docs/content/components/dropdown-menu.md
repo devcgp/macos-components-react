@@ -57,7 +57,7 @@ export function Example() {
 
 当前为网页实现规格，官方节点与各状态参数仍待逐项核对。
 
-[设计规范与来源](#/tahoe/design)
+[设计规范与来源](/downloads/design.md)
 
 ## References
 

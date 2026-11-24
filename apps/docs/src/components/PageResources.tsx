@@ -33,7 +33,7 @@ export function PageResources({ id, route, title, component }: {
   const [sourceError,setSourceError]=useState(false)
   const [loading,setLoading]=useState(false)
   const suffix = tr('.md', '.en.md')
-  const path = id === 'design' || id === 'tokens' ? 'docs/' + id + suffix
+  const path = id === 'tokens' ? 'docs/' + id + suffix
     : 'apps/docs/content/' + (component ? 'components/' : '') + id + suffix
   const implementation = Object.entries(componentSources).find(([, ids]) => ids.includes(id))?.[0]
   const source = implementation ? 'packages/ui/src/components/' + implementation + '.tsx'
@@ -48,8 +48,7 @@ export function PageResources({ id, route, title, component }: {
     title: '[Docs] ' + title,
     body: `Page / 页面: ${url.href}\nLanguage / 语言: ${locale}\nSource / 源文件: ${path}\n\n## Steps / 复现步骤\n\n## Expected / 预期\n\n## Actual / 实际\n`,
   })
-  const files = id === 'design' ? ['design' + suffix]
-    : id === 'tokens' ? ['tokens' + suffix, 'tokens.json', 'styles.css']
+  const files = id === 'tokens' ? ['tokens' + suffix, 'tokens.json', 'styles.css']
     : id === 'resources/ai-integration' ? ['ai-integration' + suffix, 'design' + suffix, 'tokens.json', 'styles.css']
     : []
   const documentKey=path.startsWith('docs/')?'../../../../'+path:'../../content/'+path.replace('apps/docs/content/','')

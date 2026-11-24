@@ -55,7 +55,7 @@ The caller sets the maximum block size.
 
 These values describe the web implementation. Verification against official nodes and individual states is pending.
 
-[Design guide and sources](#/tahoe/design)
+[Design guide and sources](/downloads/design.en.md)
 
 ## References
 
