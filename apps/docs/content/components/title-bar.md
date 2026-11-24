@@ -43,7 +43,7 @@ import "@macos-tahoe/ui/styles.css"
 export function Example() {
   return (
     <div data-theme="tahoe">
-      <TitleBar title="PhotoVault" />
+      <TitleBar title="照片图库" />
     </div>
   )
 }

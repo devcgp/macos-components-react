@@ -231,5 +231,3 @@ Review background/border contrast, disabled legibility, focus ring, long transla
 - [Project design guidelines](https://github.com/devcgp/macos-components-react/blob/main/docs/design.md)
 - [Project token documentation](https://github.com/devcgp/macos-components-react/blob/main/docs/tokens.md)
 - [Apple Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/)
-
-> Maintenance rule: when Codex changes the component API, CSS geometry or behavior, update both `text-field.md` and `text-field.en.md` and validate the real-component previews.

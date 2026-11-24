@@ -1,8 +1,7 @@
 # Sidebar
 
 > Project: macOS Tahoe Components\
-> Component: `Sidebar`\
-> Status: Phase 1 · Checked against the current repository implementation; documentation remains editable\
+> Component: `Sidebar`
 > Route: `#/tahoe/sidebar`\
 > Source: `packages/ui/src/components/sidebar.tsx`\
 > Styles: `packages/ui/src/styles/tahoe-tokens.css`\

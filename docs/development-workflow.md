@@ -50,4 +50,4 @@ pnpm test
 - [组件审计](component-audit.md)
 - [组件 Markdown 维护说明](../apps/docs/content/components/README.md)
 - [本地预览](http://127.0.0.1:8897/)
-- [Vercel 生产地址](https://macos-tahoe-components.vercel.app/)
+- [正式站点](https://cgpdesktopui.com/)

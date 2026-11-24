@@ -233,5 +233,3 @@ export function FolderForm() {
 - [项目设计规范](https://github.com/devcgp/macos-components-react/blob/main/docs/design.md)
 - [项目 Tokens 文档](https://github.com/devcgp/macos-components-react/blob/main/docs/tokens.md)
 - [Apple Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/)
-
-> 文档维护规则：如果 Codex 修改组件 API、尺寸或状态实现，必须同步更新 `text-field.md` 和 `text-field.en.md`，并验证 Live Preview 使用的真实组件。

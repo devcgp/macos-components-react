@@ -1,8 +1,7 @@
 # Sidebar
 
 > 项目：macOS Tahoe Components\
-> 组件：`Sidebar`\
-> 文档状态：Phase 1 · 已核对仓库当前源码；设计与交互规范可持续完善\
+> 组件：`Sidebar`
 > 页面路由：`#/tahoe/sidebar`\
 > 源文件：`packages/ui/src/components/sidebar.tsx`\
 > 设计源：`packages/ui/src/styles/tahoe-tokens.css`\

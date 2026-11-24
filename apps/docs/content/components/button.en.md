@@ -2,8 +2,7 @@
 
 > Component: `Button`\
 > Package: `@macos-tahoe/ui`\
-> Documentation route: `#/tahoe/button`\
-> Documentation status: Phase 1 — implementation-aligned draft
+> Documentation route: `#/tahoe/button`
 
 ## Overview
 

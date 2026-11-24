@@ -2,8 +2,7 @@
 
 > Component: `Checkbox`\
 > Package: `@macos-tahoe/ui`\
-> Documentation route: `#/tahoe/checkbox`\
-> Status: Phase 1 — implementation-aligned, incrementally maintained\
+> Documentation route: `#/tahoe/checkbox`
 > Design system: **Tahoe Design Tokens** (always use the latest repository tokens)
 
 ## Overview

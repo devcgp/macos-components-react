@@ -2,6 +2,8 @@
 
 macOS Tahoe 26 风格的 React UI 包和开发文档。本站为独立的 Web 项目。Apple HIG 提供设计与交互依据。网页实现的来源与限制见 [设计规范](docs/design.md)。
 
+[正式文档](https://cgpdesktopui.com/) · [English documentation](https://cgpdesktopui.com/?lang=en)
+
 ## 安装与开发
 
 使用 Node.js 22.12+ 和 pnpm 11.25.0。
@@ -45,4 +47,4 @@ export function Settings() {
 
 ## 贡献与发布
 
-网站提供双语设计规范、Token 和 AI 指引下载。Resources 导航包含 AI 集成与 Community 贡献页。流程与公开条件见[贡献指南](CONTRIBUTING.md)和[来源审查](docs/PROVENANCE.md)。
+网站提供双语设计规范、Token 和 AI 指引下载。Resources 导航包含 AI 集成与 Community 贡献页。贡献流程与第三方来源见[贡献指南](CONTRIBUTING.md)和[来源审查](docs/PROVENANCE.md)。

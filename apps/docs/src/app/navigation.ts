@@ -7,7 +7,7 @@ export type NavigationItem = {
   titleZh?: string
   keywords?: string[]
   href?: string
-  status?: 'todo'
+  status?: 'reference'
   children?: NavigationItem[]
 }
 
@@ -34,11 +34,11 @@ const supplementalCategories: Record<string, string> = {
 const topicOverrides: Record<string, string> = { 'inspector-panel': 'panels' }
 const topicFor = (doc: (typeof componentDocs)[number]) => topicOverrides[doc.id] ?? doc.reference
 
-// Track the component documentation rollout independently of the HIG topic inventory.
-const rebuiltComponentPages = new Set(['button', 'checkbox', 'text-field', 'sidebar'])
+// Detailed component guides include dedicated interactive examples.
+const detailedComponentPages = new Set(['button', 'checkbox', 'text-field', 'sidebar'])
 
 function componentPage(id: string, title: string): NavigationPage {
-  return { ...page(id, title), status: rebuiltComponentPages.has(id) ? undefined : 'todo' }
+  return { ...page(id, title), status: detailedComponentPages.has(id) ? undefined : 'reference' }
 }
 
 function componentCategory(title: string, titleZh: string, topics: string[]) {

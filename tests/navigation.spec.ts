@@ -25,12 +25,12 @@ test('keeps the HIG sections, resources, component topics, and existing routes',
   expect(navigationPages.every(({ ancestors }) => ancestors.length === 2)).toBe(true)
 })
 
-test('shows TODO only for component pages awaiting the documentation rebuild', async ({ page }) => {
+test('distinguishes quick references from detailed component guides', async ({ page }) => {
   await page.goto('/?lang=en#/tahoe/button')
   const sidebar = page.getByRole('navigation', { name: 'Documentation categories' })
-  await expect(sidebar.getByRole('link', { name: 'Button', exact: true }).getByText('TODO')).toHaveCount(0)
-  await expect(sidebar.getByRole('link', { name: 'Sidebar', exact: true }).getByText('TODO')).toHaveCount(0)
-  await expect(sidebar.getByRole('link', { name: 'Pop-up Button', exact: true }).getByText('TODO')).toBeVisible()
+  await expect(sidebar.getByRole('link', { name: 'Button', exact: true }).getByText('Quick reference')).toHaveCount(0)
+  await expect(sidebar.getByRole('link', { name: 'Sidebar', exact: true }).getByText('Quick reference')).toHaveCount(0)
+  await expect(sidebar.getByRole('link', { name: 'Pop-up Button', exact: true }).getByText('Quick reference')).toBeVisible()
 })
 
 test('opens active ancestors, keeps independent toggle state, and supports keyboard navigation', async ({ page }) => {
@@ -98,7 +98,7 @@ test('keeps specification routes and legacy entry aliases accessible', async ({ 
     const nav = page.getByRole('navigation', { name: 'Documentation categories' })
     await expect(nav.getByRole('link', { name: title, exact: true })).toHaveAttribute('aria-current', 'page')
     await expect(page.locator('main h1')).toBeVisible()
-    await expect(page.locator('main')).not.toContainText('Page moved')
+    await expect(page.locator('main')).not.toContainText('Page not found')
   }
   for (const legacy of ['#/overview', '#/tahoe/showcase']) {
     await page.goto('/?lang=en' + legacy)
