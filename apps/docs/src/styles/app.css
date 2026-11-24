@@ -324,7 +324,7 @@ article :is(td, th) { padding: 6px 9px; text-align: start; border: 1px solid var
 
 .desktop-settings { display: flex; align-items: center; gap: 12px; }
 :is(.desktop-settings, .mobile-settings) > a { display: inline-flex; align-items: center; gap: 5px; }
-.header-actions .mobile-menu-trigger, .mobile-toc { display: none; }
+.header-actions button.desktop-button.mobile-menu-trigger, .mobile-toc { display: none; }
 
 @media (max-width: 680px) {
   .docs-layout { grid-template-columns: minmax(0, 1fr); }
@@ -343,7 +343,7 @@ article :is(td, th) { padding: 6px 9px; text-align: start; border: 1px solid var
   }
   .header-sections, .desktop-settings, .docs-layout > .docs-nav, .header-search span { display: none; }
   .header-actions { flex: none; flex-wrap: nowrap; gap: 4px; }
-  .header-actions :is(.header-search, .mobile-menu-trigger) {
+  .header-actions button.desktop-button:is(.header-search, .mobile-menu-trigger) {
     display: inline-flex;
     justify-content: center;
     inline-size: 44px;
