@@ -70,7 +70,7 @@ export function PageResources({ id, route, title, component }: {
     <div className="page-resource-actions">
       <a href={repository+'/edit/'+__DOCS_GIT_REF__+'/'+path} target="_blank" rel="noopener noreferrer">Edit on GitHub ↗</a>
       {loadRaw&&<button type="button" aria-expanded={showSource} aria-controls="page-raw-document" disabled={loading} onClick={toggleSource}>{loading?tr('正在加载…','Loading…'):showSource?tr('收起原文','Hide raw document'):tr('查看原文','View raw document')}</button>}
-      {isMarkdown?['zh-CN','en'].map(language=><a key={language} className="page-download-button" href={'/downloads/pages/'+documentPath(language)} download><span aria-hidden="true">↓</span>{language==='en'?'English Markdown':'中文 Markdown'}</a>):<a className="page-download-button" href={'/downloads/pages/'+path} download>↓ JSON</a>}
+      {isMarkdown?['zh-CN','en'].map(language=><a key={language} className="page-download-button" href={'/downloads/pages/'+documentPath(language)} download><span aria-hidden="true">↓</span>{language==='en'?'English Markdown':tr('中文 Markdown','Chinese Markdown')}</a>):<a className="page-download-button" href={'/downloads/pages/'+path} download>↓ JSON</a>}
     </div>
     {files.filter(file=>!file.endsWith('.md')).length>0&&<nav className="page-resource-exports" aria-label={tr('配套文件','Related exports')}>{files.filter(file=>!file.endsWith('.md')).map(file=><a className="page-download-button" key={file} href={'/downloads/'+file} download>↓ {file}</a>)}</nav>}
     <nav className="page-resource-links" aria-label={tr('贡献入口','Contribution links')}>

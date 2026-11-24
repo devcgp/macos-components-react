@@ -138,7 +138,7 @@ export default function App() {
 
   return <LocaleContext.Provider value={locale}><DarkAppearanceContext.Provider value={dark}><div data-theme="tahoe">
     <DocsLayout header={header} navigation={section?.children ?? []} current={route} toc={toc}>
-      {entryTitle&&<DocumentHeading title={entryTitle} category={section?{title:navigationTitle(section,locale),href:navigationPages.find(item=>item.ancestors[0]===section.id)?.page.href??start}:undefined}/>}
+      {entryTitle&&<DocumentHeading title={id==='design'?tr('macOS Tahoe 26 设计规范','macOS Tahoe 26 Design Guide'):id==='tokens'?'Tahoe Tokens':entryTitle} category={section?{title:navigationTitle(section,locale),href:navigationPages.find(item=>item.ancestors[0]===section.id)?.page.href??start}:undefined}/>}
       {ComponentPage ? <Suspense fallback={<p role="status">{tr('正在加载组件文档…', 'Loading component documentation…')}</p>}>
           <ComponentPage key={locale + id} id={id} hash={hash}/>
         </Suspense>

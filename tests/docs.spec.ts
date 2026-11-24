@@ -12,7 +12,7 @@ for (const locale of ['zh-CN', 'en'] as const) test('opens every component and t
     await expect(page.locator('.preview-content > *').first()).toBeVisible()
     for (const tab of documentationTabs) {
       await page.getByRole('tab', { name: locale === 'en' ? tab.label : tab.zh, exact: true }).click()
-      await expect(page.getByRole('main').getByRole('heading', { level: 2 })).toHaveText(
+      await expect(page.locator('main > article').getByRole('heading', { level: 2 })).toHaveText(
         tab.sections.map(title => localizeTitle(title, locale)),
       )
     }
