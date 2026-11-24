@@ -19,9 +19,9 @@ Sidebar uses a 16px group gap, 28px rows, 5px corners and 8px insets. Group titl
 
 ## Appearance and materials
 
-Place components inside `data-theme="tahoe"` and toggle `.dark` on the root. Colors and states share CSS variables. Content uses solid surfaces. Glass examples use backdrop-filter with a solid fallback. Focus and selection are distinct. Disabled controls retain native semantics and reduced motion removes decorative transitions.
+Place components inside `data-theme="desktop"` and toggle `.dark` on the root. Colors and states share CSS variables. Content uses solid surfaces. Glass examples use backdrop-filter with a solid fallback. Focus and selection are distinct. Disabled controls retain native semantics and reduced motion removes decorative transitions.
 
-See [Tokens](#/tahoe/tokens) for usage and scope.
+See [Tokens](#/desktop/tokens) for usage and scope.
 
 - [Apple HIG](https://developer.apple.com/design/human-interface-guidelines/)
 - [Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos)

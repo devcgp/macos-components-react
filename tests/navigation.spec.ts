@@ -20,7 +20,7 @@ test('keeps the HIG sections, resources, component topics, and existing routes',
     'tokens', 'resources/ai-integration', 'resources/community',
   ]
   expect(navigationPages.map(({ page }) => page.href).sort()).toEqual(
-    expectedIds.map(id => '#/tahoe/' + id).sort(),
+    expectedIds.map(id => '#/desktop/' + id).sort(),
   )
   for (const [id, section] of [
     ['tokens', 'foundations'],
@@ -34,7 +34,7 @@ test('keeps the HIG sections, resources, component topics, and existing routes',
 })
 
 test('distinguishes quick references from detailed component guides', async ({ page }) => {
-  await page.goto('/?lang=en#/tahoe/button')
+  await page.goto('/?lang=en#/desktop/button')
   const sidebar = page.getByRole('navigation', { name: 'Documentation categories' })
   await expect(sidebar.getByRole('link', { name: 'Button', exact: true }).getByText('Quick reference')).toHaveCount(0)
   await expect(sidebar.getByRole('link', { name: 'Sidebar', exact: true }).getByText('Quick reference')).toHaveCount(0)
@@ -42,7 +42,7 @@ test('distinguishes quick references from detailed component guides', async ({ p
 })
 
 test('opens active ancestors, keeps independent toggle state, and supports keyboard navigation', async ({ page }) => {
-  await page.goto('/?lang=en#/tahoe/sidebar')
+  await page.goto('/?lang=en#/desktop/sidebar')
   const nav = page.getByRole('navigation', { name: 'Documentation categories' })
   const sections = page.getByRole('navigation', { name: 'Documentation sections' })
   const components = sections.getByRole('link', { name: 'Components', exact: true })
@@ -61,7 +61,7 @@ test('opens active ancestors, keeps independent toggle state, and supports keybo
   await page.keyboard.press('Space')
   await expect(menus).toHaveAttribute('aria-expanded', 'true')
   await nav.getByRole('link', { name: 'Button', exact: true }).click()
-  await expect(page).toHaveURL(/#\/tahoe\/button$/)
+  await expect(page).toHaveURL(/#\/desktop\/button$/)
   await expect(nav.getByRole('link', { name: 'Button', exact: true })).toHaveAttribute('aria-current', 'page')
   await expect(navigationAndSearch).toHaveAttribute('aria-expanded', 'true')
 
@@ -84,13 +84,13 @@ test('opens active ancestors, keeps independent toggle state, and supports keybo
 
 test('keeps the narrow sidebar scrollable and renders Font Awesome in site and component UI', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 800 })
-  await page.goto('/?lang=zh-CN#/tahoe/search-field')
+  await page.goto('/?lang=zh-CN#/desktop/search-field')
   const nav = page.getByRole('navigation', { name: '文档分类' })
   await expect(page.locator('.header-sections').getByRole('link', { name: '界面组件', exact: true })).toHaveAttribute('aria-current', 'true')
   await expect(nav.getByRole('button', { name: '导航与搜索', exact: true })).toHaveAttribute('aria-expanded', 'true')
   await expect(nav.getByRole('link', { name: 'Search Field', exact: true })).toHaveAttribute('aria-current', 'page')
   await expect(page.getByRole('button', { name: '搜索', exact: true }).locator('svg[data-icon="magnifying-glass"]')).toBeVisible()
-  await expect(page.locator('.live-preview .tahoe-search svg[data-icon="magnifying-glass"]').first()).toBeVisible()
+  await expect(page.locator('.live-preview .desktop-search svg[data-icon="magnifying-glass"]').first()).toBeVisible()
   expect(await page.locator('.docs-nav').evaluate(sidebar => sidebar.scrollHeight > sidebar.clientHeight)).toBe(true)
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
 })
@@ -101,13 +101,13 @@ test('keeps specification routes and legacy entry aliases accessible', async ({ 
     ['foundations/color', 'Color'],
   ]
   for (const [route, title] of titles) {
-    await page.goto('/?lang=en#/tahoe/' + route)
+    await page.goto('/?lang=en#/desktop/' + route)
     const nav = page.getByRole('navigation', { name: 'Documentation categories' })
     await expect(nav.getByRole('link', { name: title, exact: true })).toHaveAttribute('aria-current', 'page')
     await expect(page.locator('main h1')).toBeVisible()
     await expect(page.locator('main')).not.toContainText('Page not found')
   }
-  for (const legacy of ['#/overview', '#/tahoe/showcase']) {
+  for (const legacy of ['#/overview', '#/desktop/showcase', '#/tahoe/getting-started/introduction']) {
     await page.goto('/?lang=en' + legacy)
     await expect(page.getByRole('heading', { name: 'Introduction', level: 1 })).toBeVisible()
   }
@@ -115,7 +115,7 @@ test('keeps specification routes and legacy entry aliases accessible', async ({ 
 
 test('pins the frosted header and desktop navigation while aligning titles across routes', async ({ page }) => {
   await page.setViewportSize({ width: 882, height: 852 })
-  await page.goto('/?lang=zh-CN#/tahoe/foundations/control-geometry')
+  await page.goto('/?lang=zh-CN#/desktop/foundations/control-geometry')
 
   const header = page.locator('.site-header')
   const sidebar = page.locator('.docs-nav')
@@ -145,14 +145,14 @@ test('pins the frosted header and desktop navigation while aligning titles acros
   expect((await title.boundingBox())?.y).toBeCloseTo(initialTitle.y)
   expect(await sidebar.boundingBox()).toEqual(initialSidebar)
 
-  await page.goto('/?lang=zh-CN#/tahoe/button')
+  await page.goto('/?lang=zh-CN#/desktop/button')
   await expect(title).toHaveText('Button')
   expect((await title.boundingBox())?.y).toBeCloseTo(initialTitle.y)
 })
 
 test('keeps title spacing and the navigation pane stable on narrow screens', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 800 })
-  await page.goto('/?lang=zh-CN#/tahoe/foundations/color')
+  await page.goto('/?lang=zh-CN#/desktop/foundations/color')
   const sidebar = page.locator('.docs-nav')
   const header = page.locator('.site-header')
   const title = page.getByRole('main').getByRole('heading', { level: 1 })

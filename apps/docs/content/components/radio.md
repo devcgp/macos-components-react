@@ -37,12 +37,12 @@ label，以及除 type 外的原生 input 属性。
 ## Code Example
 
 ```tsx
-import { Radio } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Radio } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <fieldset><legend>图库布局</legend><Radio name="view-mode" label="网格" defaultChecked /><Radio name="view-mode" label="列表" /></fieldset>
     </div>
   )

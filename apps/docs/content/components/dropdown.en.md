@@ -38,13 +38,13 @@ label, options, selected, onSelect and selectedLabel.
 
 ```tsx
 import { useState } from "react"
-import { Dropdown } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Dropdown } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   const [format, setFormat] = useState("png")
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Dropdown label="Format" options={[{ value: "png", label: "PNG" }, { value: "jpeg", label: "JPEG" }]} selected={[format]} onSelect={setFormat} />
     </div>
   )

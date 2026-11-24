@@ -1,12 +1,12 @@
 {
-  "name": "macos-tahoe-components",
+  "name": "macos-components-react",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@11.25.0",
   "scripts": {
-    "dev": "pnpm --filter @macos-tahoe/ui build && pnpm --filter @macos-tahoe/docs dev",
-    "build": "pnpm --filter @macos-tahoe/ui build && pnpm --filter @macos-tahoe/docs build",
-    "typecheck": "pnpm --filter @macos-tahoe/ui typecheck && pnpm --filter @macos-tahoe/docs typecheck",
+    "dev": "pnpm --filter @cgpdesktopui/ui build && pnpm --filter @cgpdesktopui/docs dev",
+    "build": "pnpm --filter @cgpdesktopui/ui build && pnpm --filter @cgpdesktopui/docs build",
+    "typecheck": "pnpm --filter @cgpdesktopui/ui typecheck && pnpm --filter @cgpdesktopui/docs typecheck",
     "tokens": "node packages/ui/tools/generate-tokens.mjs",
     "test": "playwright test"
   },

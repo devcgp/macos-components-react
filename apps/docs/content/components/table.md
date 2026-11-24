@@ -37,12 +37,12 @@ Table 使用 caption、columns、rows。List 支持 ul 属性。
 ## Code Example
 
 ```tsx
-import { Table } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Table } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Table caption="图库" columns={[{ id: "name", label: "文件" }]} rows={[{ id: "1", cells: { name: "海岸.jpg" } }]} />
     </div>
   )

@@ -1,6 +1,6 @@
-# Tahoe 组件 API
+# Desktop 组件 API
 
-从 `@macos-tahoe/ui` 导入。预览从 [组件总览](#/tahoe/getting-started/introduction) 进入。
+从 `@cgpdesktopui/ui` 导入。预览从 [组件总览](#/desktop/getting-started/introduction) 进入。
 
 | 组件 | 主要属性与行为 |
 | --- | --- |

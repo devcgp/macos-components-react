@@ -37,12 +37,12 @@ leading、children。
 ## Code Example
 
 ```tsx
-import { SplitView } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { SplitView } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <SplitView leading="目录">图库</SplitView>
     </div>
   )

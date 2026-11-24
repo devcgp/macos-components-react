@@ -5,7 +5,7 @@ import remarkGfm from 'remark-gfm'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun } from '@fortawesome/free-regular-svg-icons'
 import { faCodeBranch, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import { Button } from '@macos-tahoe/ui'
+import { Button } from '@cgpdesktopui/ui'
 import { DarkAppearanceContext } from './appearance'
 import { LocaleContext, localizeTitle, readLocale, type Locale } from './locale'
 import { FoundationTokens, foundationTokenSections } from '../components/FoundationTokens'
@@ -14,8 +14,8 @@ import DocsLayout from '../layouts/DocsLayout'
 import { PageResources, repository } from '../components/PageResources'
 import ComponentDocPage from '../components/ComponentDocPage'
 import { documentationTab } from './component-headings'
-import TahoeColorsPage, { tahoeColorSections } from '../components/TahoeColorsPage'
-import TahoeTokensPage, { tahoeTokenSections } from '../components/TahoeTokensPage'
+import DesktopColorsPage, { desktopColorSections } from '../components/DesktopColorsPage'
+import DesktopTokensPage, { desktopTokenSections } from '../components/DesktopTokensPage'
 import { componentDocs, hig, slug } from './catalog'
 import { navigation, navigationByHref, navigationPages, navigationTitle } from './navigation'
 
@@ -36,23 +36,23 @@ const componentPages = Object.fromEntries(Object.entries(componentFiles).map(([p
 ]))
 
 const entries = navigationPages.map(({ page }) => page)
-const start = '#/tahoe/getting-started/introduction'
+const start = '#/desktop/getting-started/introduction'
 
 function currentRoute() {
-  const hash = location.hash
-  if (!hash.startsWith('#/')) return start
-  if (hash === '#/overview' || hash === '#/tahoe/showcase') return start
-  if (hash === '#/tahoe/design') {
-    const foundations = '#/tahoe/foundations/control-geometry'
-    history.replaceState(history.state, '', foundations)
-    return foundations
+  const original = location.hash
+  if (!original.startsWith('#/')) return start
+  // Preserve links shared before the theme namespace changed.
+  const hash = original.replace(/^#\/tahoe(?=\/|$)/, '#/desktop')
+  const legacyRoutes: Record<string, string> = {
+    '#/overview': start,
+    '#/desktop/showcase': start,
+    '#/desktop/design': '#/desktop/foundations/control-geometry',
+    '#/desktop/colors': '#/desktop/foundations/color',
+    '#/desktop/foundations/accessibility': '#/desktop/foundations/color',
   }
-  if (hash === '#/tahoe/colors' || hash === '#/tahoe/foundations/accessibility') {
-    const color = '#/tahoe/foundations/color'
-    history.replaceState(history.state, '', color)
-    return color
-  }
-  return hash
+  const route = legacyRoutes[hash] ?? hash
+  if (route !== original) history.replaceState(history.state, '', route)
+  return route
 }
 
 export default function App() {
@@ -63,7 +63,7 @@ export default function App() {
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'))
   const [search, setSearch] = useState(false)
   const [query, setQuery] = useState('')
-  const id = route.replace('#/tahoe/', '')
+  const id = route.replace('#/desktop/', '')
   const doc = componentDocs.find(item => item.id === id)
   const index = entries.findIndex(item => item.href === route)
   const entry = entries[index]
@@ -76,7 +76,7 @@ export default function App() {
     [item.title, navigationTitle(item, 'zh-CN'), item.href, ...(item.keywords ?? [])].some(value =>
       value.toLowerCase().includes(searchTerm)),
   ) : []
-  const referenceSections = id === 'foundations/color' ? tahoeColorSections : id === 'tokens' ? tahoeTokenSections : foundationTokenSections(id)
+  const referenceSections = id === 'foundations/color' ? desktopColorSections : id === 'tokens' ? desktopTokenSections : foundationTokenSections(id)
   const toc = doc
     ? documentationTab(hash).sections.map(title => ({ title: localizeTitle(title, locale), href: slug(title) }))
     : referenceSections.map(section => ({ title: tr(section.titleZh, section.title), href: section.id }))
@@ -114,7 +114,7 @@ export default function App() {
 
   function changeAppearance(nextDark: boolean) {
     setDark(nextDark)
-    try { localStorage.setItem('tahoe-appearance', nextDark ? 'dark' : 'light') } catch { /* storage can be unavailable */ }
+    try { localStorage.setItem('desktop-appearance', nextDark ? 'dark' : 'light') } catch { /* storage can be unavailable */ }
   }
 
   const sectionId = navigationByHref.get(route)?.ancestors[0]
@@ -136,7 +136,7 @@ export default function App() {
         const url = new URL(location.href)
         url.searchParams.set('lang', next)
         history.replaceState(history.state, '', url)
-        try { localStorage.setItem('tahoe-language', next) } catch { /* storage can be unavailable */ }
+        try { localStorage.setItem('desktop-language', next) } catch { /* storage can be unavailable */ }
         setLocale(next)
       }}>
         <option value="en" lang="en">English</option>
@@ -146,24 +146,24 @@ export default function App() {
     </div>
   </header>
 
-  return <LocaleContext.Provider value={locale}><DarkAppearanceContext.Provider value={dark}><div data-theme="tahoe">
+  return <LocaleContext.Provider value={locale}><DarkAppearanceContext.Provider value={dark}><div data-theme="desktop">
     <DocsLayout header={header} navigation={section?.children ?? []} current={route} toc={toc}>
       {entryTitle&&<DocumentHeading title={entryTitle} category={section?{title:navigationTitle(section,locale),href:navigationPages.find(item=>item.ancestors[0]===section.id)?.page.href??start}:undefined}/>}
       {ComponentPage ? <Suspense fallback={<p role="status">{tr('正在加载组件文档…', 'Loading component documentation…')}</p>}>
           <ComponentPage key={locale + id} id={id} hash={hash}/>
         </Suspense>
-        : id === 'tokens' ? <TahoeTokensPage/>
+        : id === 'tokens' ? <DesktopTokensPage/>
         : markdown ? <article className="markdown"><ReactMarkdown remarkPlugins={[remarkGfm]} components={{h1:()=>null}}>{markdown}</ReactMarkdown>
-          {id === 'foundations/color' ? <TahoeColorsPage/> : <FoundationTokens key={id} id={id}/>}
+          {id === 'foundations/color' ? <DesktopColorsPage/> : <FoundationTokens key={id} id={id}/>}
           {id.includes('/') && !id.startsWith('resources/') && <p><a href={hig}>Apple Human Interface Guidelines</a></p>}</article>
-        : <article><h1>{tr('未找到页面', 'Page not found')}</h1><p><a href={start}>{tr('前往 Tahoe 文档', 'Go to Tahoe documentation')}</a></p></article>}
+        : <article><h1>{tr('未找到页面', 'Page not found')}</h1><p><a href={start}>{tr('前往 Desktop 文档', 'Go to Desktop documentation')}</a></p></article>}
       {entryTitle && <PageResources key={id+locale} id={id} route={route} title={entryTitle} component={Boolean(doc)}/>}
       {index >= 0 && <nav className="page-neighbors" aria-label={tr("上一页和下一页", "Previous and next pages")}>
         {entries[index - 1] && <a href={entries[index - 1].href}>← {navigationTitle(entries[index - 1], locale)}</a>}
         {entries[index + 1] && <a href={entries[index + 1].href}>{navigationTitle(entries[index + 1], locale)} →</a>}
       </nav>}
     </DocsLayout>
-    <Dialog open={search} onClose={setSearch} className="search-dialog" data-theme="tahoe">
+    <Dialog open={search} onClose={setSearch} className="search-dialog" data-theme="desktop">
       <DialogBackdrop className="search-backdrop"/>
       <DialogPanel className="search-panel">
         <DialogTitle>{tr("搜索文档", "Search documentation")}</DialogTitle>

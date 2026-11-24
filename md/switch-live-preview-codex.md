@@ -2,14 +2,14 @@
 
 ## 目标
 
-基于现有 `devcgp/macos-components-react` 项目，遵循 `apps/docs/content/components/switch.md`、`switch.en.md` 和 **最新 Tahoe Design Tokens**，完善真实 React Switch 组件与 `#/tahoe/switch` 文档页的 Live Preview。不得重新创建一套平行 Switch 组件。
+基于现有 `devcgp/macos-components-react` 项目，遵循 `apps/docs/content/components/switch.md`、`switch.en.md` 和 **最新 Desktop Design Tokens**，完善真实 React Switch 组件与 `#/desktop/switch` 文档页的 Live Preview。不得重新创建一套平行 Switch 组件。
 
 ## 一、先核对实际代码
 
 读取并对照：
 
 - `packages/ui/src/components/switch.tsx`
-- `packages/ui/src/styles/tahoe-tokens.css`
+- `packages/ui/src/styles/desktop-tokens.css`
 - `packages/ui/src/index.ts`
 - `apps/docs/src/app/catalog.ts`
 - 现有文档渲染、Live Preview、语言切换及主题切换代码
@@ -20,7 +20,7 @@
 ## 二、Documentation 页面
 
 - 每个语言一份独立 Markdown：`switch.md` / `switch.en.md`。
-- 两份均保留统一的 12 个 Section，文档路由保持 `#/tahoe/switch`。
+- 两份均保留统一的 12 个 Section，文档路由保持 `#/desktop/switch`。
 - 11 个文字型 Section 由 Markdown 渲染，可逐步补全。
 - **Live Preview Section** 由 React 自动插入真实控件预览；Markdown 不需要 MDX 或可执行 JSX。
 - 如网站已有中英文切换，沿用现有机制，不引入重复语言框架。
@@ -31,11 +31,11 @@
 
 1. Header：左侧 Card Title，右侧 **Light / Dark** Segmented Tabs。
 2. 内容区域：**Preview / Code** Segmented Tabs，默认 Preview。
-3. Preview：真实 `@macos-tahoe/ui` Switch，能被鼠标、键盘和触控操作。
+3. Preview：真实 `@cgpdesktopui/ui` Switch，能被鼠标、键盘和触控操作。
 4. Code：该卡片对应的完整、类型正确的 React + TypeScript (TSX) 示例，具有 Syntax Highlight 与 Copy Code 按钮。
 5. 两组 Tabs 独立，切换任一 Tab 不重置开关状态或另一组 Tab 的当前选择。
-6. 主题切换仅作用在该卡片。项目当前深色 Tokens 依赖祖先 `.dark`，所以必须在卡片预览内隔离 `.dark` 作用域并提供 `data-theme="tahoe"` 容器；不能仅修改一个无效的 `data-mode` 属性，更不能切换整个站点的根 `.dark`。
-7. 所有颜色、几何、阴影及动效使用现有 Tahoe Design Tokens，不复制硬编码色值、轨道尺寸或滑块尺寸。相关 Tokens：`--tahoe-switch-width`、`--tahoe-switch-height`、`--tahoe-switch-thumb-width`、`--tahoe-switch-inset`、`--tahoe-switch-off`、`--tahoe-switch-thumb-color`、`--tahoe-switch-rim`、`--tahoe-switch-thumb-shadow`、`--tahoe-accent`、`--tahoe-control-focus`、`--tahoe-control-transition`。
+6. 主题切换仅作用在该卡片。项目当前深色 Tokens 依赖祖先 `.dark`，所以必须在卡片预览内隔离 `.dark` 作用域并提供 `data-theme="desktop"` 容器；不能仅修改一个无效的 `data-mode` 属性，更不能切换整个站点的根 `.dark`。
+7. 所有颜色、几何、阴影及动效使用现有 Desktop Design Tokens，不复制硬编码色值、轨道尺寸或滑块尺寸。相关 Tokens：`--desktop-switch-width`、`--desktop-switch-height`、`--desktop-switch-thumb-width`、`--desktop-switch-inset`、`--desktop-switch-off`、`--desktop-switch-thumb-color`、`--desktop-switch-rim`、`--desktop-switch-thumb-shadow`、`--desktop-accent`、`--desktop-control-focus`、`--desktop-control-transition`。
 8. Dark / Light 对比展示必须基于同一套实际 CSS；不得为 Preview 重画假 Switch。
 
 ## 四、Switch 专属的 Preview Cards
@@ -83,7 +83,7 @@
 - 点击 Label / Track 以及 Space 均可切换；Tab 可聚焦；Disabled 不可操作。
 - 保持 `checked` 与 `defaultChecked` 受控/非受控语义正确。
 - `aria-hidden` 的轨道与滑块不进入辅助技术语义树。
-- Focus Visible 使用 `--tahoe-control-focus`；测试实际焦点环。
+- Focus Visible 使用 `--desktop-control-focus`；测试实际焦点环。
 - 支持 Reduced Motion、Forced Colors；检查 Light / Dark 下对比度。
 - 不要把项目第三方测量的 54×24px / 32×20px 宣称为 Apple 官方认证规格。
 

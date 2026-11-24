@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Sidebar } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Sidebar } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export const groupsLabels = {
   navigation: "Grouped notes",
@@ -27,7 +27,7 @@ export function SidebarGroups({ labels = groupsLabels }: { labels?: typeof group
   ]
 
   return (
-    <div data-theme="tahoe" style={{ width: 'var(--tahoe-sidebar-width)', maxWidth: '100%' }}>
+    <div data-theme="desktop" style={{ width: 'var(--desktop-sidebar-width)', maxWidth: '100%' }}>
       <Sidebar label={labels.navigation} groups={groups} selected={selected} collapsed={collapsed} onSelect={setSelected}
         onToggle={id => setCollapsed(previous => previous.includes(id) ? previous.filter(group => group !== id) : [...previous, id])}/>
     </div>

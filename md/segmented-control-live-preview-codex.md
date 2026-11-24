@@ -12,7 +12,7 @@
 ## 先核对源码
 
 - `packages/ui/src/components/controls.tsx` 内的 `SegmentedControl`
-- `packages/ui/src/styles/tahoe-tokens.css`
+- `packages/ui/src/styles/desktop-tokens.css`
 - `packages/ui/src/index.ts`
 - `docs/design.md` / `docs/tokens.md`
 - `apps/docs/src/app/catalog.ts`、现有 `ComponentDocPage` / `ComponentPreview` / 文档路由
@@ -41,7 +41,7 @@
 - Code 语法高亮 + `Copy Code` 按钮；复制内容包含真实 import、有效 props、必要的 `useState` 和主题容器。
 - 两组 Tab 独立工作；切换 Code/Preview 不应重置当前选中项。
 - 主题只作用于该卡片 Preview，不应意外影响整页其他卡片。
-- 当前项目通过 `.dark` 祖先配合 `[data-theme="tahoe"]` 实现深色，不能仅写 `data-theme="dark"`。复用既有主题机制，并验证 CSS 变量确实生效。
+- 当前项目通过 `.dark` 祖先配合 `[data-theme="desktop"]` 实现深色，不能仅写 `data-theme="dark"`。复用既有主题机制，并验证 CSS 变量确实生效。
 - 预览必须可点击、可键盘操作，不得以图片、假 DOM 或另外写一套外观替代真实组件。
 
 ## 四张预览卡片
@@ -74,11 +74,11 @@
 
 ## Design Tokens
 
-严格使用当前 Tahoe CSS Tokens：
+严格使用当前 Desktop CSS Tokens：
 
-- `--tahoe-control`：分段组背景。
-- `--tahoe-accent`：选中态及焦点轮廓。
-- `[data-theme="tahoe"]` + `.dark` 祖先：主题范围。
+- `--desktop-control`：分段组背景。
+- `--desktop-accent`：选中态及焦点轮廓。
+- `[data-theme="desktop"]` + `.dark` 祖先：主题范围。
 - 当前几何：外框 min-height 24px、radius 6px、padding 2px、段间 gap 1px、单段 radius 4px、padding-inline 10px。
 
 现有选中文字采用 `#111`，需要检查两种主题下的实际对比度；如修改，应遵循已有语义 Token，必要时先定义经过审查的新 Token，不允许散落硬编码色值。
@@ -90,7 +90,7 @@
 - 每种语言分别读取对应 Markdown 文件，展示既定 12 Sections。
 - 在 Live Preview Section 插入上述四张真实 React 卡片。
 - Markdown 仍是规范文本来源，Live Preview 内容由 React 实现。
-- 保留现有 `#/tahoe/segmented-control` 路由；若网站已具备中英文切换，确保读入对应文档。
+- 保留现有 `#/desktop/segmented-control` 路由；若网站已具备中英文切换，确保读入对应文档。
 - 复用现有 Preview Card 基础框架，不复制整套独立 CSS/逻辑。
 - 若完成后实际 API、交互或 Token 有变化，须同步更新中英文文档。
 

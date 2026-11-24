@@ -1,4 +1,4 @@
-# Tahoe 第一阶段组件与文档审计
+# Desktop 第一阶段组件与文档审计
 
 本轮范围是文档框架。检查了 `packages/ui/src/index.ts`、公开组件源码、现有样式和 Token、组件路由配置以及已有 React 预览。控件实现继续沿用当前组件包。
 
@@ -7,10 +7,10 @@
 | 状态 | 结果 |
 | --- | --- |
 | Complete | 42 个现有控件对应 42 个独立文档路由。每个路由包含简体中文和英文 Markdown，各有统一的 12 个章节及实际 React 预览。 |
-| Needs Improvement | Button 已在本地验证多卡片、独立主题、Preview / Code 和代码高亮。其他控件按批次接入共享预览。具体控件的无障碍、视觉与 Tahoe 26 UI Kit 规格仍需逐项核对。 |
+| Needs Improvement | Button 已在本地验证多卡片、独立主题、Preview / Code 和代码高亮。其他控件按批次接入共享预览。具体控件的无障碍、视觉与 macOS 26 UI Kit 规格仍需逐项核对。 |
 | Missing | 导航清单仍有 36 个 HIG 控件主题缺少实现或文档。见[导航迁移清单](navigation-migration.md)。 |
 
-`Radio` 已在组件包公开导出，本轮为它补上 `#/tahoe/radio` 文档与示例。`ProgressIndicator` 和 `Progress` 指向同一实现，沿用 `#/tahoe/progress-indicator` 并在 API 章节记录两个导出名。
+`Radio` 已在组件包公开导出，本轮为它补上 `#/desktop/radio` 文档与示例。`ProgressIndicator` 和 `Progress` 指向同一实现，沿用 `#/desktop/progress-indicator` 并在 API 章节记录两个导出名。
 
 ## 首批预览所依据的现有接口
 
@@ -27,4 +27,4 @@
 
 ## 后续工作
 
-Button 的共享预览卡片已在本地完成并验证，接下来将 Button、IconButton 的实现直接绑定最新版 Tahoe Design Tokens，再将同一流程扩展到其他控件。批次顺序、每批验收项和上线步骤见[开发与发布流程](development-workflow.md)。
+Button 的共享预览卡片已在本地完成并验证，接下来将 Button、IconButton 的实现直接绑定最新版 Desktop Design Tokens，再将同一流程扩展到其他控件。批次顺序、每批验收项和上线步骤见[开发与发布流程](development-workflow.md)。

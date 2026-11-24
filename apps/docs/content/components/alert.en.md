@@ -37,12 +37,12 @@ title, variant and children.
 ## Code Example
 
 ```tsx
-import { Alert } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Alert } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Alert title="Import complete">Imported 3 photos.</Alert>
     </div>
   )

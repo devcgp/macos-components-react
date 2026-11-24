@@ -27,7 +27,7 @@ export default function CheckboxLivePreview() {
   const controlled = locale === 'zh-CN' ? controlledZh : controlledLabels
   const form = locale === 'zh-CN' ? formZh : formLabels
 
-  return <div className="tahoe-preview-cards">
+  return <div className="desktop-preview-cards">
     <LivePreviewCard title={tr('复选框选择', 'Checkbox Selection')} code={translateSource(selectionSource, selectionLabels, selection)}>
       <CheckboxSelection labels={selection}/>
     </LivePreviewCard>

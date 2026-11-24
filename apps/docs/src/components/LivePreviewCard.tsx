@@ -17,8 +17,8 @@ function HighlightedCode({ source }: { source: string }) {
 
 function preserveTextFieldFocus(event: MouseEvent<HTMLDivElement>) {
   const focused = event.currentTarget.ownerDocument.activeElement
-  if (focused?.matches('input.tahoe-field-control') &&
-      event.currentTarget.closest('.tahoe-preview-card')?.contains(focused)) {
+  if (focused?.matches('input.desktop-field-control') &&
+      event.currentTarget.closest('.desktop-preview-card')?.contains(focused)) {
     event.preventDefault()
   }
 }
@@ -33,22 +33,22 @@ export default function LivePreviewCard({ title, code, children }: {
   const [previewDark, setPreviewDark] = useState<boolean>()
   const dark = previewDark ?? globalDark
   const headingId = useId()
-  return <section className="tahoe-preview-card" aria-labelledby={headingId} data-theme="tahoe" data-appearance={dark ? 'dark' : 'light'}>
-    <header className="tahoe-preview-header">
+  return <section className="desktop-preview-card" aria-labelledby={headingId} data-theme="desktop" data-appearance={dark ? 'dark' : 'light'}>
+    <header className="desktop-preview-header">
       <h3 id={headingId}>{title}</h3>
-      <div className="tahoe-preview-tabs" role="group" aria-label={tr('预览外观', 'Preview appearance')} onMouseDown={preserveTextFieldFocus}>
+      <div className="desktop-preview-tabs" role="group" aria-label={tr('预览外观', 'Preview appearance')} onMouseDown={preserveTextFieldFocus}>
         <button type="button" aria-pressed={!dark} onClick={() => setPreviewDark(false)}>{tr('浅色', 'Light')}</button>
         <button type="button" aria-pressed={dark} onClick={() => setPreviewDark(true)}>{tr('深色', 'Dark')}</button>
       </div>
     </header>
     <TabGroup>
-      <TabList className="tahoe-preview-tabs tahoe-preview-views" aria-label={tr('预览内容', 'Preview content')}>
+      <TabList className="desktop-preview-tabs desktop-preview-views" aria-label={tr('预览内容', 'Preview content')}>
         <Tab>{tr('预览', 'Preview')}</Tab>
         <Tab>{tr('代码', 'Code')}</Tab>
       </TabList>
       <TabPanels>
-        <TabPanel unmount={false} className="preview-content tahoe-preview-panel">{children}</TabPanel>
-        <TabPanel className="tahoe-preview-code tahoe-preview-panel">
+        <TabPanel unmount={false} className="preview-content desktop-preview-panel">{children}</TabPanel>
+        <TabPanel className="desktop-preview-code desktop-preview-panel">
           <CopyCode source={code} label={tr('复制代码', 'Copy code')}><HighlightedCode source={code}/></CopyCode>
         </TabPanel>
       </TabPanels>

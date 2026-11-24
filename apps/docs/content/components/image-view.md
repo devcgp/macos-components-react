@@ -37,12 +37,12 @@
 ## Code Example
 
 ```tsx
-import { ImageView } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { ImageView } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <ImageView src="/photo.jpg" alt="海岸" />
     </div>
   )

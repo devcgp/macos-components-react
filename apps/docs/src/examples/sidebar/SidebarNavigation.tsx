@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileLines, faFolder, faStar, faTrashCan } from '@fortawesome/free-regular-svg-icons'
-import { Sidebar } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Sidebar } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export const navigationLabels = {
   title: "Notes",
@@ -34,12 +34,12 @@ export function SidebarNavigation({ labels = navigationLabels }: { labels?: type
   const current = groups.flatMap(group => group.items).find(item => item.id === selected)?.label
 
   return (
-    <div data-theme="tahoe" style={{ width: '100%', minWidth: 0, display: 'grid', gap: 'var(--tahoe-gap)' }}>
-      <div style={{ padding: 'calc(var(--tahoe-gap) * 2)', borderRadius: 'var(--tahoe-window-radius)',
-        background: 'linear-gradient(135deg, var(--tahoe-accents-yellow), var(--tahoe-accents-green))' }}>
-        <div style={{ width: 'var(--tahoe-sidebar-width)', maxWidth: '100%', overflow: 'hidden',
-          borderRadius: 'var(--tahoe-control-radius)', background: 'var(--tahoe-content-surface)' }}>
-          <h4 style={{ padding: 'calc(var(--tahoe-gap) * 2)', fontSize: 'var(--tahoe-title)', fontWeight: 600 }}>{labels.title}</h4>
+    <div data-theme="desktop" style={{ width: '100%', minWidth: 0, display: 'grid', gap: 'var(--desktop-gap)' }}>
+      <div style={{ padding: 'calc(var(--desktop-gap) * 2)', borderRadius: 'var(--desktop-window-radius)',
+        background: 'linear-gradient(135deg, var(--desktop-accents-yellow), var(--desktop-accents-green))' }}>
+        <div style={{ width: 'var(--desktop-sidebar-width)', maxWidth: '100%', overflow: 'hidden',
+          borderRadius: 'var(--desktop-control-radius)', background: 'var(--desktop-content-surface)' }}>
+          <h4 style={{ padding: 'calc(var(--desktop-gap) * 2)', fontSize: 'var(--desktop-title)', fontWeight: 600 }}>{labels.title}</h4>
           <Sidebar label={labels.navigation} groups={groups} selected={selected} collapsed={collapsed} onSelect={setSelected}
             onToggle={id => setCollapsed(previous => previous.includes(id) ? previous.filter(group => group !== id) : [...previous, id])}/>
         </div>

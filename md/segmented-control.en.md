@@ -1,9 +1,9 @@
 # Segmented Control
 
-> Component: `SegmentedControl` · macOS Tahoe Components  
+> Component: `SegmentedControl` · macOS Components\
 > Documentation status: Verified against current repository source; Live Preview describes implementation requirements, not completed validation  
 > Source: `packages/ui/src/components/controls.tsx`  
-> Suggested route: `#/tahoe/segmented-control`
+> Suggested route: `#/desktop/segmented-control`
 
 ## 1. Overview
 
@@ -13,7 +13,7 @@ Use it for switching a view or mode within a shared context, not for multiselect
 
 ## 2. Anatomy
 
-1. **Container**: `.tahoe-segments` wraps the group.
+1. **Container**: `.desktop-segments` wraps the group.
 2. **Segment**: a `<label>` contains a native `input[type="radio"]` and visible `<span>`.
 3. **Selected segment**: derived from `checked={value === option}`.
 4. **Focus indicator**: applied to the visible span associated with the focused radio.
@@ -34,7 +34,7 @@ Use the real exported React `SegmentedControl` within **multiple Live Preview ca
 
 **Shared card UI:** title on the left and `Light / Dark` tabs on the right; separate `Preview / Code` tabs in the body. Preview is selected by default. Code provides matching, syntax-highlighted TSX with a working `Copy Code` button. Switching views must not inadvertently reset demo selection. Copied code must pass the project's TypeScript checks.
 
-Apply Tahoe variables within a valid `.dark` ancestor for Dark Mode. A standalone `data-theme="dark"` attribute does **not** activate the existing theme mechanism.
+Apply Desktop variables within a valid `.dark` ancestor for Dark Mode. A standalone `data-theme="dark"` attribute does **not** activate the existing theme mechanism.
 
 The documentation site's React renderer owns the interactive cards; this Markdown defines content and acceptance criteria rather than embedding fake preview markup.
 
@@ -44,12 +44,12 @@ There is currently **no `size` prop** and only one default geometry. Do not offe
 
 | Property | Current implementation | Basis |
 | --- | --- | --- |
-| Container minimum height | 24px | Project control-height convention; `.tahoe-segments` currently declares `min-height: 24px` directly |
-| Container radius | 6px | `.tahoe-segments` |
-| Container padding | 2px | `.tahoe-segments` |
-| Gap between segments | 1px | `.tahoe-segments` |
-| Segment radius | 4px | `.tahoe-segments span` |
-| Segment horizontal padding | 10px | `.tahoe-segments span` |
+| Container minimum height | 24px | Project control-height convention; `.desktop-segments` currently declares `min-height: 24px` directly |
+| Container radius | 6px | `.desktop-segments` |
+| Container padding | 2px | `.desktop-segments` |
+| Gap between segments | 1px | `.desktop-segments` |
+| Segment radius | 4px | `.desktop-segments span` |
+| Segment horizontal padding | 10px | `.desktop-segments span` |
 
 Width grows with content. There is no built-in full-width or equal-width prop.
 
@@ -116,8 +116,8 @@ A complete React + TypeScript example using the current public API:
 
 ```tsx
 import { useState } from 'react'
-import { SegmentedControl } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { SegmentedControl } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 const views = ['Grid', 'List']
 
@@ -125,7 +125,7 @@ export function ViewSwitcher() {
   const [view, setView] = useState('Grid')
 
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <SegmentedControl
         label="View layout"
         name="view-layout"
@@ -143,25 +143,25 @@ Dark Mode is controlled by the application's `.dark` ancestor; there is no `them
 
 ## 11. Design Specifications
 
-**Tahoe Design Tokens are the source of truth.** Follow `packages/ui/src/styles/tahoe-tokens.css` and `docs/tokens.md`; do not introduce a second hard-coded palette.
+**Desktop Design Tokens are the source of truth.** Follow `packages/ui/src/styles/desktop-tokens.css` and `docs/tokens.md`; do not introduce a second hard-coded palette.
 
 | Role | Current CSS / Token |
 | --- | --- |
-| Background | `--tahoe-control` |
-| Selected segment background | `--tahoe-accent` |
+| Background | `--desktop-control` |
+| Selected segment background | `--desktop-accent` |
 | Selected text | The current CSS uses `#111`; contrast should be reviewed in both themes before changing to a semantic token |
-| Focus outline | `--tahoe-accent`, 2px, 2px offset |
-| Theme scope | `[data-theme="tahoe"]` with a `.dark` ancestor |
-| Font | Inherited Tahoe typography system |
+| Focus outline | `--desktop-accent`, 2px, 2px offset |
+| Theme scope | `[data-theme="desktop"]` with a `.dark` ancestor |
+| Font | Inherited Desktop typography system |
 
-**Specification provenance:** the 24px minimum height and 6px radius are repository/project-defined web dimensions, not verified official Apple Tahoe 26 measurements.
+**Specification provenance:** the 24px minimum height and 6px radius are repository/project-defined web dimensions, not verified official Apple macOS 26 measurements.
 
 Any new component-specific semantic tokens must be synchronized across token definitions, CSS, both language docs, and visual verification.
 
 ## 12. References
 
 - Source: `packages/ui/src/components/controls.tsx`
-- Styles: `packages/ui/src/styles/tahoe-tokens.css`
+- Styles: `packages/ui/src/styles/desktop-tokens.css`
 - Design guidance: `docs/design.md`
 - Tokens: `docs/tokens.md`
 - Catalog: `apps/docs/src/app/catalog.ts`

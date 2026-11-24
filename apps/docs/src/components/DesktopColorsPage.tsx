@@ -1,7 +1,7 @@
 import { useLocale } from '../app/locale'
-import { tahoeColors } from '../app/token-data'
+import { desktopColors } from '../app/token-data'
 
-type ColorToken = keyof typeof tahoeColors.light
+type ColorToken = keyof typeof desktopColors.light
 type Appearance = 'light' | 'dark'
 
 const namesZh: Record<string, string> = {
@@ -23,9 +23,9 @@ const namesZh: Record<string, string> = {
   'window-background-figma': '窗口背景',
 }
 const toneOrder = ['primary', 'secondary', 'tertiary', 'quaternary', 'quinary', 'seximal', 'white']
-const colorTokens = Object.keys(tahoeColors.light) as ColorToken[]
+const colorTokens = Object.keys(desktopColors.light) as ColorToken[]
 
-export const tahoeColorSections = [
+export const desktopColorSections = [
   { key: 'accents', title: 'Accents', titleZh: '强调色' },
   { key: 'vibrant-accents', title: 'Vibrant Accents', titleZh: 'Vibrant 强调色' },
   { key: 'fills', title: 'Fills', titleZh: '填充色', order: toneOrder },
@@ -35,25 +35,25 @@ export const tahoeColorSections = [
   { key: 'gray', title: 'Grayscale', titleZh: '灰阶' },
   { key: 'semantic', title: 'Semantic Colors', titleZh: '语义色' },
 ].map(({ key, title, titleZh, order }) => {
-  const prefix = key === 'semantic' ? '--tahoe-miscellaneous-' : '--tahoe-' + key + '-'
+  const prefix = key === 'semantic' ? '--desktop-miscellaneous-' : '--desktop-' + key + '-'
   const swatches = colorTokens
-    .filter(token => token.startsWith(prefix) || (key === 'semantic' && token === '--tahoe-window-background-figma'))
+    .filter(token => token.startsWith(prefix) || (key === 'semantic' && token === '--desktop-window-background-figma'))
     .map(token => ({
       token,
-      name: token === '--tahoe-window-background-figma' ? 'window-background-figma' : token.slice(prefix.length),
+      name: token === '--desktop-window-background-figma' ? 'window-background-figma' : token.slice(prefix.length),
     }))
   if (order) swatches.sort((a, b) => order.indexOf(a.name) - order.indexOf(b.name))
-  return { id: 'tahoe-color-' + key, title, titleZh, swatches }
+  return { id: 'desktop-color-' + key, title, titleZh, swatches }
 })
 
 function ColorSample({ token, appearance }: { token: ColorToken; appearance: Appearance }) {
   const { tr } = useLocale()
-  return <div className="tahoe-color-sample">
+  return <div className="desktop-color-sample">
     <small>{appearance === 'light' ? tr('浅色', 'Light') : tr('深色', 'Dark')}</small>
-    <div className="tahoe-color-backdrop" data-appearance={appearance} aria-hidden="true">
-      <span className="tahoe-color-swatch" style={{ backgroundColor: 'var(' + token + ')' }}/>
+    <div className="desktop-color-backdrop" data-appearance={appearance} aria-hidden="true">
+      <span className="desktop-color-swatch" style={{ backgroundColor: 'var(' + token + ')' }}/>
     </div>
-    <code>{tahoeColors[appearance][token]}</code>
+    <code>{desktopColors[appearance][token]}</code>
   </div>
 }
 
@@ -62,9 +62,9 @@ function swatchName(name: string) {
   return name[0].toUpperCase() + name.slice(1).replaceAll('-', ' ')
 }
 
-export default function TahoeColorsPage() {
+export default function DesktopColorsPage() {
   const { tr } = useLocale()
-  return <div className="tahoe-doc">
+  return <div className="desktop-doc">
     <p>{tr(
       '每张色卡并排显示同一个 CSS 变量在浅色与深色下的值。棋盘格用于查看透明填充和文本色的实际叠加效果。',
       'Each card shows the Light and Dark values of the same CSS variable. The checkerboard shows how translucent fills and text colors composite.',
@@ -74,17 +74,17 @@ export default function TahoeColorsPage() {
       'Swatches render the theme’s CSS variables. Their values come from the project tokens used to generate the palette. Vibrant swatches show the variable itself. Material effects also depend on the backdrop and blending.',
     )}</p>
     <p>
-      <a href="#/tahoe/tokens">{tr('下载设计 Tokens', 'Download design tokens')}</a>
+      <a href="#/desktop/tokens">{tr('下载设计 Tokens', 'Download design tokens')}</a>
       {' · '}
       <a href="https://www.figma.com/design/0Moxn0hZAwA13h5DRFhK2h?node-id=0-765">{tr('查看 Figma 色板', 'View Figma palette')}</a>
     </p>
-    {tahoeColorSections.map(group => <section key={group.id} id={group.id} className="doc-section">
+    {desktopColorSections.map(group => <section key={group.id} id={group.id} className="doc-section">
       <h2>{tr(group.titleZh, group.title)}</h2>
-      <ul className="tahoe-color-grid" role="list">
+      <ul className="desktop-color-grid" role="list">
         {group.swatches.map(({ token, name }) => <li key={token}>
           <h3>{tr(namesZh[name] ?? swatchName(name), swatchName(name))}</h3>
-          <code className="tahoe-color-token">{token}</code>
-          <div className="tahoe-color-pair">
+          <code className="desktop-color-token">{token}</code>
+          <div className="desktop-color-pair">
             <ColorSample token={token} appearance="light"/>
             <ColorSample token={token} appearance="dark"/>
           </div>

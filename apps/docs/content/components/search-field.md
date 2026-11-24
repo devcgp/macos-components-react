@@ -37,12 +37,12 @@
 ## Code Example
 
 ```tsx
-import { SearchField } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { SearchField } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <SearchField aria-label="搜索照片" placeholder="搜索照片" />
     </div>
   )

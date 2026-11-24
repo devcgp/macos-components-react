@@ -7,7 +7,7 @@
 - `apps/docs/content/components/context-menu.md`
 - `apps/docs/content/components/context-menu.en.md`
 - `packages/ui/src/components/navigation.tsx`
-- `packages/ui/src/styles/tahoe-tokens.css`
+- `packages/ui/src/styles/desktop-tokens.css`
 - `docs/design.md`
 - `docs/tokens.md`
 
@@ -37,7 +37,7 @@ ContextMenu({ label, actions }: {
 
 ## 2. 页面文档结构
 
-使用已有路由 `#/tahoe/context-menu`。保留 12 个统一 Section 顺序：
+使用已有路由 `#/desktop/context-menu`。保留 12 个统一 Section 顺序：
 
 1. Overview
 2. Anatomy
@@ -87,17 +87,17 @@ ContextMenu({ label, actions }: {
 
 将真实 `ContextMenu` 放入现有 `Window`、`SplitView` 或列表场景，验证弹层 z-index、portal、窄视口、滚动、窗口边界，确保不被父容器裁切，Light/Dark 正确。展示的菜单按按钮锚定，不标为鼠标原位菜单。
 
-## 5. Tahoe Design Tokens
+## 5. Desktop Design Tokens
 
 复用现有 CSS/Token：
 
-- `--tahoe-control-height`
-- `--tahoe-menu`
-- `--tahoe-menu-rim`
-- `--tahoe-menu-shadow`
-- `--tahoe-label`
-- `--tahoe-focus`
-- `--tahoe-accent`
+- `--desktop-control-height`
+- `--desktop-menu`
+- `--desktop-menu-rim`
+- `--desktop-menu-shadow`
+- `--desktop-label`
+- `--desktop-focus`
+- `--desktop-accent`
 
 现有 `MenuItems` 参考：min-width 132px、padding 4px、radius 10px；menu item min-height 24px、radius 5px；触发器 min-width 84px、min-height 24px。不得以固定十六进制颜色替代上述语义 Token。当前仓库如果有新的 Token 定义，以实际源码为准并同步中英文文档。
 
@@ -108,7 +108,7 @@ ContextMenu({ label, actions }: {
 - 当前菜单项具有可见焦点提示；关闭后焦点恢复合理。
 - 确保每个示例的触发器 label 具体且有意义。
 - 如果 Headless UI 的 MenuItems portal 离开卡片 DOM 树，设计可扩展的**卡片级主题上下文 / portal class / token scope**。不要通过全局加 `.dark` 解决一个卡片的主题问题；不要让其他卡片受到影响。
-- 所有视觉样式遵循 Tahoe Tokens，平台语义参考 HIG，但不要宣称 Apple 官方像素级认证。
+- 所有视觉样式遵循 Desktop Tokens，平台语义参考 HIG，但不要宣称 Apple 官方像素级认证。
 
 ## 7. 实施顺序
 
@@ -121,7 +121,7 @@ ContextMenu({ label, actions }: {
 
 ## 8. 验收清单
 
-- [ ] `#/tahoe/context-menu` 正常访问，所有 12 个 Section 完整。
+- [ ] `#/desktop/context-menu` 正常访问，所有 12 个 Section 完整。
 - [ ] 中英文内容可切换且 API、设计数值保持一致。
 - [ ] 五张 Live Preview 卡片均使用真正的 `ContextMenu`。
 - [ ] Preview/Code、Light/Dark 两组 Tab 独立工作。

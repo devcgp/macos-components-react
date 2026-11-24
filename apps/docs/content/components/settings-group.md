@@ -37,12 +37,12 @@ title、children。
 ## Code Example
 
 ```tsx
-import { SettingsGroup, Switch } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { SettingsGroup, Switch } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <SettingsGroup title="图库"><Switch label="显示文件名" /></SettingsGroup>
     </div>
   )

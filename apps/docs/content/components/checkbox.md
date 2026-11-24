@@ -1,9 +1,9 @@
 # Checkbox
 
 > 组件：`Checkbox`\
-> 包：`@macos-tahoe/ui`\
-> 页面路由：`#/tahoe/checkbox`
-> 设计系统：**Tahoe Design Tokens**（以仓库最新的 CSS Tokens 为准）
+> 包：`@cgpdesktopui/ui`\
+> 页面路由：`#/desktop/checkbox`
+> 设计系统：**Desktop Design Tokens**（以仓库最新的 CSS Tokens 为准）
 
 ## Overview
 
@@ -11,7 +11,7 @@ Checkbox（复选框）用于开启或关闭一个**独立的选择项**，也�
 
 - 用于表达“选中 / 未选中”，而非立即执行命令。
 - 需要强调一个设置即时生效时，可考虑 Switch；只能选择一个互斥选项时，使用 Radio Group。
-- 本组件是参考 macOS Tahoe 的 React Web 控件，不是 Apple 原生控件。
+- 本组件是参考 macOS 的 React Web 控件，不是 Apple 原生控件。
 
 ## Anatomy
 
@@ -19,7 +19,7 @@ Checkbox（复选框）用于开启或关闭一个**独立的选择项**，也�
 
 1. **Label 容器**：原生 `<label>`，包裹复选框和文字，使点击文字也能切换状态。
 2. **原生 Input**：`<input type="checkbox">`，负责表单语义、焦点、键盘和选中状态。
-3. **Visual Box**：独立绘制的可见色盒；使用 Tahoe Tokens 决定尺寸、圆角和颜色。
+3. **Visual Box**：独立绘制的可见色盒；使用 Desktop Tokens 决定尺寸、圆角和颜色。
 4. **Checkmark**：装饰性 SVG 对勾，选中时可见；标记为 `aria-hidden`。
 5. **Label Text**：必需的 `label: string` 属性。
 
@@ -35,7 +35,7 @@ Checkbox（复选框）用于开启或关闭一个**独立的选择项**，也�
 
 - 左上角：卡片标题。
 - **Preview / Code** 切换 Tab。右上角的**浅色 / 深色**标签仅切换当前卡片。顶部的「外观」按钮切换全站主题。
-- Preview：渲染 `@macos-tahoe/ui` 实际导出的 `Checkbox`。
+- Preview：渲染 `@cgpdesktopui/ui` 实际导出的 `Checkbox`。
 - Code：显示与本卡片真实示例对应的 React + TypeScript 代码，支持高亮及 **Copy Code**。
 
 ### Card 1 — Checkbox Selection
@@ -58,7 +58,7 @@ Checkbox（复选框）用于开启或关闭一个**独立的选择项**，也�
 
 ## Sizes
 
-当前固定使用 Medium Tahoe Tokens，没有公开的 `size` Prop。
+当前固定使用 Medium Desktop Tokens，没有公开的 `size` Prop。
 
 | 项目 | 当前实现 |
 | --- | --- |
@@ -68,11 +68,11 @@ Checkbox（复选框）用于开启或关闭一个**独立的选择项**，也�
 | 色盒和标签间距 | `8px` |
 | 对勾 SVG 视觉宽 / 高 | `9.31px / 8.93px` |
 
-这些为项目 CSS 中的实现数值，**不代表已经核实的 Apple 官方 Tahoe 尺寸**。后续如需支持不同 Size，应先实现并验证组件，再更新文档。
+这些为项目 CSS 中的实现数值，**不代表已经核实的 Apple 官方 Desktop 尺寸**。后续如需支持不同 Size，应先实现并验证组件，再更新文档。
 
 ## Variants
 
-当前**没有 `variant` Prop**，只提供一套 Tahoe 风格外观，随 Light / Dark Theme 及选中状态变化。`checked` 和 `disabled` 是状态，不是 Variant。
+当前**没有 `variant` Prop**，只提供一套 Desktop 风格外观，随 Light / Dark Theme 及选中状态变化。`checked` 和 `disabled` 是状态，不是 Variant。
 
 ## States
 
@@ -82,7 +82,7 @@ Checkbox（复选框）用于开启或关闭一个**独立的选择项**，也�
 | Checked | 原生 `checked`，显示强调色背景和对勾 |
 | Hover | CSS 对可用且未选中的色盒设置悬停背景 |
 | Pressed | CSS `:active` 反馈，选中和未选中有不同处理 |
-| Focus | `:focus-visible` 时在视觉色盒上显示 Tahoe 焦点环 |
+| Focus | `:focus-visible` 时在视觉色盒上显示 Desktop 焦点环 |
 | Disabled | 原生 `disabled`，组件整体降低透明度，无法操作 |
 | Disabled + Checked | 禁用时保留选中值，不能交互 |
 | Indeterminate | **未实现专用 React Prop 或内置视觉规范**；不作为已支持状态宣传 |
@@ -94,7 +94,7 @@ Checkbox（复选框）用于开启或关闭一个**独立的选择项**，也�
 - 支持非受控 `defaultChecked`，也支持受控 `checked` + `onChange`。
 - `onChange` 是 React 原生 `ChangeEvent<HTMLInputElement>` 处理器，读取 `event.currentTarget.checked`。
 - `disabled` 禁止用户切换；可用 `name` 和 `value` 参与原生表单提交。未选中的 checkbox 不会作为普通表单值提交。
-- Light / Dark 配色由 Tahoe Design Tokens 与 Theme 容器管理，而不是组件的某个 Prop。
+- Light / Dark 配色由 Desktop Design Tokens 与 Theme 容器管理，而不是组件的某个 Prop。
 
 ## Accessibility
 
@@ -102,7 +102,7 @@ Checkbox（复选框）用于开启或关闭一个**独立的选择项**，也�
 - 文字位于包裹 Input 的 `<label>` 中，提供可访问名称并扩大可点击区域。
 - 自定义视觉盒及对勾是装饰层；视觉盒含 `aria-hidden="true"`。
 - 保留原生键盘、焦点、禁用和表单语义。
-- Focus ring 由 `--tahoe-control-focus` 定义；Forced Colors 模式存在针对原生输入的回退 CSS。
+- Focus ring 由 `--desktop-control-focus` 定义；Forced Colors 模式存在针对原生输入的回退 CSS。
 - 多个独立选项建议使用有意义的标签；是否需要 `<fieldset>` / `<legend>` 由调用方根据表单结构决定。
 - 颜色对比度、焦点可见性和读屏体验需要通过实际测试验证，不能未经测试声称 WCAG 全面合规。
 
@@ -138,12 +138,12 @@ declare function Checkbox(
 ### Basic / Uncontrolled
 
 ```tsx
-import { Checkbox } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Checkbox } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export function BasicCheckbox() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Checkbox label="显示文件名" defaultChecked />
       <Checkbox label="显示文件扩展名" />
     </div>
@@ -155,14 +155,14 @@ export function BasicCheckbox() {
 
 ```tsx
 import { useState } from 'react'
-import { Checkbox } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Checkbox } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export function ControlledCheckbox() {
   const [enabled, setEnabled] = useState(false)
 
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Checkbox
         label="显示文件名"
         checked={enabled}
@@ -177,11 +177,11 @@ export function ControlledCheckbox() {
 ### Disabled
 
 ```tsx
-import { Checkbox } from '@macos-tahoe/ui'
+import { Checkbox } from '@cgpdesktopui/ui'
 
 export function DisabledCheckboxes() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Checkbox label="不可选择" disabled />
       <Checkbox label="已选中且不可修改" defaultChecked disabled />
     </div>
@@ -193,27 +193,27 @@ export function DisabledCheckboxes() {
 
 ## Design Specifications
 
-所有样式应从**当前 Tahoe Design Tokens** 读取，不得在 Preview 组件中重复硬编码一套颜色和尺寸。
+所有样式应从**当前 Desktop Design Tokens** 读取，不得在 Preview 组件中重复硬编码一套颜色和尺寸。
 
 | 类别 | Token / 样式 | 当前用途 |
 | --- | --- | --- |
-| Checkbox Size | `--tahoe-checkbox-size` | 视觉色盒 16px |
-| Checkbox Radius | `--tahoe-checkbox-radius` | 色盒圆角 5.5px |
-| Checkmark | `--tahoe-checkbox-mark-width`、`--tahoe-checkbox-mark-height` | 对勾尺寸 |
-| Neutral Surface | `--tahoe-control` | 未选中背景 |
-| Accent Color | `--tahoe-accent` | 选中背景 |
-| Text Color | `--tahoe-label` | 标签文字 |
-| Checkmark Color | `--tahoe-on-accent` | 选中时对勾颜色 |
-| Border / Rim | `--tahoe-control-rim` | 色盒边缘 |
-| Focus | `--tahoe-control-focus` | 焦点环 |
-| Hover | `--tahoe-button-hover` | 未选中状态悬停反馈（当前实现复用） |
-| Pressed | `--tahoe-button-pressed`、`--tahoe-accent-pressed` | 按下反馈 |
-| Typography | `--tahoe-type-body-regular-*` | 当前标签排印 |
-| Layout | `--tahoe-global-height`、`--tahoe-gap` | 24px 最小行高、8px 间距 |
+| Checkbox Size | `--desktop-checkbox-size` | 视觉色盒 16px |
+| Checkbox Radius | `--desktop-checkbox-radius` | 色盒圆角 5.5px |
+| Checkmark | `--desktop-checkbox-mark-width`、`--desktop-checkbox-mark-height` | 对勾尺寸 |
+| Neutral Surface | `--desktop-control` | 未选中背景 |
+| Accent Color | `--desktop-accent` | 选中背景 |
+| Text Color | `--desktop-label` | 标签文字 |
+| Checkmark Color | `--desktop-on-accent` | 选中时对勾颜色 |
+| Border / Rim | `--desktop-control-rim` | 色盒边缘 |
+| Focus | `--desktop-control-focus` | 焦点环 |
+| Hover | `--desktop-button-hover` | 未选中状态悬停反馈（当前实现复用） |
+| Pressed | `--desktop-button-pressed`、`--desktop-accent-pressed` | 按下反馈 |
+| Typography | `--desktop-type-body-regular-*` | 当前标签排印 |
+| Layout | `--desktop-global-height`、`--desktop-gap` | 24px 最小行高、8px 间距 |
 
-主题由 Tahoe CSS 变量控制。根元素的 `.dark` 设置全局外观。预览卡片默认跟随全站主题，手动切换后使用卡片中选定的外观。
+主题由 Desktop CSS 变量控制。根元素的 `.dark` 设置全局外观。预览卡片默认跟随全站主题，手动切换后使用卡片中选定的外观。
 
-**来源分级**：Apple HIG 用于交互与可访问性原则；色盒 16px / 圆角 5.5px 来自项目采用的 Medium Tahoe Tokens，亦有第三方测量参考，不能称作 Apple 已认证的 Tahoe 精确规格。
+**来源分级**：Apple HIG 用于交互与可访问性原则；色盒 16px / 圆角 5.5px 来自项目采用的 Medium Desktop Tokens，亦有第三方测量参考，不能称作 Apple 已认证的 Desktop 精确规格。
 
 ## References
 
@@ -221,7 +221,7 @@ export function DisabledCheckboxes() {
 - [Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos)
 - [Apple Design Resources](https://developer.apple.com/design/resources/)
 - [Checkbox 组件源码](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/components/checkbox.tsx)
-- [Tahoe Design Tokens / CSS](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/tahoe-tokens.css)
+- [Desktop Design Tokens / CSS](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/desktop-tokens.css)
 - [项目设计规范](https://github.com/devcgp/macos-components-react/blob/main/docs/design.md)
 - [第三方 macOS Components 参考](https://github.com/tamnguyenvan/macos-components)
 

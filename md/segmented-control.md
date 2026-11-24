@@ -1,9 +1,9 @@
 # Segmented Control｜分段控制器
 
-> 组件：`SegmentedControl` · macOS Tahoe Components  
+> 组件：`SegmentedControl` · macOS Components\
 > 文档状态：基于当前仓库源码核对；Live Preview 为实施要求，尚不代表已验收  
 > 对应文件：`packages/ui/src/components/controls.tsx`  
-> 建议路由：`#/tahoe/segmented-control`
+> 建议路由：`#/desktop/segmented-control`
 
 ## 1. Overview
 
@@ -13,7 +13,7 @@ Segmented Control（分段控制器）用于在**少量互斥选项**中切换�
 
 ## 2. Anatomy
 
-1. **Container**：`.tahoe-segments`，包含整个分段组。
+1. **Container**：`.desktop-segments`，包含整个分段组。
 2. **Segment**：每个选项由一个 `<label>` 包裹原生 `input[type="radio"]` 与视觉文字 `<span>`。
 3. **Selected segment**：由 `checked={value === option}` 控制的单选项。
 4. **Focus indicator**：焦点可视化施加于对应视觉 `span`。
@@ -34,7 +34,7 @@ Segmented Control（分段控制器）用于在**少量互斥选项**中切换�
 
 **所有卡片统一结构：**标题位于左侧；右侧为 `Light / Dark` Tab；卡片内容提供独立的 `Preview / Code` Tab。`Preview` 是默认页，`Code` 提供对应完整 TSX 示例、语法高亮与 `Copy Code` 按钮。切换 Tab 不应意外清除当前示例选择；复制的代码应可通过项目 TypeScript 检查。
 
-主题必须使用当前 Tahoe 变量和正确的 `.dark` 祖先作用域。只添加 `data-theme="dark"` 不属于现有主题机制，不得将其当作有效实现。
+主题必须使用当前 Desktop 变量和正确的 `.dark` 祖先作用域。只添加 `data-theme="dark"` 不属于现有主题机制，不得将其当作有效实现。
 
 Live Preview 由文档站 React 渲染；本 Markdown 定义内容与验收标准，不包含假冒真实组件的静态 HTML 预览。
 
@@ -44,12 +44,12 @@ Live Preview 由文档站 React 渲染；本 Markdown 定义内容与验收标�
 
 | 属性 | 当前实现 | 来源 |
 | --- | --- | --- |
-| 外框最小高度 | 24px | `--tahoe-control-height` 在项目设计规范中；当前 `.tahoe-segments` 直接声明 `min-height: 24px` |
-| 外框圆角 | 6px | `.tahoe-segments` |
-| 外框内边距 | 2px | `.tahoe-segments` |
-| 分段间距 | 1px | `.tahoe-segments` |
-| 分段圆角 | 4px | `.tahoe-segments span` |
-| 分段水平内边距 | 10px | `.tahoe-segments span` |
+| 外框最小高度 | 24px | `--desktop-control-height` 在项目设计规范中；当前 `.desktop-segments` 直接声明 `min-height: 24px` |
+| 外框圆角 | 6px | `.desktop-segments` |
+| 外框内边距 | 2px | `.desktop-segments` |
+| 分段间距 | 1px | `.desktop-segments` |
+| 分段圆角 | 4px | `.desktop-segments span` |
+| 分段水平内边距 | 10px | `.desktop-segments span` |
 
 可通过选项文案自然决定宽度；组件当前没有内置全宽均分 Prop。
 
@@ -114,8 +114,8 @@ type SegmentedControlProps = {
 
 ```tsx
 import { useState } from 'react'
-import { SegmentedControl } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { SegmentedControl } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 const views = ['Grid', 'List']
 
@@ -123,7 +123,7 @@ export function ViewSwitcher() {
   const [view, setView] = useState('Grid')
 
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <SegmentedControl
         label="View layout"
         name="view-layout"
@@ -141,25 +141,25 @@ export function ViewSwitcher() {
 
 ## 11. Design Specifications
 
-**Tahoe Design Tokens 为单一来源**：遵循 `packages/ui/src/styles/tahoe-tokens.css` 和 `docs/tokens.md`，不复制第二套硬编码配色。
+**Desktop Design Tokens 为单一来源**：遵循 `packages/ui/src/styles/desktop-tokens.css` 和 `docs/tokens.md`，不复制第二套硬编码配色。
 
 | 视觉角色 | 当前样式/Token |
 | --- | --- |
-| 背景 | `--tahoe-control` |
-| 已选分段背景 | `--tahoe-accent` |
+| 背景 | `--desktop-control` |
+| 已选分段背景 | `--desktop-accent` |
 | 选中分段文字 | 当前 CSS 为 `#111`，属于已有实现，建议后续评审深浅色对比度；修改前不得擅称已用语义文字 Token |
-| 焦点边框 | `--tahoe-accent`，2px，outline-offset 2px |
-| 主题范围 | `[data-theme="tahoe"]` 及 `.dark` 祖先 |
-| 字体 | 继承项目 Tahoe 字体系统 |
+| 焦点边框 | `--desktop-accent`，2px，outline-offset 2px |
+| 主题范围 | `[data-theme="desktop"]` 及 `.dark` 祖先 |
+| 字体 | 继承项目 Desktop 字体系统 |
 
-**来源等级**：24px 外框及 6px 圆角属于仓库网页实现/项目参考规范，不应描述为 Apple 官方 Tahoe 26 精确认证尺寸。
+**来源等级**：24px 外框及 6px 圆角属于仓库网页实现/项目参考规范，不应描述为 Apple 官方 macOS 26 精确认证尺寸。
 
 实现改进应优先复用现有 Token；如需新增专用语义 Token，须同步 Token 定义、组件 CSS、中英文文档和视觉验证。
 
 ## 12. References
 
 - 实现源码：`packages/ui/src/components/controls.tsx`
-- CSS：`packages/ui/src/styles/tahoe-tokens.css`
+- CSS：`packages/ui/src/styles/desktop-tokens.css`
 - 总规范：`docs/design.md`
 - Tokens：`docs/tokens.md`
 - 目录：`apps/docs/src/app/catalog.ts`

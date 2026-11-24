@@ -2,13 +2,13 @@
 
 ## Goal
 
-Implement and verify the existing macOS Tahoe `Sidebar` component and its interactive documentation. Use `apps/docs/content/components/sidebar.md` and `sidebar.en.md` as the requirements and documentation sources, while treating actual React/TypeScript/CSS code as the authoritative source for implemented APIs. Preserve existing working functionality and routes.
+Implement and verify the existing macOS `Sidebar` component and its interactive documentation. Use `apps/docs/content/components/sidebar.md` and `sidebar.en.md` as the requirements and documentation sources, while treating actual React/TypeScript/CSS code as the authoritative source for implemented APIs. Preserve existing working functionality and routes.
 
 ## Read first
 
 - `packages/ui/src/components/sidebar.tsx`
-- `packages/ui/src/styles/tahoe-tokens.css`
-- `packages/ui/src/styles/tahoe-materials.css`
+- `packages/ui/src/styles/desktop-tokens.css`
+- `packages/ui/src/styles/desktop-materials.css`
 - `packages/ui/src/index.ts`
 - `docs/design.md` and `docs/tokens.md`
 - `apps/docs/src/app/catalog.ts`
@@ -33,7 +33,7 @@ Sidebar({ groups, selected, collapsed, onSelect, onToggle })
 
 ## Documentation framework
 
-- One page at `#/tahoe/sidebar`, backed by `sidebar.md` (zh) and `sidebar.en.md` (en).
+- One page at `#/desktop/sidebar`, backed by `sidebar.md` (zh) and `sidebar.en.md` (en).
 - Retain all 12 section headings: Overview, Anatomy, Live Preview, Sizes, Variants, States, Behavior, Accessibility, API Reference, Code Example, Design Specifications, References.
 - All prose/spec tables/code outside Live Preview come from Markdown and remain independently editable.
 - Live Preview renders real React components at the `## Live Preview` location; Markdown does not execute JSX.
@@ -44,7 +44,7 @@ Sidebar({ groups, selected, collapsed, onSelect, onToggle })
 Each card MUST have two independently working tab groups:
 
 1. `Preview / Code` — default `Preview`; `Code` shows matching copyable, syntax-highlighted React + TypeScript, including imports, state, and event callbacks; a working **Copy Code** button.
-2. `Light / Dark` — controls the **current card only**, preserving selected tab, selected sidebar item, and expanded/collapsed groups. Use the current Tahoe theme mechanism; avoid changing the entire documentation site's theme. If CSS depends on `.dark` ancestors, implement card-local dark theme scoping (and test it) instead of assuming `data-theme="dark"` is a valid existing API.
+2. `Light / Dark` — controls the **current card only**, preserving selected tab, selected sidebar item, and expanded/collapsed groups. Use the current Desktop theme mechanism; avoid changing the entire documentation site's theme. If CSS depends on `.dark` ancestors, implement card-local dark theme scoping (and test it) instead of assuming `data-theme="dark"` is a valid existing API.
 
 Use the shared Preview Card foundation already used for Button/Checkbox/Slider/Switch when possible. Do not fork duplicate card UI.
 
@@ -69,28 +69,28 @@ Use the shared Preview Card foundation already used for Button/Checkbox/Slider/S
 
 ### Card 4 — Sidebar in Window
 
-- Compose Sidebar with a real content region and existing Tahoe window layout primitives when available.
+- Compose Sidebar with a real content region and existing Desktop window layout primitives when available.
 - Test width, 220px parent-layout width token, 28px row geometry, truncated labels, and narrow-card overflow.
 - The viewport/window wrapper is an example composition, not intrinsic Sidebar functionality. Do not add `width`, `size`, `variant`, `resizable`, `onResize`, or `collapsedWidth` props merely to make the demo look comprehensive.
 
-## Tahoe Design Tokens
+## Desktop Design Tokens
 
 Reuse current tokens; do not add arbitrary hex color palettes or independently hardcode component dimensions:
 
-- `--tahoe-sidebar-width` (parent layout default 220px)
-- `--tahoe-sidebar-row-height` (28px)
-- `--tahoe-sidebar-row-radius` (5px)
-- `--tahoe-sidebar-inset` (8px)
-- `--tahoe-sidebar-group-gap` (16px)
-- `--tahoe-sidebar-surface`
-- `--tahoe-selection`
-- `--tahoe-accent`
-- `--tahoe-label`, `--tahoe-text-secondary`
-- `--tahoe-fills-tertiary`, `--tahoe-fills-primary`
-- `--tahoe-separator`
-- `--tahoe-font`, `--tahoe-body`, `--tahoe-caption`
+- `--desktop-sidebar-width` (parent layout default 220px)
+- `--desktop-sidebar-row-height` (28px)
+- `--desktop-sidebar-row-radius` (5px)
+- `--desktop-sidebar-inset` (8px)
+- `--desktop-sidebar-group-gap` (16px)
+- `--desktop-sidebar-surface`
+- `--desktop-selection`
+- `--desktop-accent`
+- `--desktop-label`, `--desktop-text-secondary`
+- `--desktop-fills-tertiary`, `--desktop-fills-primary`
+- `--desktop-separator`
+- `--desktop-font`, `--desktop-body`, `--desktop-caption`
 
-Use `@macos-tahoe/ui/styles.css`, `data-theme="tahoe"`, and the existing `.dark` class theme resolution. Preserve the distinction between project Web approximation and official Apple HIG.
+Use `@cgpdesktopui/ui/styles.css`, `data-theme="desktop"`, and the existing `.dark` class theme resolution. Preserve the distinction between project Web approximation and official Apple HIG.
 
 ## Component quality checks
 
@@ -105,7 +105,7 @@ Use `@macos-tahoe/ui/styles.css`, `data-theme="tahoe"`, and the existing `.dark`
 ## Validation
 
 1. Typecheck and production build.
-2. Visit `#/tahoe/sidebar` in both languages; verify Markdown sections are present and the correct translation loads.
+2. Visit `#/desktop/sidebar` in both languages; verify Markdown sections are present and the correct translation loads.
 3. Test all four cards, both tab groups, and working Copy Code.
 4. Confirm each Code tab's sample typechecks with the real public API.
 5. Test card-local Light/Dark on two cards independently, without altering the overall docs theme.

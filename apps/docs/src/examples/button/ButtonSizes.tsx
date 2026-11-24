@@ -1,5 +1,5 @@
-import { Button } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Button } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 const sizes = [
   ['mini', 'Mini'],
@@ -11,7 +11,7 @@ const sizes = [
 
 export function ButtonSizes() {
   return (
-    <div data-theme="tahoe" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
+    <div data-theme="desktop" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
       {sizes.map(([size, label]) => <Button key={size} size={size}>{label}</Button>)}
     </div>
   )

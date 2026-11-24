@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 test('keeps native TextField editing, focus, and validation in the live examples', async ({ page }) => {
   await page.emulateMedia({ colorScheme: 'light', reducedMotion: 'reduce' })
-  await page.goto('/?lang=en#/tahoe/text-field')
+  await page.goto('/?lang=en#/desktop/text-field')
   const basics = page.getByRole('region', { name: 'Text Field Basics', exact: true })
   const empty = basics.getByRole('textbox', { name: 'Empty', exact: true })
   await expect(empty).toHaveValue('')
@@ -49,7 +49,7 @@ test('keeps native TextField editing, focus, and validation in the live examples
 })
 
 test('exercises controlled, validation, and settings TextField compositions', async ({ page }) => {
-  await page.goto('/?lang=en#/tahoe/text-field')
+  await page.goto('/?lang=en#/desktop/text-field')
   const controlled = page.getByRole('region', { name: 'Controlled Text Field' })
   const name = controlled.getByRole('textbox', { name: 'Folder name' })
   await name.fill('旅行📷')
@@ -89,7 +89,7 @@ test('isolates card appearance, keeps typing state, and copies all localized Tex
       value: async (source: string) => sessionStorage.setItem('text-field-source', source),
     })
   })
-  await page.goto('/?lang=zh-CN#/tahoe/text-field')
+  await page.goto('/?lang=zh-CN#/desktop/text-field')
   const basics = page.getByRole('region', { name: '文本输入框基础', exact: true })
   const states = page.getByRole('region', { name: '文本输入框状态', exact: true })
   const input = basics.getByRole('textbox', { name: '空值' })
@@ -127,7 +127,7 @@ test('isolates card appearance, keeps typing state, and copies all localized Tex
     const card = page.getByRole('region', { name: title, exact: true })
     await card.getByRole('tab', { name: '代码', exact: true }).click()
     const code = card.locator('code')
-    await expect(code).toContainText('@macos-tahoe/ui/styles.css')
+    await expect(code).toContainText('@cgpdesktopui/ui/styles.css')
     await expect(code).toContainText(/\p{Script=Han}/u)
     await card.getByRole('button', { name: '复制代码', exact: true }).click()
     const source = await code.textContent()

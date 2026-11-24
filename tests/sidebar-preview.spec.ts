@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test'
 
 test('selects Notes collections and independently folds groups with native keyboard controls', async ({ page }) => {
-  await page.goto('/?lang=en#/tahoe/sidebar')
-  await expect(page.locator('.tahoe-preview-card')).toHaveCount(4)
+  await page.goto('/?lang=en#/desktop/sidebar')
+  await expect(page.locator('.desktop-preview-card')).toHaveCount(4)
   const navigation = page.getByRole('region', { name: 'Sidebar Navigation', exact: true })
   const nav = navigation.getByRole('navigation', { name: 'Notes library' })
   await expect(nav.getByRole('button', { name: 'Starred', exact: true })).toHaveAttribute('aria-current', 'true')
@@ -43,7 +43,7 @@ test('selects Notes collections and independently folds groups with native keybo
 
 test('shows genuine Sidebar interaction states and preserves selected-row feedback', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce', colorScheme: 'light' })
-  await page.goto('/?lang=en#/tahoe/sidebar')
+  await page.goto('/?lang=en#/desktop/sidebar')
   const card = page.getByRole('region', { name: 'Sidebar States', exact: true })
   const nav = card.getByRole('navigation')
   const current = nav.getByRole('button', { name: 'Starred', exact: true })
@@ -69,12 +69,12 @@ test('shows genuine Sidebar interaction states and preserves selected-row feedba
 })
 
 test('retains window selection while hiding the sidebar and wrapping at narrow widths', async ({ page }) => {
-  await page.goto('/?lang=en#/tahoe/sidebar')
+  await page.goto('/?lang=en#/desktop/sidebar')
   const card = page.getByRole('region', { name: 'Sidebar in Window', exact: true })
   const nav = card.getByRole('navigation', { name: 'Window collections' })
   await expect(nav).toHaveCSS('width', '220px')
   const longName = nav.getByRole('button', { name: 'Research, design references, and project notes' })
-  const text = longName.locator('.tahoe-sidebar-label')
+  const text = longName.locator('.desktop-sidebar-label')
   expect(await text.evaluate(element => element.scrollWidth > element.clientWidth)).toBe(true)
   await longName.click()
   await expect(card.locator('output')).toHaveText('Selected collection: Research, design references, and project notes')
@@ -98,7 +98,7 @@ test('copies bilingual Sidebar examples and scopes appearance to each card', asy
       value: async (source: string) => sessionStorage.setItem('sidebar-source', source),
     })
   })
-  await page.goto('/?lang=zh-CN#/tahoe/sidebar')
+  await page.goto('/?lang=zh-CN#/desktop/sidebar')
   const nav = page.getByRole('region', { name: '侧边栏导航', exact: true })
   const groups = page.getByRole('region', { name: '侧边栏分组', exact: true })
   await nav.getByRole('button', { name: '个人', exact: true }).click()
@@ -117,13 +117,13 @@ test('copies bilingual Sidebar examples and scopes appearance to each card', asy
     ['zh-CN', ['侧边栏导航', '侧边栏分组', '侧边栏状态', '窗口中的侧边栏'], '代码', '预览', '复制代码'],
     ['en', ['Sidebar Navigation', 'Sidebar Groups', 'Sidebar States', 'Sidebar in Window'], 'Code', 'Preview', 'Copy code'],
   ] as const) {
-    await page.goto('/?lang=' + locale + '#/tahoe/sidebar')
+    await page.goto('/?lang=' + locale + '#/desktop/sidebar')
     for (const title of titles) {
       const card = page.getByRole('region', { name: title, exact: true })
       await card.getByRole('tab', { name: codeTab, exact: true }).click()
       const code = card.locator('code.language-tsx')
       await expect(code).toContainText("import { useState } from 'react'")
-      await expect(code).toContainText('@macos-tahoe/ui/styles.css')
+      await expect(code).toContainText('@cgpdesktopui/ui/styles.css')
       await expect(code).not.toContainText('lucide-react')
       const source = await code.textContent()
       await card.getByRole('button', { name: copy, exact: true }).click()

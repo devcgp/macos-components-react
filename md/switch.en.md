@@ -1,21 +1,21 @@
 # Switch
 
-> macOS Tahoe Components · English component documentation  
-> Route: `#/tahoe/switch` · Chinese counterpart: `switch.md`  
-> Implementation references: `packages/ui/src/components/switch.tsx` and `packages/ui/src/styles/tahoe-tokens.css`. The repository implementation and latest Tahoe Design Tokens are authoritative.
+> macOS Components · English component documentation\
+> Route: `#/desktop/switch` · Chinese counterpart: `switch.md`\
+> Implementation references: `packages/ui/src/components/switch.tsx` and `packages/ui/src/styles/desktop-tokens.css`. The repository implementation and latest Desktop Design Tokens are authoritative.
 
 ## Overview
 
 A Switch immediately turns a setting on or off, such as file-name visibility, notifications, or automatic synchronization. It represents a distinct **On / Off** state. Use separate switches for independent settings. When multiple choices are committed together, checkboxes may be more appropriate.
 
-The project implements Switch in React using a native `input[type="checkbox"]` with `role="switch"`, styled with a macOS Tahoe-like track and thumb. This is a web implementation, not a native Apple control.
+The project implements Switch in React using a native `input[type="checkbox"]` with `role="switch"`, styled with a macOS-like track and thumb. This is a web implementation, not a native Apple control.
 
 ## Anatomy
 
 1. **Label**: required `label` text, associated with the native input using a wrapping `<label>`.
 2. **Input**: native checkbox providing form behavior and keyboard support; declares `role="switch"`.
-3. **Track**: `.tahoe-switch-track`, styled using Tahoe tokens.
-4. **Thumb**: `.tahoe-switch-thumb`, which moves with the checked state.
+3. **Track**: `.desktop-switch-track`, styled using Desktop tokens.
+4. **Thumb**: `.desktop-switch-thumb`, which moves with the checked state.
 5. **Focus Ring**: focus indicator around the track during keyboard navigation.
 
 The decorative track and thumb are `aria-hidden="true"`; assistive technology uses the native input and its label.
@@ -44,15 +44,15 @@ The current Switch has **one standard size** and **no `size` prop**. Do not copy
 
 | Part | Current project CSS size | Token / basis |
 | --- | --- | --- |
-| Track | 54 × 24 CSS px | `--tahoe-switch-width`, `--tahoe-switch-height` |
-| Track radius | 12 CSS px | `calc(var(--tahoe-switch-height) / 2)` |
-| Thumb | 32 × 20 CSS px | `--tahoe-switch-thumb-width`; track height minus two 2px insets |
-| Thumb inset | 2 CSS px | `--tahoe-switch-inset` |
+| Track | 54 × 24 CSS px | `--desktop-switch-width`, `--desktop-switch-height` |
+| Track radius | 12 CSS px | `calc(var(--desktop-switch-height) / 2)` |
+| Thumb | 32 × 20 CSS px | `--desktop-switch-thumb-width`; track height minus two 2px insets |
+| Thumb inset | 2 CSS px | `--desktop-switch-inset` |
 | Thumb travel | 18 CSS px | Derived from track width, thumb width, and insets |
-| Label / track gap | 8 CSS px | Current `.tahoe-switch` rule |
-| Minimum row height | 24 CSS px | Current `.tahoe-switch` rule |
+| Label / track gap | 8 CSS px | Current `.desktop-switch` rule |
+| Minimum row height | 24 CSS px | Current `.desktop-switch` rule |
 
-These figures describe project CSS and third-party measurements, not Apple-certified Tahoe dimensions.
+These figures describe project CSS and third-party measurements, not Apple-certified Desktop dimensions.
 
 ## Variants
 
@@ -62,11 +62,11 @@ The current Switch **does not expose a `variant` prop**. Light / Dark are themes
 
 | State | Implementation status | Behavior and visual |
 | --- | --- | --- |
-| Off | Implemented | Unchecked; uses `--tahoe-switch-off` |
-| On | Implemented | Checked; track uses `--tahoe-accent` and thumb moves |
+| Off | Implemented | Unchecked; uses `--desktop-switch-off` |
+| On | Implemented | Checked; track uses `--desktop-accent` and thumb moves |
 | Hover | Native pointer interaction | Do not claim a dedicated hover style; verify CSS and only add one through an explicit component change |
 | Pressed | CSS implemented | Active track changes based on checked state |
-| Focus Visible | CSS implemented | Keyboard focus uses `--tahoe-control-focus` |
+| Focus Visible | CSS implemented | Keyboard focus uses `--desktop-control-focus` |
 | Disabled Off / On | Implemented | Native disabled input; thumb opacity reduced and cannot be toggled |
 | Selected | Not applicable | Use On / Off or Checked / Unchecked terminology |
 | Loading / Indeterminate | Not implemented | Do not advertise these as APIs |
@@ -86,7 +86,7 @@ The current Switch **does not expose a `variant` prop**. Light / Dark are themes
 - The required `label` supplies an accessible name through native label association.
 - Native input behavior exposes checked and disabled state and keyboard operation.
 - The visual track and thumb have `aria-hidden="true"` to avoid duplicate announcements.
-- The visible focus indicator uses `--tahoe-control-focus`.
+- The visible focus indicator uses `--desktop-control-focus`.
 - Applications providing additional descriptions should associate them accessibly; the current component has no dedicated `description` prop.
 - Test screen readers, contrast, forced colors, and reduced motion. Do not claim WCAG conformance without verification.
 
@@ -109,17 +109,17 @@ Actual export: `Switch`. Its prop type is `Omit<ComponentProps<'input'>, 'type' 
 
 ## Code Example
 
-The following examples use the implemented API. The CSS entry point is `@macos-tahoe/ui/styles.css`; components belong in a `data-theme="tahoe"` context.
+The following examples use the implemented API. The CSS entry point is `@cgpdesktopui/ui/styles.css`; components belong in a `data-theme="desktop"` context.
 
 ### Uncontrolled
 
 ```tsx
-import { Switch } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Switch } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export function SimpleSwitch() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Switch label="Show file names" defaultChecked />
     </div>
   )
@@ -130,14 +130,14 @@ export function SimpleSwitch() {
 
 ```tsx
 import { useState } from 'react'
-import { Switch } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Switch } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export function ControlledSwitch() {
   const [enabled, setEnabled] = useState(false)
 
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Switch
         label="Sync favorites"
         checked={enabled}
@@ -155,34 +155,34 @@ export function ControlledSwitch() {
 <Switch label="Disabled setting" disabled defaultChecked />
 ```
 
-The short disabled example assumes Switch has been imported and Tahoe theme context is provided.
+The short disabled example assumes Switch has been imported and Desktop theme context is provided.
 
 ## Design Specifications
 
-Reuse existing Tahoe Design Tokens instead of hardcoding another color, geometry, or shadow system.
+Reuse existing Desktop Design Tokens instead of hardcoding another color, geometry, or shadow system.
 
 | Category | Token | Role |
 | --- | --- | --- |
-| Geometry | `--tahoe-switch-width` | Track width: 54px |
-| Geometry | `--tahoe-switch-height` | Track height: 24px |
-| Geometry | `--tahoe-switch-thumb-width` | Thumb width: 32px |
-| Geometry | `--tahoe-switch-inset` | Thumb inset: 2px |
-| Color | `--tahoe-switch-off` | Off-track background; differs in Light / Dark |
-| Color | `--tahoe-accent` | On-track background |
-| Color | `--tahoe-switch-thumb-color` | Thumb fill; differs in Light / Dark |
-| Surface | `--tahoe-switch-rim` | Track rim |
-| Shadow | `--tahoe-switch-thumb-shadow` | Thumb shadow |
-| State | `--tahoe-button-pressed` / `--tahoe-accent-pressed` | Pressed track colors |
-| Focus | `--tahoe-control-focus` | Visible focus ring |
-| Motion | `--tahoe-control-transition` | Thumb transition; 0ms in reduced motion |
-| Typography | `--tahoe-regular-type`, `--tahoe-label` | Label typography and color |
+| Geometry | `--desktop-switch-width` | Track width: 54px |
+| Geometry | `--desktop-switch-height` | Track height: 24px |
+| Geometry | `--desktop-switch-thumb-width` | Thumb width: 32px |
+| Geometry | `--desktop-switch-inset` | Thumb inset: 2px |
+| Color | `--desktop-switch-off` | Off-track background; differs in Light / Dark |
+| Color | `--desktop-accent` | On-track background |
+| Color | `--desktop-switch-thumb-color` | Thumb fill; differs in Light / Dark |
+| Surface | `--desktop-switch-rim` | Track rim |
+| Shadow | `--desktop-switch-thumb-shadow` | Thumb shadow |
+| State | `--desktop-button-pressed` / `--desktop-accent-pressed` | Pressed track colors |
+| Focus | `--desktop-control-focus` | Visible focus ring |
+| Motion | `--desktop-control-transition` | Thumb transition; 0ms in reduced motion |
+| Typography | `--desktop-regular-type`, `--desktop-label` | Label typography and color |
 
-Theme convention: render beneath `[data-theme="tahoe"]`; the `.dark` ancestor activates dark tokens. For card-level theme controls, scope the `.dark` ancestor to that card rather than changing the entire documentation page. This HTML/CSS switch is not the native macOS system control.
+Theme convention: render beneath `[data-theme="desktop"]`; the `.dark` ancestor activates dark tokens. For card-level theme controls, scope the `.dark` ancestor to that card rather than changing the entire documentation page. This HTML/CSS switch is not the native macOS system control.
 
 ## References
 
 - [Project Switch source](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/components/switch.tsx)
-- [Project Tahoe Design Tokens](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/tahoe-tokens.css)
+- [Project Desktop Design Tokens](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/desktop-tokens.css)
 - [Project design documentation](https://github.com/devcgp/macos-components-react/blob/main/docs/design.md)
 - [Apple Human Interface Guidelines — Switches](https://developer.apple.com/design/human-interface-guidelines/switches) (interaction guidance; not the source of the project's exact CSS dimensions)
 - [Third-party macOS Components](https://github.com/tamnguyenvan/macos-components) (third-party visual measurement reference cited by this repository)

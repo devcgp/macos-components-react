@@ -39,12 +39,12 @@ label、value。
 ## Code Example
 
 ```tsx
-import { Progress } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Progress } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Progress label="导入进度" value={45} />
     </div>
   )

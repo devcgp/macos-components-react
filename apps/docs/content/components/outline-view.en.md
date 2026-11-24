@@ -37,12 +37,12 @@ items, with optional children on each branch.
 ## Code Example
 
 ```tsx
-import { OutlineView } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { OutlineView } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <OutlineView items={[{ id: "1", label: "Library", children: [{ id: "2", label: "Favorites" }] }]} />
     </div>
   )

@@ -37,13 +37,13 @@ label、actions。
 ## Code Example
 
 ```tsx
-import { ContextMenu } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { ContextMenu } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   const showInfo = () => document.getElementById("example-status")?.replaceChildren("JPEG")
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <ContextMenu label="照片操作" actions={[{ id: "info", label: "简介", onSelect: showInfo }]} />
       <output id="example-status" />
     </div>

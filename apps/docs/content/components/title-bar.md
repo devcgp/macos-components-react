@@ -37,12 +37,12 @@ title、actions。
 ## Code Example
 
 ```tsx
-import { TitleBar } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { TitleBar } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <TitleBar title="照片图库" />
     </div>
   )

@@ -37,12 +37,12 @@ tone、children 和原生 div 属性。
 ## Code Example
 
 ```tsx
-import { TextView } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { TextView } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <TextView tone="secondary">三张照片</TextView>
     </div>
   )

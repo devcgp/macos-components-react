@@ -12,7 +12,7 @@ export function readLocale(): Locale {
   const query = new URLSearchParams(location.search).get('lang')
   if (query === 'en' || query === 'zh-CN') return query
   try {
-    if (localStorage.getItem('tahoe-language') === 'en') return 'en'
+    if (localStorage.getItem('desktop-language') === 'en') return 'en'
   } catch { /* storage can be unavailable */ }
   return 'zh-CN'
 }

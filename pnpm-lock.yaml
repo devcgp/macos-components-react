@@ -32,7 +32,7 @@ importers:
       '@headlessui/react':
         specifier: 2.2.9
         version: 2.2.9(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@macos-tahoe/ui':
+      '@cgpdesktopui/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       highlight.js:

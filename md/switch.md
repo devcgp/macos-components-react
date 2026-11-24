@@ -1,21 +1,21 @@
 # Switch
 
-> macOS Tahoe Components · 组件文档（中文）  
-> 路由：`#/tahoe/switch` · 对应英文：`switch.en.md`  
-> 实现依据：`packages/ui/src/components/switch.tsx`、`packages/ui/src/styles/tahoe-tokens.css`。以仓库实际代码与最新 Tahoe Design Tokens 为准。
+> macOS Components · 组件文档（中文）\
+> 路由：`#/desktop/switch` · 对应英文：`switch.en.md`\
+> 实现依据：`packages/ui/src/components/switch.tsx`、`packages/ui/src/styles/desktop-tokens.css`。以仓库实际代码与最新 Desktop Design Tokens 为准。
 
 ## Overview
 
 Switch（开关）用于立即开启或关闭一项设置，例如显示文件名、通知或自动同步。它表达明确的 **On / Off** 状态；多个独立选项可各自使用 Switch。需要提交后统一生效的多项选择，通常更适合 Checkbox。
 
-本项目 Switch 是基于原生 `input[type="checkbox"]` 的 React 组件，使用 `role="switch"` 表达开关语义。视觉采用 macOS Tahoe 风格的轨道与滑块；这是 Web 实现，不应称作 Apple 官方原生控件。
+本项目 Switch 是基于原生 `input[type="checkbox"]` 的 React 组件，使用 `role="switch"` 表达开关语义。视觉采用 macOS 风格的轨道与滑块；这是 Web 实现，不应称作 Apple 官方原生控件。
 
 ## Anatomy
 
 1. **Label**：必填文字 `label`，与原生输入处于同一 `<label>` 中。
 2. **Input**：保留表单与键盘行为的原生 checkbox，声明 `role="switch"`。
-3. **Track**：视觉轨道 `.tahoe-switch-track`，由 CSS Tokens 控制。
-4. **Thumb**：滑块 `.tahoe-switch-thumb`，随选中状态移动。
+3. **Track**：视觉轨道 `.desktop-switch-track`，由 CSS Tokens 控制。
+4. **Thumb**：滑块 `.desktop-switch-thumb`，随选中状态移动。
 5. **Focus Ring**：在键盘焦点状态下包围轨道的焦点指示器。
 
 视觉轨道与滑块标记为 `aria-hidden="true"`，辅助技术以原生输入及标签为准。
@@ -44,29 +44,29 @@ Switch（开关）用于立即开启或关闭一项设置，例如显示文件�
 
 | 部位 | 当前项目 CSS 尺寸 | Token / 依据 |
 | --- | --- | --- |
-| Track | 54 × 24 CSS px | `--tahoe-switch-width`、`--tahoe-switch-height` |
-| Track Radius | 12 CSS px | `calc(var(--tahoe-switch-height) / 2)` |
-| Thumb | 32 × 20 CSS px | `--tahoe-switch-thumb-width`；轨道高减去上下 2px 边距 |
-| Thumb Inset | 2 CSS px | `--tahoe-switch-inset` |
+| Track | 54 × 24 CSS px | `--desktop-switch-width`、`--desktop-switch-height` |
+| Track Radius | 12 CSS px | `calc(var(--desktop-switch-height) / 2)` |
+| Thumb | 32 × 20 CSS px | `--desktop-switch-thumb-width`；轨道高减去上下 2px 边距 |
+| Thumb Inset | 2 CSS px | `--desktop-switch-inset` |
 | Thumb Travel | 18 CSS px | 按现有轨道宽度、滑块宽度与内缩计算 |
-| Label / Track Gap | 8 CSS px | 当前 `.tahoe-switch` 规则 |
-| Row Minimum Height | 24 CSS px | 当前 `.tahoe-switch` 规则 |
+| Label / Track Gap | 8 CSS px | 当前 `.desktop-switch` 规则 |
+| Row Minimum Height | 24 CSS px | 当前 `.desktop-switch` 规则 |
 
-以上为项目 CSS 与第三方尺寸参考，不代表 Apple 官方发布的 Tahoe 测量规格。
+以上为项目 CSS 与第三方尺寸参考，不代表 Apple 官方发布的 Desktop 测量规格。
 
 ## Variants
 
-当前 Switch **没有 `variant` Prop**，只使用同一种 Tahoe 视觉形式。Light / Dark 是主题，不是组件变体；On / Off 是交互状态，不是组件变体。
+当前 Switch **没有 `variant` Prop**，只使用同一种 Desktop 视觉形式。Light / Dark 是主题，不是组件变体；On / Off 是交互状态，不是组件变体。
 
 ## States
 
 | 状态 | 当前支持情况 | 行为与视觉 |
 | --- | --- | --- |
-| Off | 已实现 | 未选中，使用 `--tahoe-switch-off` 轨道色 |
-| On | 已实现 | 选中，轨道使用 `--tahoe-accent`，滑块移至另一端 |
+| Off | 已实现 | 未选中，使用 `--desktop-switch-off` 轨道色 |
+| On | 已实现 | 选中，轨道使用 `--desktop-accent`，滑块移至另一端 |
 | Hover | 依赖浏览器的正常交互 | 不宣称存在独立 Hover 视觉样式；后续需核验，如需添加先修改组件 CSS |
 | Pressed | 已有 CSS | 按住时轨道根据是否选中使用相应按下状态颜色 |
-| Focus Visible | 已有 CSS | 键盘焦点显示 `--tahoe-control-focus` |
+| Focus Visible | 已有 CSS | 键盘焦点显示 `--desktop-control-focus` |
 | Disabled Off / On | 已实现 | 原生输入禁用；滑块透明度降低，无法切换 |
 | Selected | 不适用 | 对 Switch 应称 `On / Off` 或 `Checked / Unchecked` |
 | Loading / Indeterminate | 未实现 | 不显示为支持的 API |
@@ -86,7 +86,7 @@ Switch（开关）用于立即开启或关闭一项设置，例如显示文件�
 - 必填 `label` 提供可访问名称；标签与输入原生关联。
 - 原生控件提供 checked、disabled 状态及键盘操作。
 - 自定义轨道和滑块设置 `aria-hidden="true"`，避免重复朗读。
-- 焦点可视样式使用 `--tahoe-control-focus`。
+- 焦点可视样式使用 `--desktop-control-focus`。
 - 如显示附加帮助文字，需要由集成方建立合适的可访问关联；当前组件没有专门的 `description` Prop。
 - 应检验屏幕阅读器、对比度、Forced Colors 和 Reduced Motion；未通过的测试不得宣称通过 WCAG。
 
@@ -109,17 +109,17 @@ Switch（开关）用于立即开启或关闭一项设置，例如显示文件�
 
 ## Code Example
 
-以下代码与当前组件公开 API 对应。项目的样式入口为 `@macos-tahoe/ui/styles.css`，主题容器为 `data-theme="tahoe"`。
+以下代码与当前组件公开 API 对应。项目的样式入口为 `@cgpdesktopui/ui/styles.css`，主题容器为 `data-theme="desktop"`。
 
 ### 非受控开关
 
 ```tsx
-import { Switch } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Switch } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export function SimpleSwitch() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Switch label="显示文件名" defaultChecked />
     </div>
   )
@@ -130,14 +130,14 @@ export function SimpleSwitch() {
 
 ```tsx
 import { useState } from 'react'
-import { Switch } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Switch } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export function ControlledSwitch() {
   const [enabled, setEnabled] = useState(false)
 
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Switch
         label="同步收藏"
         checked={enabled}
@@ -155,34 +155,34 @@ export function ControlledSwitch() {
 <Switch label="禁用的开关" disabled defaultChecked />
 ```
 
-以上简短禁用示例需放在已导入 `Switch` 的 TSX 文件与 Tahoe 主题上下文中。
+以上简短禁用示例需放在已导入 `Switch` 的 TSX 文件与 Desktop 主题上下文中。
 
 ## Design Specifications
 
-优先复用现有 Tahoe Design Tokens，而非重复硬编码颜色、尺寸与阴影。
+优先复用现有 Desktop Design Tokens，而非重复硬编码颜色、尺寸与阴影。
 
 | 类别 | Token | 用途 |
 | --- | --- | --- |
-| Geometry | `--tahoe-switch-width` | 轨道宽度：54px |
-| Geometry | `--tahoe-switch-height` | 轨道高度：24px |
-| Geometry | `--tahoe-switch-thumb-width` | 滑块宽度：32px |
-| Geometry | `--tahoe-switch-inset` | 滑块内缩：2px |
-| Color | `--tahoe-switch-off` | 关闭轨道背景；Light / Dark 不同 |
-| Color | `--tahoe-accent` | 开启轨道背景 |
-| Color | `--tahoe-switch-thumb-color` | 滑块背景；Light / Dark 不同 |
-| Surface | `--tahoe-switch-rim` | 轨道边缘 |
-| Shadow | `--tahoe-switch-thumb-shadow` | 滑块阴影 |
-| State | `--tahoe-button-pressed` / `--tahoe-accent-pressed` | 按下轨道色 |
-| Focus | `--tahoe-control-focus` | 可见焦点环 |
-| Motion | `--tahoe-control-transition` | 滑块位移过渡；减少动态偏好下为 0ms |
-| Typography | `--tahoe-regular-type`、`--tahoe-label` | 开关标签排印与颜色 |
+| Geometry | `--desktop-switch-width` | 轨道宽度：54px |
+| Geometry | `--desktop-switch-height` | 轨道高度：24px |
+| Geometry | `--desktop-switch-thumb-width` | 滑块宽度：32px |
+| Geometry | `--desktop-switch-inset` | 滑块内缩：2px |
+| Color | `--desktop-switch-off` | 关闭轨道背景；Light / Dark 不同 |
+| Color | `--desktop-accent` | 开启轨道背景 |
+| Color | `--desktop-switch-thumb-color` | 滑块背景；Light / Dark 不同 |
+| Surface | `--desktop-switch-rim` | 轨道边缘 |
+| Shadow | `--desktop-switch-thumb-shadow` | 滑块阴影 |
+| State | `--desktop-button-pressed` / `--desktop-accent-pressed` | 按下轨道色 |
+| Focus | `--desktop-control-focus` | 可见焦点环 |
+| Motion | `--desktop-control-transition` | 滑块位移过渡；减少动态偏好下为 0ms |
+| Typography | `--desktop-regular-type`、`--desktop-label` | 开关标签排印与颜色 |
 
-主题约定：组件置于 `[data-theme="tahoe"]` 下；深色主题通过祖先 `.dark` 生效。若文档卡片需要局部 Dark 模式，确保 `.dark` 作用范围隔离在该卡片内，同时不能破坏现有主题规则。当前组件的 HTML / CSS 并非原生 macOS 系统 Switch。
+主题约定：组件置于 `[data-theme="desktop"]` 下；深色主题通过祖先 `.dark` 生效。若文档卡片需要局部 Dark 模式，确保 `.dark` 作用范围隔离在该卡片内，同时不能破坏现有主题规则。当前组件的 HTML / CSS 并非原生 macOS 系统 Switch。
 
 ## References
 
 - [项目 Switch 源码](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/components/switch.tsx)
-- [项目 Tahoe Design Tokens](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/tahoe-tokens.css)
+- [项目 Desktop Design Tokens](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/desktop-tokens.css)
 - [项目 Design 规范](https://github.com/devcgp/macos-components-react/blob/main/docs/design.md)
 - [Apple Human Interface Guidelines — Switches](https://developer.apple.com/design/human-interface-guidelines/switches)（平台交互参考；不能据此宣称 CSS 像素尺寸为官方值）
 - [第三方 macOS Components](https://github.com/tamnguyenvan/macos-components)（仓库中注明的第三方视觉尺寸参考）

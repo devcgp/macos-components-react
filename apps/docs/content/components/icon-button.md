@@ -37,12 +37,12 @@ Button 属性及必填 label。
 ## Code Example
 
 ```tsx
-import { IconButton } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { IconButton } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <IconButton label="刷新">↻</IconButton>
     </div>
   )

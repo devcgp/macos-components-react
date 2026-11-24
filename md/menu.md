@@ -1,7 +1,7 @@
 # Menu / Dropdown Menu — 组件设计规范（中文版）
 
-> 组件：`DropdownMenu` · 文档路由：`#/tahoe/dropdown-menu`（以网站现有路由映射为准） · 组件实现：`packages/ui/src/components/navigation.tsx` · 样式：`packages/ui/src/styles/tahoe-tokens.css`  
-> 状态：基于当前仓库已实现能力；设计目标为 macOS Tahoe 风格的 Web 近似实现，不等同于 Apple 原生菜单。本文保持 12 个统一章节，Live Preview 由 React 渲染，Markdown 负责说明。
+> 组件：`DropdownMenu` · 文档路由：`#/desktop/dropdown-menu`（以网站现有路由映射为准） · 组件实现：`packages/ui/src/components/navigation.tsx` · 样式：`packages/ui/src/styles/desktop-tokens.css`\
+> 状态：基于当前仓库已实现能力；设计目标为 macOS 风格的 Web 近似实现，不等同于 Apple 原生菜单。本文保持 12 个统一章节，Live Preview 由 React 渲染，Markdown 负责说明。
 
 ## 01. Overview
 
@@ -15,8 +15,8 @@ Menu 用于将与当前任务或对象有关的多条**离散命令**收纳在�
 
 | 部分 | 当前实现 | 职责 |
 |---|---|---|
-| Trigger | `MenuButton.tahoe-menu-trigger` | 展示 `label`，点击或键盘激活菜单 |
-| Menu Surface | `MenuItems.tahoe-menu` | 承载菜单项，`anchor="bottom start"` |
+| Trigger | `MenuButton.desktop-menu-trigger` | 展示 `label`，点击或键盘激活菜单 |
+| Menu Surface | `MenuItems.desktop-menu` | 承载菜单项，`anchor="bottom start"` |
 | Menu Item | `MenuItem` 内的 `button` | 执行对应 `onSelect` |
 | Disabled Item | `MenuItem disabled` + `button disabled` | 阻止执行，不应作为可用命令 |
 | Focus / Active | Headless UI 焦点状态 + CSS `[data-focus]` | 指示键盘导航位置 |
@@ -32,7 +32,7 @@ Menu 用于将与当前任务或对象有关的多条**离散命令**收纳在�
 | **Menu Basics** | `File` 菜单，包括 Open、Rename、Duplicate | 真实触发、选择执行、菜单关闭、操作结果反馈 |
 | **Menu States** | Enabled / Disabled Actions；展示活动项与焦点 | 禁用项不可执行，焦点可见 |
 | **Keyboard Interaction** | 键盘打开并以方向键选择；Enter/Space 执行，Escape 关闭 | 焦点管理、关闭后焦点返回、不会触发其他业务动作 |
-| **Menu in Toolbar** | 在 Tahoe Toolbar 或 Window 中放置 `DropdownMenu` | 弹层不被裁剪，响应宽度变化，主题一致 |
+| **Menu in Toolbar** | 在 Desktop Toolbar 或 Window 中放置 `DropdownMenu` | 弹层不被裁剪，响应宽度变化，主题一致 |
 
 **每张卡片的统一结构**：卡片标题；`Light / Dark`（只影响当前卡片及其浮层）；`Preview / Code`；TSX 代码高亮与 Copy Code。Preview 默认显示，代码应与实际卡片一致并能独立复制使用。实例数据应为本地示例，不操作真实文件。
 
@@ -40,11 +40,11 @@ Menu 用于将与当前任务或对象有关的多条**离散命令**收纳在�
 
 ## 04. Sizes
 
-当前 `DropdownMenu` **没有** `size` Prop，不能为其虚构 Mini、Small、Large 等尺寸 API。实际几何由已有 Tahoe CSS 定义：
+当前 `DropdownMenu` **没有** `size` Prop，不能为其虚构 Mini、Small、Large 等尺寸 API。实际几何由已有 Desktop CSS 定义：
 
 | 元素 | 当前实现 |
 |---|---|
-| Trigger 最小高度 | `--tahoe-control-height`（目前 24px） |
+| Trigger 最小高度 | `--desktop-control-height`（目前 24px） |
 | Trigger 最小宽度 | 84px（CSS） |
 | Menu 最小宽度 | 132px（CSS） |
 | Menu 内边距 | 4px |
@@ -52,7 +52,7 @@ Menu 用于将与当前任务或对象有关的多条**离散命令**收纳在�
 | Menu 圆角 | 10px |
 | Menu Item 圆角 | 5px |
 
-上述数值属于**仓库当前 Web 设计实现**，不宣称是经 Apple Tahoe UI Kit 官方节点实测的规格。
+上述数值属于**仓库当前 Web 设计实现**，不宣称是经 Apple macOS UI Kit 官方节点实测的规格。
 
 ## 05. Variants
 
@@ -129,7 +129,7 @@ export function DropdownMenu(props: {
 ### 简单命令菜单
 
 ```tsx
-import { DropdownMenu, type MenuAction } from '@macos-tahoe/ui'
+import { DropdownMenu, type MenuAction } from '@cgpdesktopui/ui'
 
 export function FileMenuExample() {
   const actions: MenuAction[] = [
@@ -139,7 +139,7 @@ export function FileMenuExample() {
   ]
 
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <DropdownMenu label="文件" actions={actions} />
     </div>
   )
@@ -149,11 +149,11 @@ export function FileMenuExample() {
 ### 与工具栏组合
 
 ```tsx
-import { DropdownMenu, Toolbar } from '@macos-tahoe/ui'
+import { DropdownMenu, Toolbar } from '@cgpdesktopui/ui'
 
 export function PhotoToolbarExample() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Toolbar
         title="照片"
         actions={
@@ -175,26 +175,26 @@ export function PhotoToolbarExample() {
 
 ## 11. Design Specifications
 
-### Tahoe Tokens 与 CSS 映射
+### Desktop Tokens 与 CSS 映射
 
 | 设计用途 | 现有 Token / 样式 | 来源级别 |
 |---|---|---|
-| 触发器高度 | `--tahoe-control-height` | 项目 CSS |
-| 触发器背景 | `--tahoe-control` | 现有语义 Token |
-| 文本 | `--tahoe-label` | 现有语义 Token |
-| 菜单背景 | `--tahoe-menu` | 现有语义 Token |
-| 菜单描边 | `--tahoe-menu-rim` | 现有语义 Token |
-| 菜单阴影 | `--tahoe-menu-shadow` | 现有语义 Token |
-| 焦点/活动高亮 | `--tahoe-focus` | 现有语义 Token |
-| 主题强调色 | `--tahoe-accent` | 现有语义 Token |
-| 文字排版 | `--tahoe-font`、`--tahoe-body` | 现有语义 Token |
+| 触发器高度 | `--desktop-control-height` | 项目 CSS |
+| 触发器背景 | `--desktop-control` | 现有语义 Token |
+| 文本 | `--desktop-label` | 现有语义 Token |
+| 菜单背景 | `--desktop-menu` | 现有语义 Token |
+| 菜单描边 | `--desktop-menu-rim` | 现有语义 Token |
+| 菜单阴影 | `--desktop-menu-shadow` | 现有语义 Token |
+| 焦点/活动高亮 | `--desktop-focus` | 现有语义 Token |
+| 主题强调色 | `--desktop-accent` | 现有语义 Token |
+| 文字排版 | `--desktop-font`、`--desktop-body` | 现有语义 Token |
 
 现有样式使用 `backdrop-filter: blur(24px)` 作为网页材质近似效果。浮层浅深色通过主题规则变化；不创建单独的硬编码配色体系。若完善颜色、间距、透明度或菜单高度，应优先更新共享 CSS Token，并进行跨组件回归检查。
 
 ### 视觉验收
 
 - 同一菜单在 Light / Dark 均保持可读。
-- 浮层与触发器的视觉层级明确；边缘、背景与阴影遵循已有 Tahoe CSS。
+- 浮层与触发器的视觉层级明确；边缘、背景与阴影遵循已有 Desktop CSS。
 - 菜单项点击热区不小于当前设计规范；高亮与禁用区别清晰。
 - 窄容器场景下，菜单不因父级裁剪而不可见。
 - 不引入 Apple 原生系统菜单或声称官方逐像素还原。
@@ -202,7 +202,7 @@ export function PhotoToolbarExample() {
 ## 12. References
 
 - 实现：[`packages/ui/src/components/navigation.tsx`](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/components/navigation.tsx)
-- 样式：[`packages/ui/src/styles/tahoe-tokens.css`](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/tahoe-tokens.css)
+- 样式：[`packages/ui/src/styles/desktop-tokens.css`](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/desktop-tokens.css)
 - 项目规范：`docs/design.md`、`docs/tokens.md`
 - [Headless UI — Menu](https://headlessui.com/react/menu)
 - [Apple Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/)

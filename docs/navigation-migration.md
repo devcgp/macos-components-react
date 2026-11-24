@@ -2,7 +2,7 @@
 
 ## 结构变化
 
-旧侧栏分别显示 5 个文档主题、8 个组件分类和「规范与验证」。各分组直接链接到页面。新侧栏以 Apple HIG 的 6 个主题作为第一级，将组件分类放到第二级，并把「规范与验证」归入 Foundations。页面显示在第三级，路由仍使用原有的 `#/tahoe/…`。参考 [Apple HIG Components](https://developer.apple.com/design/human-interface-guidelines/components.md)。
+旧侧栏分别显示 5 个文档主题、8 个组件分类和「规范与验证」。各分组直接链接到页面。新侧栏以 Apple HIG 的 6 个主题作为第一级，将组件分类放到第二级，并把「规范与验证」归入 Foundations。页面显示在第三级，路由仍使用原有的 `#/desktop/…`。参考 [Apple HIG Components](https://developer.apple.com/design/human-interface-guidelines/components.md)。
 
 ```text
 Getting Started — 入门指南
@@ -40,7 +40,7 @@ Technologies — 技术与平台
 
 ### Components 路由映射
 
-右栏列出已有组件的原路径后缀。路径前缀均为 `#/tahoe/`。
+右栏列出已有组件的原路径后缀。路径前缀均为 `#/desktop/`。
 
 | 二级目录 | 标准主题 → 原路由 |
 | --- | --- |
@@ -78,8 +78,8 @@ Technologies — 技术与平台
 
 - 导航与路由目录：`apps/docs/src/app/navigation.ts`、`apps/docs/src/app/catalog.ts`、`apps/docs/src/app/App.tsx`
 - 侧栏与样式：`apps/docs/src/layouts/DocsNavigation.tsx`、`apps/docs/src/layouts/DocsLayout.tsx`、`apps/docs/src/styles/app.css`
-- 文档站示例图标：`apps/docs/src/components/TahoeExtraPreview.tsx`、`apps/docs/src/components/TahoeWindowDemo.tsx`
-- 组件运行时图标：`packages/ui/src/components/AdditionalControls.tsx`、`packages/ui/src/components/controls.tsx`、`packages/ui/src/components/feedback.tsx`、`packages/ui/src/components/sidebar.tsx`、`packages/ui/src/styles/tahoe-tokens.css`
+- 文档站示例图标：`apps/docs/src/components/DesktopExtraPreview.tsx`、`apps/docs/src/components/DesktopWindowDemo.tsx`
+- 组件运行时图标：`packages/ui/src/components/AdditionalControls.tsx`、`packages/ui/src/components/controls.tsx`、`packages/ui/src/components/feedback.tsx`、`packages/ui/src/components/sidebar.tsx`、`packages/ui/src/styles/desktop-tokens.css`
 - 依赖与打包：`apps/docs/package.json`、`packages/ui/package.json`、`packages/ui/vite.config.ts`、`pnpm-lock.yaml`
 - 回归测试与报告：`tests/docs.spec.ts`、`tests/navigation.spec.ts`、`docs/navigation-migration.md`
 
@@ -89,4 +89,4 @@ Technologies — 技术与平台
 
 ## 后续新增
 
-第一阶段文档框架增加了已公开导出的 Radio 文档，路径为 `#/tahoe/radio`，收录于 Selection and Input。上述统计记录的是导航迁移时的基线。
+第一阶段文档框架增加了已公开导出的 Radio 文档，路径为 `#/desktop/radio`，收录于 Selection and Input。上述统计记录的是导航迁移时的基线。

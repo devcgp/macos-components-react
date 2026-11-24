@@ -7,9 +7,9 @@ test('toggles uncontrolled, controlled, and native form samples without React wa
       warnings.push(message.text())
     }
   })
-  await page.goto('/?lang=en#/tahoe/checkbox')
+  await page.goto('/?lang=en#/desktop/checkbox')
   await expect(page.getByRole('heading', { name: 'Checkbox', exact: true, level: 1 })).toBeVisible()
-  await expect(page.locator('.tahoe-preview-card')).toHaveCount(4)
+  await expect(page.locator('.desktop-preview-card')).toHaveCount(4)
 
   const selection = page.getByRole('region', { name: 'Checkbox Selection', exact: true })
   const unchecked = selection.getByRole('checkbox', { name: 'Unchecked', exact: true })
@@ -39,10 +39,10 @@ test('toggles uncontrolled, controlled, and native form samples without React wa
 
 test('uses fixed Medium tokens and shows native hover, press, focus, and disabled states', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce', colorScheme: 'light' })
-  await page.goto('/?lang=en#/tahoe/checkbox')
+  await page.goto('/?lang=en#/desktop/checkbox')
   const states = page.getByRole('region', { name: 'Checkbox States', exact: true })
   const initial = states.getByRole('checkbox', { name: 'Default', exact: true })
-  const box = initial.locator('+ .tahoe-checkbox-box')
+  const box = initial.locator('+ .desktop-checkbox-box')
   const enabledChecked = states.getByRole('checkbox', { name: 'Checked', exact: true })
   const disabledUnchecked = states.getByRole('checkbox', { name: 'Disabled unchecked', exact: true })
   const disabledChecked = states.getByRole('checkbox', { name: 'Disabled checked', exact: true })
@@ -86,7 +86,7 @@ test('controls each Checkbox preview separately from site appearance and copies 
       value: async (source: string) => sessionStorage.setItem('copied-checkbox-code', source),
     })
   })
-  await page.goto('/?lang=en#/tahoe/checkbox')
+  await page.goto('/?lang=en#/desktop/checkbox')
   const states = page.getByRole('region', { name: 'Checkbox States', exact: true })
   const selection = page.getByRole('region', { name: 'Checkbox Selection', exact: true })
   const selectionBox = selection.getByRole('checkbox', { name: 'Checked', exact: true }).locator('+ span')
@@ -107,7 +107,7 @@ test('controls each Checkbox preview separately from site appearance and copies 
   await expect(selectionBox).toHaveCSS('background-color', 'rgb(0, 145, 255)')
   await expect(statesBox).toHaveCSS('background-color', 'rgb(0, 136, 255)')
   await expect(page.getByRole('button', { name: 'Switch to dark mode' })).toBeVisible()
-  await expect.poll(() => page.evaluate(() => localStorage.getItem('tahoe-appearance'))).toBeNull()
+  await expect.poll(() => page.evaluate(() => localStorage.getItem('desktop-appearance'))).toBeNull()
   await expect(selection.getByRole('checkbox', { name: 'Unchecked', exact: true })).toBeChecked()
 
   for (const [title, expression] of [
@@ -132,7 +132,7 @@ test('controls each Checkbox preview separately from site appearance and copies 
   await expect(page.locator('html')).toHaveClass('dark')
   await expect(light).toHaveAttribute('aria-pressed', 'true')
   await expect(states.getByRole('button', { name: 'Dark', exact: true })).toHaveAttribute('aria-pressed', 'true')
-  await expect.poll(() => page.evaluate(() => localStorage.getItem('tahoe-appearance'))).toBe('dark')
+  await expect.poll(() => page.evaluate(() => localStorage.getItem('desktop-appearance'))).toBe('dark')
   await expect(selection.getByRole('tab', { name: 'Code', exact: true })).toHaveAttribute('aria-selected', 'true')
   await expect(selection.locator('.hljs-keyword').first()).toHaveCSS('color', 'rgb(122, 41, 149)')
   await selection.getByRole('tab', { name: 'Preview', exact: true }).click()
@@ -149,11 +149,11 @@ test('controls each Checkbox preview separately from site appearance and copies 
 test('uses the same centered preview spacing for shared cards and standalone demos', async ({ page }) => {
   await page.setViewportSize({ width: 749, height: 852 })
   for (const [id, selector] of [
-    ['checkbox', '.tahoe-preview-card .preview-content'],
-    ['button', '.tahoe-preview-card .preview-content'],
+    ['checkbox', '.desktop-preview-card .preview-content'],
+    ['button', '.desktop-preview-card .preview-content'],
     ['switch', '.live-preview .preview-content'],
   ]) {
-    await page.goto('/?lang=zh-CN#/tahoe/' + id)
+    await page.goto('/?lang=zh-CN#/desktop/' + id)
     const panel = page.locator(selector).first()
     await expect(panel).toHaveCSS('padding-block-start', '160px')
     await expect(panel).toHaveCSS('padding-block-end', '160px')

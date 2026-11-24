@@ -1,11 +1,11 @@
 # Sidebar
 
-> Project: macOS Tahoe Components  
+> Project: macOS Components for React\
 > Component: `Sidebar`  
 > Status: Phase 1 · Checked against the current repository implementation; documentation remains editable  
-> Route: `#/tahoe/sidebar`  
+> Route: `#/desktop/sidebar`\
 > Source: `packages/ui/src/components/sidebar.tsx`  
-> Styles: `packages/ui/src/styles/tahoe-tokens.css`  
+> Styles: `packages/ui/src/styles/desktop-tokens.css`\
 > Note: “Implemented” describes the inspected code. “Suggested improvements” are not public APIs.
 
 ## Overview
@@ -18,14 +18,14 @@ Use it for desktop window sidebars and grouped navigation. Nested tree views, dr
 
 The current implementation renders:
 
-1. **Navigation (`nav.tahoe-sidebar`)** — navigation region with a currently hardcoded `aria-label="图库目录"` (Chinese for “Gallery directory”).
-2. **Group (`.tahoe-sidebar-group`)** — container for one group.
-3. **Group Heading (`button.tahoe-sidebar-heading`)** — expands/collapses the group and exposes `aria-expanded`.
+1. **Navigation (`nav.desktop-sidebar`)** — navigation region with a currently hardcoded `aria-label="图库目录"` (Chinese for “Gallery directory”).
+2. **Group (`.desktop-sidebar-group`)** — container for one group.
+3. **Group Heading (`button.desktop-sidebar-heading`)** — expands/collapses the group and exposes `aria-expanded`.
 4. **Disclosure Chevron** — decorative `ChevronRight` rotated by 90° when expanded.
 5. **Item List (`ul > li`)** — present while the group is expanded.
-6. **Navigation Item (`button.tahoe-sidebar-row`)** — calls `onSelect(item.id)` on activation.
-7. **Optional Icon (`.tahoe-sidebar-icon`)** — optional decorative `ReactNode` under `aria-hidden`.
-8. **Item Label (`.tahoe-sidebar-label`)** — title with ellipsis truncation.
+6. **Navigation Item (`button.desktop-sidebar-row`)** — calls `onSelect(item.id)` on activation.
+7. **Optional Icon (`.desktop-sidebar-icon`)** — optional decorative `ReactNode` under `aria-hidden`.
+8. **Item Label (`.desktop-sidebar-label`)** — title with ellipsis truncation.
 9. **Current Selection** — `aria-current="true"` when `item.id === selected`.
 
 Search, resizable panels, context menus, nested groups, and a global collapsed-sidebar mode are **not implemented**.
@@ -49,14 +49,14 @@ The content panel/window wrapper belongs to the **example**, not to the Sidebar 
 
 | Metric | Current value | Source |
 | --- | --- | --- |
-| Default sidebar-width token | `220px` | `--tahoe-sidebar-width`, consumed by a parent layout |
-| Minimum navigation row height | `28px` | `--tahoe-sidebar-row-height` |
-| Row border radius | `5px` | `--tahoe-sidebar-row-radius` |
-| Sidebar and row horizontal inset | `8px` | `--tahoe-sidebar-inset` |
-| Gap between groups | `16px` | `--tahoe-sidebar-group-gap` |
-| Icon column width | `16px` | `.tahoe-sidebar-icon` |
-| Group heading minimum height | `16px` | `.tahoe-sidebar-heading` |
-| Heading bottom margin | `4px` | `.tahoe-sidebar-heading` |
+| Default sidebar-width token | `220px` | `--desktop-sidebar-width`, consumed by a parent layout |
+| Minimum navigation row height | `28px` | `--desktop-sidebar-row-height` |
+| Row border radius | `5px` | `--desktop-sidebar-row-radius` |
+| Sidebar and row horizontal inset | `8px` | `--desktop-sidebar-inset` |
+| Gap between groups | `16px` | `--desktop-sidebar-group-gap` |
+| Icon column width | `16px` | `.desktop-sidebar-icon` |
+| Group heading minimum height | `16px` | `.desktop-sidebar-heading` |
+| Heading bottom margin | `4px` | `.desktop-sidebar-heading` |
 
 The `220px` token belongs to the window layout. `Sidebar` does not have a fixed-width prop.
 
@@ -69,10 +69,10 @@ There is **no `variant` prop**. Content configurations such as with/without icon
 | State | Current behavior | Notes |
 | --- | --- | --- |
 | Default | Unselected row | Normal styling |
-| Hover | `.tahoe-sidebar-row:hover` | `--tahoe-fills-tertiary` |
-| Pressed | `.tahoe-sidebar-row:active` | `--tahoe-fills-primary` |
-| Focus | `.tahoe-sidebar-row:focus-visible` | `2px` accent outline, `-2px` offset |
-| Current / Selected | `aria-current="true"` | Parent-provided `selected`; `--tahoe-selection` |
+| Hover | `.desktop-sidebar-row:hover` | `--desktop-fills-tertiary` |
+| Pressed | `.desktop-sidebar-row:active` | `--desktop-fills-primary` |
+| Focus | `.desktop-sidebar-row:focus-visible` | `2px` accent outline, `-2px` offset |
+| Current / Selected | `aria-current="true"` | Parent-provided `selected`; `--desktop-selection` |
 | Expanded | `aria-expanded="true"` | Group children are rendered; chevron rotates |
 | Collapsed | `aria-expanded="false"` | Group children are not rendered |
 | Disabled | **Not implemented / N/A** | No disabled-item API |
@@ -137,8 +137,8 @@ A controlled example using the current public API. The data and companion conten
 ```tsx
 import { useState } from 'react'
 import { Folder, Star } from 'lucide-react'
-import { Sidebar } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Sidebar } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 const groups = [
   {
@@ -169,7 +169,7 @@ export function SidebarExample() {
   }
 
   return (
-    <div data-theme="tahoe" style={{ display: 'flex', minHeight: 240 }}>
+    <div data-theme="desktop" style={{ display: 'flex', minHeight: 240 }}>
       <div style={{ width: 220, flexShrink: 0 }}>
         <Sidebar
           groups={groups}
@@ -193,26 +193,26 @@ export function SidebarExample() {
 
 **Geometry**
 
-- Indentation, row height, radius, and group gap use `--tahoe-sidebar-inset`, `--tahoe-sidebar-row-height`, `--tahoe-sidebar-row-radius`, and `--tahoe-sidebar-group-gap`.
-- The parent layout controls width; `--tahoe-sidebar-width` is the default window-layout reference.
+- Indentation, row height, radius, and group gap use `--desktop-sidebar-inset`, `--desktop-sidebar-row-height`, `--desktop-sidebar-row-radius`, and `--desktop-sidebar-group-gap`.
+- The parent layout controls width; `--desktop-sidebar-width` is the default window-layout reference.
 
 **Typography**
 
-- Body labels use `--tahoe-font` and `--tahoe-body`.
-- Group headings use `--tahoe-caption`, weight `600`.
+- Body labels use `--desktop-font` and `--desktop-body`.
+- Group headings use `--desktop-caption`, weight `600`.
 
 **Color**
 
-- Text: `--tahoe-label`; secondary headings: `--tahoe-text-secondary`.
-- Sidebar surface: `--tahoe-sidebar-surface`; divider: `--tahoe-separator`.
-- Icons/focus: `--tahoe-accent`; current item: `--tahoe-selection`.
-- Hover: `--tahoe-fills-tertiary`; Pressed: `--tahoe-fills-primary`.
+- Text: `--desktop-label`; secondary headings: `--desktop-text-secondary`.
+- Sidebar surface: `--desktop-sidebar-surface`; divider: `--desktop-separator`.
+- Icons/focus: `--desktop-accent`; current item: `--desktop-selection`.
+- Hover: `--desktop-fills-tertiary`; Pressed: `--desktop-fills-primary`.
 
 **Material / Theme**
 
-- The existing `data-theme="tahoe"` and `.dark` theme mechanism controls appearance, not a nonexistent Sidebar `theme` prop.
-- `--tahoe-sidebar-surface` uses Vibrant Fills semantic colors. This is a web approximation, not an Apple-certified native material specification.
-- The current geometry comes from project Web conventions and third-party references, not validated pixel-perfect Apple Tahoe 26 measurements.
+- The existing `data-theme="desktop"` and `.dark` theme mechanism controls appearance, not a nonexistent Sidebar `theme` prop.
+- `--desktop-sidebar-surface` uses Vibrant Fills semantic colors. This is a web approximation, not an Apple-certified native material specification.
+- The current geometry comes from project Web conventions and third-party references, not validated pixel-perfect Apple macOS 26 measurements.
 
 ## References
 
@@ -221,7 +221,7 @@ export function SidebarExample() {
 - [Apple Design Resources](https://developer.apple.com/design/resources/)
 - [Third-party macOS Components reference](https://github.com/tamnguyenvan/macos-components)
 - Source: `packages/ui/src/components/sidebar.tsx`
-- Styles: `packages/ui/src/styles/tahoe-tokens.css`
+- Styles: `packages/ui/src/styles/desktop-tokens.css`
 - Project documents: `docs/design.md`, `docs/tokens.md`
 
 > Maintenance rule: update this file and its Chinese counterpart only after new APIs or behaviors (such as an accessible-name prop, keyboard arrow navigation, or sidebar resizing) have been implemented and verified.

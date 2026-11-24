@@ -9,11 +9,11 @@ export function Toolbar({ title, detail, filters, actions, search, filtersLabel 
   actions?: ReactNode
   search?: ReactNode
 }) {
-  return <header className="tahoe-toolbar">
-    <div className="tahoe-toolbar-title"><strong>{title}</strong>{detail && <small>{detail}</small>}</div>
-    <div className="tahoe-toolbar-controls">
-      {filters && <div className="tahoe-toolbar-group" role="group" aria-label={filtersLabel}>{filters}</div>}
-      {actions && <div className="tahoe-toolbar-group" role="group" aria-label={actionsLabel}>{actions}</div>}
+  return <header className="desktop-toolbar">
+    <div className="desktop-toolbar-title"><strong>{title}</strong>{detail && <small>{detail}</small>}</div>
+    <div className="desktop-toolbar-controls">
+      {filters && <div className="desktop-toolbar-group" role="group" aria-label={filtersLabel}>{filters}</div>}
+      {actions && <div className="desktop-toolbar-group" role="group" aria-label={actionsLabel}>{actions}</div>}
       {search}
     </div>
   </header>

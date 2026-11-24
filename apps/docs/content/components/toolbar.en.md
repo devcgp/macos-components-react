@@ -37,12 +37,12 @@ title, detail, filters, actions, search, filtersLabel and actionsLabel.
 ## Code Example
 
 ```tsx
-import { Toolbar, Button } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Toolbar, Button } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Toolbar title="Photos" detail="3 photos" actions={<Button>Import</Button>} />
     </div>
   )

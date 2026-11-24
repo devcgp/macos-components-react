@@ -19,9 +19,9 @@ Sidebar 组间距 16px，行高 28px、圆角 5px、内缩 8px。组标题 11px�
 
 ## 外观与材质
 
-组件位于 `data-theme="tahoe"` 容器中，深色通过根节点 `.dark` 切换。颜色和状态使用同一份 CSS 变量。内容采用实色，Glass 示例通过浏览器 backdrop-filter 近似并有实色回退。焦点和选中采用独立的样式。禁用控件保留原生语义，减少动态模式关闭装饰性过渡。
+组件位于 `data-theme="desktop"` 容器中，深色通过根节点 `.dark` 切换。颜色和状态使用同一份 CSS 变量。内容采用实色，Glass 示例通过浏览器 backdrop-filter 近似并有实色回退。焦点和选中采用独立的样式。禁用控件保留原生语义，减少动态模式关闭装饰性过渡。
 
-更多见 [Tokens](#/tahoe/tokens)。
+更多见 [Tokens](#/desktop/tokens)。
 
 - [Apple HIG](https://developer.apple.com/design/human-interface-guidelines/)
 - [Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos)

@@ -1,14 +1,14 @@
 # Button
 
 > Component: `Button`\
-> Package: `@macos-tahoe/ui`\
-> Documentation route: `#/tahoe/button`
+> Package: `@cgpdesktopui/ui`\
+> Documentation route: `#/desktop/button`
 
 ## Overview
 
 Buttons trigger a discrete action, such as saving a change, confirming a dialog, or deleting an item. Use a clear, action-oriented label. For persistent on/off choices, use a Switch or Checkbox instead.
 
-In this project, `Button` is a web implementation inspired by macOS Tahoe. It is **not** an Apple-native control, and its geometry should not be described as an officially verified Apple specification.
+In this project, `Button` is a web implementation inspired by macOS. It is **not** an Apple-native control, and its geometry should not be described as an officially verified Apple specification.
 
 ## Anatomy
 
@@ -67,7 +67,7 @@ The current `destructive` style is **not** a solid red filled button. No `outlin
 - Clicks invoke native button activation and any supplied `onClick` handler.
 - Keyboard activation follows native button behavior (Enter and Space).
 - `disabled` or `loading` prevents activation via the native disabled state.
-- Light and Dark styles come from the Tahoe theme and CSS variables. Set `data-appearance` on a Tahoe container to choose a local appearance.
+- Light and Dark styles come from the Desktop theme and CSS variables. Set `data-appearance` on a Desktop container to choose a local appearance.
 
 **Implementation note:** The current `Button` passes `...props` after `type="button"`, so a caller-provided `type` can override it (for example, `type="submit"`).
 
@@ -88,7 +88,7 @@ The current `destructive` style is **not** a solid red filled button. No `outlin
 | `size` | `'mini' \| 'small' \| 'regular' \| 'large' \| 'xl'` | `'regular'` | Visual size |
 | `loading` | `boolean` | `false` | Disables control and sets `aria-busy`; no automatic spinner |
 | `disabled` | `boolean` | Native default (`false`) | Native disabled behavior |
-| `className` | `string` | `''` | Appended to `tahoe-button` class |
+| `className` | `string` | `''` | Appended to `desktop-button` class |
 | `children` | `ReactNode` | — | Button content |
 | `onClick` | Native button event handler | — | Standard React event |
 | `type` | Native button type | `'button'` | Can be overridden by caller |
@@ -101,12 +101,12 @@ The current `destructive` style is **not** a solid red filled button. No `outlin
 Basic button:
 
 ```tsx
-import { Button } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Button } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export function SaveButton() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Button variant="accent" onClick={() => console.log('Saved')}>
         Save
       </Button>
@@ -118,13 +118,13 @@ export function SaveButton() {
 All sizes:
 
 ```tsx
-import { Button } from '@macos-tahoe/ui'
+import { Button } from '@cgpdesktopui/ui'
 
 const sizes = ['mini', 'small', 'regular', 'large', 'xl'] as const
 
 export function ButtonSizes() {
   return (
-    <div data-theme="tahoe" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+    <div data-theme="desktop" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
       {sizes.map((size) => (
         <Button key={size} size={size}>Button</Button>
       ))}
@@ -136,13 +136,13 @@ export function ButtonSizes() {
 All variants:
 
 ```tsx
-import { Button } from '@macos-tahoe/ui'
+import { Button } from '@cgpdesktopui/ui'
 
 const variants = ['neutral', 'accent', 'destructive'] as const
 
 export function ButtonVariants() {
   return (
-    <div data-theme="tahoe" style={{ display: 'flex', gap: 8 }}>
+    <div data-theme="desktop" style={{ display: 'flex', gap: 8 }}>
       {variants.map((variant) => (
         <Button key={variant} variant={variant}>
           {variant}
@@ -153,28 +153,28 @@ export function ButtonVariants() {
 }
 ```
 
-> The stylesheet import is shown in the first example and should be loaded once in the application. The root `.dark` class sets the global appearance. Set `data-appearance` on a Tahoe container to choose a local appearance.
+> The stylesheet import is shown in the first example and should be loaded once in the application. The root `.dark` class sets the global appearance. Set `data-appearance` on a Desktop container to choose a local appearance.
 
 ## Design Specifications
 
 | Category | Implemented specification |
 | --- | --- |
 | Geometry | See five size rules above; width is content-based |
-| Typography | Project font stack `--tahoe-font`; size-specific CSS for Mini / Small |
-| Neutral surface | `--tahoe-control` |
-| Foreground | `--tahoe-label` |
-| Accent | `--tahoe-accent`, `--tahoe-on-accent` |
-| Destructive | `--tahoe-destructive`, `--tahoe-destructive-face` |
-| Hover / pressed | `--tahoe-button-hover`, `--tahoe-button-pressed`, plus accent equivalents |
-| Disabled | `--tahoe-disabled-face`, `--tahoe-disabled-label`, `--tahoe-accent-disabled` |
-| Focus | `--tahoe-control-focus` (two-layer focus ring) |
-| Border / rim | `--tahoe-control-rim` |
-| Motion | `--tahoe-control-transition`; reduced-motion override |
+| Typography | Project font stack `--desktop-font`; size-specific CSS for Mini / Small |
+| Neutral surface | `--desktop-control` |
+| Foreground | `--desktop-label` |
+| Accent | `--desktop-accent`, `--desktop-on-accent` |
+| Destructive | `--desktop-destructive`, `--desktop-destructive-face` |
+| Hover / pressed | `--desktop-button-hover`, `--desktop-button-pressed`, plus accent equivalents |
+| Disabled | `--desktop-disabled-face`, `--desktop-disabled-label`, `--desktop-accent-disabled` |
+| Focus | `--desktop-control-focus` (two-layer focus ring) |
+| Border / rim | `--desktop-control-rim` |
+| Motion | `--desktop-control-transition`; reduced-motion override |
 | Material | CSS surface/color approximations; no automatic Liquid Glass effect in Button |
 
-Source files: `packages/ui/src/components/button.tsx`, `packages/ui/src/styles/tahoe-tokens.css`, `docs/design.md`, and `docs/tokens.md`.
+Source files: `packages/ui/src/components/button.tsx`, `packages/ui/src/styles/desktop-tokens.css`, `docs/design.md`, and `docs/tokens.md`.
 
-**Source classification:** Button dimensions and visual properties are third-party-inspired / project-defined Web implementations, not Apple-verified Tahoe 26 component metrics.
+**Source classification:** Button dimensions and visual properties are third-party-inspired / project-defined Web implementations, not Apple-verified macOS 26 component metrics.
 
 ## References
 
@@ -182,7 +182,7 @@ Source files: `packages/ui/src/components/button.tsx`, `packages/ui/src/styles/t
 - [Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos)
 - [Apple Design Resources](https://developer.apple.com/design/resources/)
 - [Project Button implementation](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/components/button.tsx)
-- [Project styles and tokens](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/tahoe-tokens.css)
+- [Project styles and tokens](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/desktop-tokens.css)
 - [Project design specification](https://github.com/devcgp/macos-components-react/blob/main/docs/design.md)
 - [Third-party macOS components reference](https://github.com/tamnguyenvan/macos-components)
 

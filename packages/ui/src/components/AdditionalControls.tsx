@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronRight, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 
 export function TextField({ label, className = '', ...props }: Omit<ComponentProps<'input'>, 'type'> & { label: string }) {
-  return <label className="tahoe-field-label">{label}<input {...props} type="text" className={`tahoe-text-input tahoe-field-control ${className}`}/></label>
+  return <label className="desktop-field-label">{label}<input {...props} type="text" className={`desktop-text-input desktop-field-control ${className}`}/></label>
 }
 
 export function Stepper({ label, value, min, max, variant = 'inside', onChange, incrementLabel, decrementLabel }: {
@@ -17,9 +17,9 @@ export function Stepper({ label, value, min, max, variant = 'inside', onChange, 
   variant?: 'none' | 'inside' | 'outside'
   onChange: (value: number) => void
 }) {
-  return <div className="tahoe-stepper" data-variant={variant} role="group" aria-label={label}>
+  return <div className="desktop-stepper" data-variant={variant} role="group" aria-label={label}>
     {variant !== 'none' && <output aria-label={label}>{value}</output>}
-    <div className="tahoe-stepper-arrows">
+    <div className="desktop-stepper-arrows">
       <button type="button" aria-label={incrementLabel ?? label + '：增加'} disabled={value >= max} onClick={() => onChange(Math.min(max, value + 1))}><FontAwesomeIcon icon={faChevronUp} aria-hidden="true"/></button>
       <button type="button" aria-label={decrementLabel ?? label + '：减少'} disabled={value <= min} onClick={() => onChange(Math.max(min, value - 1))}><FontAwesomeIcon icon={faChevronDown} aria-hidden="true"/></button>
     </div>
@@ -27,13 +27,13 @@ export function Stepper({ label, value, min, max, variant = 'inside', onChange, 
 }
 
 export function ProgressIndicator({ label, value }: { label: string; value?: number }) {
-  return <progress className="tahoe-progress" aria-label={label} max={100} value={value}/>
+  return <progress className="desktop-progress" aria-label={label} max={100} value={value}/>
 }
 
 export function DisclosureControl({ label, children }: { label: string; children: ReactNode }) {
   const [open, setOpen] = useState(false)
   const id = useId()
-  return <div className="tahoe-disclosure">
+  return <div className="desktop-disclosure">
     <button type="button" aria-expanded={open} aria-controls={id} onClick={() => setOpen(previous => !previous)}>
       <FontAwesomeIcon icon={faChevronRight} aria-hidden="true"/>{label}
     </button>

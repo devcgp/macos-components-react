@@ -1,10 +1,10 @@
 # Context Menu
 
-> macOS Tahoe Components · Component Documentation  
-> Route: `#/tahoe/context-menu`  
+> macOS Components · Component Documentation\
+> Route: `#/desktop/context-menu`\
 > Source: `packages/ui/src/components/navigation.tsx`  
-> Styles: `packages/ui/src/styles/tahoe-tokens.css`  
-> Provenance: existing project implementation and Tahoe Design Tokens; **not** an Apple-verified pixel-perfect Tahoe 26 component.
+> Styles: `packages/ui/src/styles/desktop-tokens.css`\
+> Provenance: existing project implementation and Desktop Design Tokens; **not** an Apple-verified pixel-perfect macOS 26 component.
 
 ## 1. Overview
 
@@ -19,9 +19,9 @@ Use it as an accessible object-actions entry point rather than claiming parity w
 | Part | Implementation | Purpose |
 | --- | --- | --- |
 | Root | Headless UI `Menu` | Open/closed state management |
-| Trigger | `MenuButton.tahoe-menu-trigger` | Click, right-click and keyboard entry point |
+| Trigger | `MenuButton.desktop-menu-trigger` | Click, right-click and keyboard entry point |
 | Context handler | `onContextMenu` | `preventDefault()` and `.click()` if closed |
-| Panel | `MenuItems.tahoe-menu` | `anchor="bottom start"`, **not** pointer-positioned |
+| Panel | `MenuItems.desktop-menu` | `anchor="bottom start"`, **not** pointer-positioned |
 | Item | `MenuItem` with `button` | Calls `onSelect()` |
 | Label | `action.label` | Visible command name |
 | Disabled item | `MenuItem disabled` and native `button disabled` | Prevents activation |
@@ -46,7 +46,7 @@ Provide a Copy Code action on every card. Theme changes must not change the enti
 
 ## 4. Sizes
 
-The component has **no `size` prop**. Current CSS specifies `min-height: 24px` for menu items, `min-width: 132px`, `padding: 4px`, and `border-radius: 10px` for the panel. The shared `.tahoe-menu-trigger` has `min-width: 84px` and `min-height: 24px`. These are implementation values, not additional named size variants.
+The component has **no `size` prop**. Current CSS specifies `min-height: 24px` for menu items, `min-width: 132px`, `padding: 4px`, and `border-radius: 10px` for the panel. The shared `.desktop-menu-trigger` has `min-width: 84px` and `min-height: 24px`. These are implementation values, not additional named size variants.
 
 ## 5. Variants
 
@@ -58,7 +58,7 @@ There is **no `variant` prop**. Light and Dark represent theme modes rather than
 | --- | --- | --- |
 | Closed | Headless UI Menu closed | Panel hidden |
 | Open | Trigger activated | Panel shown below the trigger |
-| Focused item | Headless UI `data-focus` | Focus background via `--tahoe-focus` |
+| Focused item | Headless UI `data-focus` | Focus background via `--desktop-focus` |
 | Hovered item | Headless UI interaction | Focus/hover feedback per library and CSS |
 | Disabled item | `disabled: true` | No command activation |
 | Executed | `onSelect()` invoked | Effects belong to the consuming application |
@@ -119,13 +119,13 @@ type ContextMenuProps = {
 
 ```tsx
 import { useState } from 'react'
-import { ContextMenu } from '@macos-tahoe/ui'
+import { ContextMenu } from '@cgpdesktopui/ui'
 
 export function PhotoContextActions() {
   const [message, setMessage] = useState('No action selected')
 
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <ContextMenu
         label="Photo actions"
         actions={[
@@ -140,33 +140,33 @@ export function PhotoContextActions() {
 }
 ```
 
-Import `@macos-tahoe/ui/styles.css` at the application entry point. The status message comes from the example application, not a ContextMenu prop.
+Import `@cgpdesktopui/ui/styles.css` at the application entry point. The status message comes from the example application, not a ContextMenu prop.
 
 ## 11. Design Specifications
 
 | Property | Current value / token | Provenance |
 | --- | --- | --- |
-| Trigger min height | `--tahoe-control-height` (24px) | Project-defined Web Approximation |
+| Trigger min height | `--desktop-control-height` (24px) | Project-defined Web Approximation |
 | Trigger min width | 84px | Project-defined Web Approximation |
 | Menu min width | 132px | Project-defined Web Approximation |
 | Menu padding | 4px | Project-defined Web Approximation |
 | Menu radius | 10px | Project-defined Web Approximation |
 | Menu item min height | 24px | Project-defined Web Approximation |
 | Menu item radius | 5px | Project-defined Web Approximation |
-| Menu background | `--tahoe-menu` | Tahoe semantic token / Web implementation |
-| Menu border | `--tahoe-menu-rim` | Tahoe semantic token / Web implementation |
-| Menu shadow | `--tahoe-menu-shadow` | Tahoe semantic token / Web implementation |
-| Focus fill | `--tahoe-focus` | Tahoe semantic token |
-| Text | `--tahoe-label` | Tahoe semantic token |
+| Menu background | `--desktop-menu` | Desktop semantic token / Web implementation |
+| Menu border | `--desktop-menu-rim` | Desktop semantic token / Web implementation |
+| Menu shadow | `--desktop-menu-shadow` | Desktop semantic token / Web implementation |
+| Focus fill | `--desktop-focus` | Desktop semantic token |
+| Text | `--desktop-label` | Desktop semantic token |
 
-Use the existing `data-theme="tahoe"` scope and `.dark` theme system. **Verify theme propagation to the menu portal**: applying `.dark` only inside a card does not necessarily affect a portalled menu. Reuse the site's overlay theme strategy and Tahoe tokens rather than globally toggling the page or hard-coding new colors.
+Use the existing `data-theme="desktop"` scope and `.dark` theme system. **Verify theme propagation to the menu portal**: applying `.dark` only inside a card does not necessarily affect a portalled menu. Reuse the site's overlay theme strategy and Desktop tokens rather than globally toggling the page or hard-coding new colors.
 
-These dimensions reflect existing CSS and are **not** measurements verified against official Apple Tahoe UI Kit nodes. Update both language documents whenever actual APIs or tokens change.
+These dimensions reflect existing CSS and are **not** measurements verified against official Apple macOS UI Kit nodes. Update both language documents whenever actual APIs or tokens change.
 
 ## 12. References
 
 - [Component source](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/components/navigation.tsx)
-- [Tahoe Tokens source](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/tahoe-tokens.css)
+- [Desktop Tokens source](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/desktop-tokens.css)
 - [Project design guidelines](https://github.com/devcgp/macos-components-react/blob/main/docs/design.md)
 - [Headless UI Menu](https://headlessui.com/react/menu)
 - [Apple Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/)

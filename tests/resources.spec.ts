@@ -8,7 +8,7 @@ for (const language of ['zh-CN', 'en']) {
   }
   for (const [route, files] of Object.entries(pages)) {
     test(`serves ${route} downloads in ${language}`, async ({ page }) => {
-      await page.goto('/?lang=' + language + '#/tahoe/' + route)
+      await page.goto('/?lang=' + language + '#/desktop/' + route)
       const footer=page.locator('.page-contributions')
       const documentPath=route==='tokens'?'docs/'+route:'apps/docs/content/'+route
       for(const [locale,suffix] of [['zh-CN','.md'],['en','.en.md']]){
@@ -34,7 +34,7 @@ for (const language of ['zh-CN', 'en']) {
 }
 
 test('maps contribution links to the route and switches the edit language in place', async ({ page }) => {
-  await page.goto('/?lang=zh-CN#/tahoe/button?tab=api')
+  await page.goto('/?lang=zh-CN#/desktop/button?tab=api')
   const footer = page.locator('.page-contributions')
   await expect(footer.getByRole('link', { name: 'Edit on GitHub' })).toHaveAttribute('href', /\/content\/components\/button\.md$/)
   await expect(footer.getByRole('link', { name: '查看源码' })).toHaveAttribute('href', /\/packages\/ui\/src\/components\/button\.tsx$/)
@@ -42,8 +42,17 @@ test('maps contribution links to the route and switches the edit language in pla
   await expect(footer.getByRole('link', { name: 'Edit on GitHub' })).toHaveAttribute('href', /\/content\/components\/button\.en\.md$/)
   const href = await footer.getByRole('link', { name: 'Report an issue' }).getAttribute('href')
   const body = new URL(href!).searchParams.get('body')
-  expect(body).toContain('?lang=en#/tahoe/button')
+  expect(body).toContain('?lang=en#/desktop/button')
   expect(body).toContain('Language / 语言: en')
-  await page.goto('/?lang=en#/tahoe/resources/community')
+  await page.goto('/?lang=en#/desktop/resources/community')
   await expect(page.getByRole('heading', { name: 'Community', exact: true })).toBeVisible()
+})
+
+test('keeps installation commands inside the mobile viewport', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 800 })
+  await page.goto('/?lang=en#/desktop/getting-started/installation')
+  const code = page.getByRole('main').locator('pre').first()
+  await expect(code).toContainText('pnpm --filter @cgpdesktopui/ui pack')
+  await expect(code).toHaveCSS('overflow-x', 'auto')
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
 })

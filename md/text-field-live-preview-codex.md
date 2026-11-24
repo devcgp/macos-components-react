@@ -7,10 +7,10 @@
 - `apps/docs/content/components/text-field.md`（中文）
 - `apps/docs/content/components/text-field.en.md`（英文）
 - `packages/ui/src/components/AdditionalControls.tsx`（实际源码）
-- `packages/ui/src/styles/tahoe-tokens.css`（当前 Tahoe Design Tokens）
+- `packages/ui/src/styles/desktop-tokens.css`（当前 Desktop Design Tokens）
 - `docs/design.md`、`docs/tokens.md`
 
-**只处理 Text Field 及其文档预览。优先局部修正现有实现，保留兼容 API、现有项目架构与 `#/tahoe/text-field` 路由。** 不新增一个重复的 TextField 组件，不重写其他控件。
+**只处理 Text Field 及其文档预览。优先局部修正现有实现，保留兼容 API、现有项目架构与 `#/desktop/text-field` 路由。** 不新增一个重复的 TextField 组件，不重写其他控件。
 
 ## 1. Source-of-truth Audit
 
@@ -19,8 +19,8 @@
 ```tsx
 export function TextField({ label, className = '', ...props }:
   Omit<ComponentProps<'input'>, 'type'> & { label: string }) {
-  return <label className="tahoe-field-label">{label}
-    <input {...props} type="text" className={`tahoe-text-input tahoe-field-control ${className}`}/>
+  return <label className="desktop-field-label">{label}
+    <input {...props} type="text" className={`desktop-text-input desktop-field-control ${className}`}/>
   </label>
 }
 ```
@@ -40,7 +40,7 @@ export function TextField({ label, className = '', ...props }:
 
 - Header 左侧：Card Title；右侧：`Light / Dark` 两个 Tab。
 - 内容切换：`Preview / Code` 两个 Tab，彼此状态独立。
-- Preview：真实 `@macos-tahoe/ui` 的 `TextField`，可直接输入、聚焦与键盘操作。
+- Preview：真实 `@cgpdesktopui/ui` 的 `TextField`，可直接输入、聚焦与键盘操作。
 - Code：语法高亮的完整 React + TypeScript / TSX 示例，含真实 import；有 **Copy Code** 按钮。
 - Preview 默认激活；切换到 Code 再返回，不应丢失用户正在输入的内容。
 - 切换 Light/Dark 不应重置值、焦点或其他 demo 状态。
@@ -97,25 +97,25 @@ export function TextField({ label, className = '', ...props }:
 
 **不创建 Sizes / Variants 预览卡片**：当前 TextField 只有 Regular 样式，且无这两种 API。Markdown 保留 Sizes 与 Variants 文字说明即可。
 
-## 4. Tahoe Design Tokens — 强制遵循
+## 4. Desktop Design Tokens — 强制遵循
 
 检查当前 CSS 实现，并使用现有语义变量：
 
 | Token | 预期用途 |
 | --- | --- |
-| `--tahoe-control-height` | 24px 输入框高度 |
-| `--tahoe-control-radius` | 6px 圆角 |
-| `--tahoe-field-border` | 1px 边框颜色 |
-| `--tahoe-content-surface` | 浅/深主题输入框背景 |
-| `--tahoe-label` | 正文字色 |
-| `--tahoe-text-secondary` | Placeholder |
-| `--tahoe-regular-type` | 13px 输入文字 |
-| `--tahoe-accent`、`--tahoe-focus`、`--tahoe-control-focus` | 焦点反馈 |
-| `--tahoe-control-transition` | 交互动效 |
+| `--desktop-control-height` | 24px 输入框高度 |
+| `--desktop-control-radius` | 6px 圆角 |
+| `--desktop-field-border` | 1px 边框颜色 |
+| `--desktop-content-surface` | 浅/深主题输入框背景 |
+| `--desktop-label` | 正文字色 |
+| `--desktop-text-secondary` | Placeholder |
+| `--desktop-regular-type` | 13px 输入文字 |
+| `--desktop-accent`、`--desktop-focus`、`--desktop-control-focus` | 焦点反馈 |
+| `--desktop-control-transition` | 交互动效 |
 
 当前主要几何：height 24px、border radius 6px、border 1px、padding-left 8px、padding-right 4px、label gap 8px。
 
-已有主题由 `[data-theme="tahoe"]` 与 `.dark` 祖先定义。开发独立卡片主题时应**正确限定 CSS 变量作用域**（必要时仅对预览卡根部引入 scoped 主题标记与变量覆盖），验证祖先页面为 Dark 时，卡片可以独立显示 Light，反之亦然。不可只变更背景而不变更输入框和焦点样式。不要引入第二套硬编码配色。
+已有主题由 `[data-theme="desktop"]` 与 `.dark` 祖先定义。开发独立卡片主题时应**正确限定 CSS 变量作用域**（必要时仅对预览卡根部引入 scoped 主题标记与变量覆盖），验证祖先页面为 Dark 时，卡片可以独立显示 Light，反之亦然。不可只变更背景而不变更输入框和焦点样式。不要引入第二套硬编码配色。
 
 ## 5. Component Quality & Accessibility
 
@@ -132,7 +132,7 @@ export function TextField({ label, className = '', ...props }:
 - 中文 Markdown 与英文 Markdown 各有 12 个 Section，页面应根据实际语言载入对应文件。
 - Live Preview 卡片由 React 动态渲染，不直接作为字符串 JSX 嵌入 Markdown。
 - Markdown 的 Sizes、Variants 描述规范，不重复开发另一个尺寸/变体组件区。
-- 确保页面路由 `#/tahoe/text-field`、文档目录、Code Copy 与导航可用。
+- 确保页面路由 `#/desktop/text-field`、文档目录、Code Copy 与导航可用。
 - 若双语文档与实际源代码不一致，在同一次变更中同步修正。
 
 ## 7. 验收测试

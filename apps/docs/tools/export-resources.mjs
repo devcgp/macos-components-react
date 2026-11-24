@@ -1,7 +1,9 @@
-import { copyFileSync, mkdirSync, readdirSync } from 'node:fs'
+import { copyFileSync, mkdirSync, readdirSync, rmSync } from 'node:fs'
 
 const root = new URL('../../../', import.meta.url)
 const downloads = new URL('apps/docs/public/downloads/', root)
+// Rebuild the generated directory so removed documents cannot remain downloadable.
+rmSync(downloads, { recursive: true, force: true })
 mkdirSync(downloads, { recursive: true })
 const sources = {
   'design.md': 'docs/design.md',

@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Button, Checkbox } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Button, Checkbox } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export const formLabels = {
   legend: "Photo details",
@@ -15,12 +15,12 @@ export function CheckboxForm({ labels = formLabels }: { labels?: typeof formLabe
   const [submitted, setSubmitted] = useState<string[] | null>(null)
 
   return (
-    <form data-theme="tahoe" style={{ display: 'grid', gap: 'var(--tahoe-gap)', justifyItems: 'start' }}
+    <form data-theme="desktop" style={{ display: 'grid', gap: 'var(--desktop-gap)', justifyItems: 'start' }}
       onSubmit={event => {
         event.preventDefault()
         setSubmitted(new FormData(event.currentTarget).getAll('photo-details').map(String))
       }}>
-      <fieldset style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--tahoe-gap)' }}>
+      <fieldset style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--desktop-gap)' }}>
         <legend>{labels.legend}</legend>
         <Checkbox label={labels.filenames} name="photo-details" value="filenames" defaultChecked/>
         <Checkbox label={labels.extensions} name="photo-details" value="extensions"/>

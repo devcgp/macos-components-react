@@ -1,4 +1,4 @@
-import { Badge } from '@macos-tahoe/ui'
+import { Badge } from '@cgpdesktopui/ui'
 import { useEffect, useId, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'

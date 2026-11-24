@@ -31,7 +31,7 @@ export default function TextFieldLivePreview() {
     title: '文件夹设置', field: '文件夹名称', initial: '照片图库', save: '保存', saved: '已保存名称',
   }
 
-  return <div className="tahoe-preview-cards">
+  return <div className="desktop-preview-cards">
     <LivePreviewCard title={tr('文本输入框基础', 'Text Field Basics')} code={translateSource(basicsSource, basicsLabels, basics)}>
       <TextFieldBasics labels={basics}/>
     </LivePreviewCard>

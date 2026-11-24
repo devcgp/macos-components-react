@@ -8,7 +8,7 @@ export default defineConfig({
     launchOptions: process.env.PLAYWRIGHT_CHROME_PATH ? { executablePath: process.env.PLAYWRIGHT_CHROME_PATH } : {},
   },
   webServer: {
-    command: 'pnpm --filter @macos-tahoe/docs preview',
+    command: 'pnpm --filter @cgpdesktopui/docs preview',
     url: 'http://127.0.0.1:8897',
     reuseExistingServer: !process.env.CI,
   },

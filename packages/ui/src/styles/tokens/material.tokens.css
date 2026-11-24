@@ -1,22 +1,22 @@
-/* Generated Tahoe tokens | material raw figma | Source: supplied Figma exports. */
+/* Generated Desktop tokens | material raw figma | Source: supplied Figma exports. */
 :root {
-  --tahoe-figma-liquid-glass-depth-medium-and-large: 30px;
-  --tahoe-figma-liquid-glass-depth-regular: 30px;
-  --tahoe-figma-liquid-glass-dispersion: 20px;
-  --tahoe-figma-liquid-glass-frost-large: 16px;
-  --tahoe-figma-liquid-glass-frost-medium: 16px;
-  --tahoe-figma-liquid-glass-frost-regular: 6px;
-  --tahoe-figma-liquid-glass-light-angle: 0px;
-  --tahoe-figma-liquid-glass-opacity: 25px;
-  --tahoe-figma-liquid-glass-refraction: 70px;
-  --tahoe-figma-liquid-glass-splay-medium-and-large: 20px;
-  --tahoe-figma-liquid-glass-splay-regular: 20px;
+  --desktop-figma-liquid-glass-depth-medium-and-large: 30px;
+  --desktop-figma-liquid-glass-depth-regular: 30px;
+  --desktop-figma-liquid-glass-dispersion: 20px;
+  --desktop-figma-liquid-glass-frost-large: 16px;
+  --desktop-figma-liquid-glass-frost-medium: 16px;
+  --desktop-figma-liquid-glass-frost-regular: 6px;
+  --desktop-figma-liquid-glass-light-angle: 0px;
+  --desktop-figma-liquid-glass-opacity: 25px;
+  --desktop-figma-liquid-glass-refraction: 70px;
+  --desktop-figma-liquid-glass-splay-medium-and-large: 20px;
+  --desktop-figma-liquid-glass-splay-regular: 20px;
 }
 
 /* Web-ready blur radii only: material opacity/depth/refraction are design references, not valid CSS opacity lengths. */
 :root {
-  --tahoe-glass-frost-large: 16px;
-  --tahoe-glass-frost-medium: 16px;
-  --tahoe-glass-frost-regular: 6px;
-  --tahoe-glass-menu-blur: 24px; /* existing implementation */
+  --desktop-glass-frost-large: 16px;
+  --desktop-glass-frost-medium: 16px;
+  --desktop-glass-frost-regular: 6px;
+  --desktop-glass-menu-blur: 24px; /* existing implementation */
 }

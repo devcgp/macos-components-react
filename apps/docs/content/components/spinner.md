@@ -37,12 +37,12 @@ label（默认正在加载）。
 ## Code Example
 
 ```tsx
-import { Spinner } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Spinner } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Spinner label="正在读取图库" />
     </div>
   )

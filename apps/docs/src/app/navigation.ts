@@ -15,7 +15,7 @@ type NavigationPage = NavigationItem & { href: string }
 type PageLocation = { page: NavigationPage; ancestors: string[] }
 
 const page = (id: string, title: string, titleZh?: string): NavigationPage => ({
-  id, title, titleZh, href: '#/tahoe/' + id,
+  id, title, titleZh, href: '#/desktop/' + id,
 })
 
 function group(id: string, title: string, titleZh: string, children: NavigationItem[]): NavigationItem {

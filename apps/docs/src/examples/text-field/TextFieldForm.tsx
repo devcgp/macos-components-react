@@ -1,6 +1,6 @@
 import { useId, useState } from 'react'
-import { Button, TextField } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Button, TextField } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export const formLabels = {
   field: "Folder name",
@@ -15,7 +15,7 @@ export function TextFieldForm({ labels = formLabels }: { labels?: typeof formLab
   const [submitted, setSubmitted] = useState('')
 
   return (
-    <form data-theme="tahoe" noValidate style={{ display: 'grid', gap: 'var(--tahoe-gap)', justifyItems: 'start', overflowWrap: 'anywhere', minWidth: 0 }}
+    <form data-theme="desktop" noValidate style={{ display: 'grid', gap: 'var(--desktop-gap)', justifyItems: 'start', overflowWrap: 'anywhere', minWidth: 0 }}
       onSubmit={event => {
         event.preventDefault()
         const name = String(new FormData(event.currentTarget).get('folder') ?? '').trim()

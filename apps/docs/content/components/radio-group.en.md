@@ -37,12 +37,12 @@ label, options, value, defaultValue, onValueChange and disabled.
 ## Code Example
 
 ```tsx
-import { RadioGroup } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { RadioGroup } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <RadioGroup label="Layout" options={[{ value: "grid", label: "Grid" }]} defaultValue="grid" />
     </div>
   )

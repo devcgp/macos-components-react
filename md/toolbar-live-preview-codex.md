@@ -9,7 +9,7 @@ Improve the existing **Toolbar** component and implement real, reusable Live Pre
 1. `apps/docs/content/components/toolbar.md` — Chinese spec.
 2. `apps/docs/content/components/toolbar.en.md` — English equivalent.
 3. `packages/ui/src/components/toolbar.tsx` — current implementation and public API.
-4. `packages/ui/src/styles/tahoe-tokens.css`, related existing style files — authoritative project Design Tokens.
+4. `packages/ui/src/styles/desktop-tokens.css`, related existing style files — authoritative project Design Tokens.
 5. `docs/design.md`, `docs/tokens.md`, `apps/docs/src/app/catalog.ts` — documentation and navigation conventions.
 6. Existing Button, Search, Window and Sidebar components **only after checking their real exports and props**.
 
@@ -29,13 +29,13 @@ type ToolbarProps = {
 
 Toolbar renders a semantic `<header>`; its filter/action wrappers use `role="group"`, and slots receive **caller-supplied** React elements. It has no `size`, `variant`, `theme`, `onSearch`, `loading`, or toolbar-owned selection state.
 
-Existing CSS uses `--tahoe-toolbar-height` (52px minimum), `--tahoe-toolbar-search-width` (150px reference), `--tahoe-toolbar-surface`, `--tahoe-separator`, `--tahoe-label`, and the shared Tahoe fills and typography. Prefer these tokens; do not create a new palette, hardcode theme colors, or call project approximations Apple-official measurements.
+Existing CSS uses `--desktop-toolbar-height` (52px minimum), `--desktop-toolbar-search-width` (150px reference), `--desktop-toolbar-surface`, `--desktop-separator`, `--desktop-label`, and the shared Desktop fills and typography. Prefer these tokens; do not create a new palette, hardcode theme colors, or call project approximations Apple-official measurements.
 
 ## Documentation requirements
 
 - Chinese `toolbar.md` and English `toolbar.en.md` each retain **the same 12 sections** in this order: Overview, Anatomy, Live Preview, Sizes, Variants, States, Behavior, Accessibility, API Reference, Code Example, Design Specifications, References.
 - Render Markdown as documentation prose. Insert real React preview cards at the Live Preview section through the existing documentation infrastructure.
-- Retain the existing `#/tahoe/toolbar` route. Support the English document through the site's existing locale approach; if no locale routing exists, do not invent a new routing framework just for Toolbar.
+- Retain the existing `#/desktop/toolbar` route. Support the English document through the site's existing locale approach; if no locale routing exists, do not invent a new routing framework just for Toolbar.
 - Avoid duplicating the preview JSX inside Markdown source.
 
 ## Shared Live Preview Card (all cards)
@@ -48,7 +48,7 @@ Existing CSS uses `--tahoe-toolbar-height` (52px minimum), `--tahoe-toolbar-sear
 
 **Code:** show corresponding runnable React + TypeScript (TSX), with syntax highlighting and `Copy Code`. Include accurate imports, local state, and necessary styles. Copy text exactly as displayed. The code example must reflect the card's real composition and current demo state where relevant.
 
-- Theme switching must affect **only the current preview card** (not the global docs page or another card). Verify existing `.dark` and `[data-theme="tahoe"]` selector behavior and introduce only the minimal scoped adaptation needed.
+- Theme switching must affect **only the current preview card** (not the global docs page or another card). Verify existing `.dark` and `[data-theme="desktop"]` selector behavior and introduce only the minimal scoped adaptation needed.
 - Switching Preview/Code must not reset Light/Dark state. Preserve demo interaction state where reasonable.
 - Reuse the shared card already used by Button/Checkbox/Slider/Switch/Sidebar if present; extend it instead of copying infrastructure.
 - No fake buttons, fake search functionality, static screenshots, or unsupported Toolbar props.
@@ -90,10 +90,10 @@ Compose Toolbar with the repository's real Window / Sidebar / content components
 
 ## Tokens and visual fidelity
 
-- Use the current **Tahoe Design Tokens** for background, separators, text, accents, focus, hover, and selection.
+- Use the current **Desktop Design Tokens** for background, separators, text, accents, focus, hover, and selection.
 - Layout: minimum height 52px; 8px/12px padding; 8px main gap; 6px controls gap; 2px group gap; 150px default search width, based on the checked CSS. Width may grow/shrink with parent layout.
 - Support both Light/Dark without hardcoding new colors.
-- Treat these values as project Web implementation, not verified Apple Tahoe 26 official geometry.
+- Treat these values as project Web implementation, not verified Apple macOS 26 official geometry.
 
 ## Validation and deliverables
 

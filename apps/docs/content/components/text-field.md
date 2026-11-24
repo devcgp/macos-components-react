@@ -1,12 +1,12 @@
 # Text Field
 
 > 组件：`TextField` · 分类：Selection and Input · 文档语言：简体中文\
-> 文档路由：`#/tahoe/text-field` · 源码：`packages/ui/src/components/AdditionalControls.tsx`\
-> 样式基准：`packages/ui/src/styles/tahoe-tokens.css` · 状态：与当前仓库实现一致（2026-11-17）
+> 文档路由：`#/desktop/text-field` · 源码：`packages/ui/src/components/AdditionalControls.tsx`\
+> 样式基准：`packages/ui/src/styles/desktop-tokens.css` · 状态：与当前仓库实现一致（2026-11-17）
 
 ## Overview
 
-Text Field 是 macOS Tahoe 风格的**单行纯文本输入控件**，用于编辑文件名称、项目名称和其他短文本。它使用真实 HTML `<input type="text">`，并通过包裹式 `<label>` 提供可访问名称。`TextField` 是表单中的输入元素，而不是完整的验证表单或搜索组件。
+Text Field 是 macOS 风格的**单行纯文本输入控件**，用于编辑文件名称、项目名称和其他短文本。它使用真实 HTML `<input type="text">`，并通过包裹式 `<label>` 提供可访问名称。`TextField` 是表单中的输入元素，而不是完整的验证表单或搜索组件。
 
 **适用：**名称、标题、短备注、标签名称。**不适用：**多行内容（使用 TextArea）、专用搜索体验（使用 SearchField）、日期或数字的专用选择器。
 
@@ -16,13 +16,13 @@ Text Field 是 macOS Tahoe 风格的**单行纯文本输入控件**，用于编�
 
 | 部位 | 源码 / 样式 | 作用 |
 | --- | --- | --- |
-| Label | `<label className="tahoe-field-label">` | 文字与输入框的关联，点击文字可聚焦输入框 |
+| Label | `<label className="desktop-field-label">` | 文字与输入框的关联，点击文字可聚焦输入框 |
 | Input | `<input type="text">` | 原生键盘输入、选择、剪贴板和表单行为 |
-| Field surface | `.tahoe-text-input.tahoe-field-control` | 实色表面、单像素边框、圆角 |
+| Field surface | `.desktop-text-input.desktop-field-control` | 实色表面、单像素边框、圆角 |
 | Placeholder | 原生 `placeholder` | 可选提示，不替代可访问名称 |
 | Focus ring | `:focus` / `:focus-visible` | 键盘及聚焦状态可见反馈 |
 
-默认采用紧凑的水平排列：文字标签与输入框间距由 `--tahoe-gap` 定义，默认为 `8px`。实际宽度由容器或 `className` 控制，也可借助原生 `size` 属性指定字符宽度。
+默认采用紧凑的水平排列：文字标签与输入框间距由 `--desktop-gap` 定义，默认为 `8px`。实际宽度由容器或 `className` 控制，也可借助原生 `size` 属性指定字符宽度。
 
 ## Live Preview
 
@@ -48,15 +48,15 @@ Text Field 是 macOS Tahoe 风格的**单行纯文本输入控件**，用于编�
 
 | 参数 | 当前 CSS 规格 | 依据 |
 | --- | --- | --- |
-| 高度 | `24px` | `--tahoe-control-height` |
-| 圆角 | `6px` | `--tahoe-control-radius` |
-| 左内边距 | `8px` | `.tahoe-field-control.tahoe-text-input` |
-| 右内边距 | `4px` | `.tahoe-field-control.tahoe-text-input` |
-| 边框 | `1px` | `--tahoe-field-border` |
-| 正文字号 | `13px` | `--tahoe-regular-type` |
-| 标签与输入间距 | `8px` | `--tahoe-gap` |
+| 高度 | `24px` | `--desktop-control-height` |
+| 圆角 | `6px` | `--desktop-control-radius` |
+| 左内边距 | `8px` | `.desktop-field-control.desktop-text-input` |
+| 右内边距 | `4px` | `.desktop-field-control.desktop-text-input` |
+| 边框 | `1px` | `--desktop-field-border` |
+| 正文字号 | `13px` | `--desktop-regular-type` |
+| 标签与输入间距 | `8px` | `--desktop-gap` |
 
-以上为项目当前 CSS/Web 规范，不宣称直接测量自 Apple 官方 Tahoe 26 Figma 节点。不要为 Mini/Small/Large 创建假的组件变体。
+以上为项目当前 CSS/Web 规范，不宣称直接测量自 Apple 官方 macOS 26 Figma 节点。不要为 Mini/Small/Large 创建假的组件变体。
 
 ## Variants
 
@@ -72,7 +72,7 @@ Text Field 是 macOS Tahoe 风格的**单行纯文本输入控件**，用于编�
 | Empty | `value=""` / 无默认值 | 空文本框 |
 | Placeholder | `placeholder` | 显示辅助提示，输入后消失 |
 | Filled | `value` / `defaultValue` | 展示用户文本 |
-| Focused | 点击或 Tab | 当前焦点样式使用 `--tahoe-control-focus` |
+| Focused | 点击或 Tab | 当前焦点样式使用 `--desktop-control-focus` |
 | Disabled | `disabled` | 原生禁止编辑与聚焦，项目样式降低可见权重 |
 | Read-only | `readOnly` | 不可编辑，但仍可聚焦及复制内容 |
 | Required | `required` | 参与原生表单约束验证；组件不内建错误文案 |
@@ -134,12 +134,12 @@ export function TextField(
 ### 基础用法
 
 ```tsx
-import { TextField } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { TextField } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export function NameField() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <TextField label="名称" placeholder="输入文件名" defaultValue="照片图库" />
     </div>
   )
@@ -150,13 +150,13 @@ export function NameField() {
 
 ```tsx
 import { useState } from 'react'
-import { TextField } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { TextField } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export function RenameField() {
   const [name, setName] = useState('Photos')
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <TextField
         label="文件夹名称"
         name="folderName"
@@ -173,8 +173,8 @@ export function RenameField() {
 
 ```tsx
 import { useId, useState, type FormEvent } from 'react'
-import { TextField } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { TextField } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export function FolderForm() {
   const errorId = useId()
@@ -187,7 +187,7 @@ export function FolderForm() {
     setError('')
   }
   return (
-    <form data-theme="tahoe" onSubmit={handleSubmit} noValidate>
+    <form data-theme="desktop" onSubmit={handleSubmit} noValidate>
       <TextField
         label="文件夹名称" name="folder" required
         value={name} onChange={(event) => { setName(event.currentTarget.value); setError('') }}
@@ -205,31 +205,31 @@ export function FolderForm() {
 
 ## Design Specifications
 
-### Tahoe Design Tokens
+### Desktop Design Tokens
 
 | Token | 用途 |
 | --- | --- |
-| `--tahoe-control-height` | 输入框高度，24px |
-| `--tahoe-control-radius` | 外轮廓圆角，6px |
-| `--tahoe-field-border` | 1px 轮廓线颜色 |
-| `--tahoe-content-surface` | 输入框背景 |
-| `--tahoe-label` | 输入文本及标签颜色 |
-| `--tahoe-text-secondary` | Placeholder 色 |
-| `--tahoe-regular-type` | 字体规格 |
-| `--tahoe-accent` / `--tahoe-focus` | 聚焦强调色 |
-| `--tahoe-control-focus` | 双层 focus ring |
-| `--tahoe-control-transition` | 聚焦视觉变化的过渡时间 |
+| `--desktop-control-height` | 输入框高度，24px |
+| `--desktop-control-radius` | 外轮廓圆角，6px |
+| `--desktop-field-border` | 1px 轮廓线颜色 |
+| `--desktop-content-surface` | 输入框背景 |
+| `--desktop-label` | 输入文本及标签颜色 |
+| `--desktop-text-secondary` | Placeholder 色 |
+| `--desktop-regular-type` | 字体规格 |
+| `--desktop-accent` / `--desktop-focus` | 聚焦强调色 |
+| `--desktop-control-focus` | 双层 focus ring |
+| `--desktop-control-transition` | 聚焦视觉变化的过渡时间 |
 
-使用 `@macos-tahoe/ui/styles.css`；将控件放入 `data-theme="tahoe"` 容器。全站外观由根元素的 `.dark` 管理。Live Preview 默认跟随全站外观，每张卡片可通过 `data-appearance` 独立切换输入框与卡片的主题。
+使用 `@cgpdesktopui/ui/styles.css`；将控件放入 `data-theme="desktop"` 容器。全站外观由根元素的 `.dark` 管理。Live Preview 默认跟随全站外观，每张卡片可通过 `data-appearance` 独立切换输入框与卡片的主题。
 
-**来源等级：**布局与几何取自当前项目 Web CSS；24px / 6px 与第三方 Tahoe 视觉规格对照。不是 Apple 官方 Figma 直接测量数据。
+**来源等级：**布局与几何取自当前项目 Web CSS；24px / 6px 与第三方 Desktop 视觉规格对照。不是 Apple 官方 Figma 直接测量数据。
 
 **设计审查重点：**输入框背景色、边框对比度、禁用可读性、focus ring、中文与英文标签长度、窄容器下的溢出处理。新增或调整 CSS 必须复用 Token，不建立新的硬编码配色体系。
 
 ## References
 
 - [项目源码：TextField](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/components/AdditionalControls.tsx)
-- [项目样式：Tahoe Tokens](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/tahoe-tokens.css)
+- [项目样式：Desktop Tokens](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/desktop-tokens.css)
 - [项目设计规范](https://github.com/devcgp/macos-components-react/blob/main/docs/design.md)
 - [项目 Tokens 文档](https://github.com/devcgp/macos-components-react/blob/main/docs/tokens.md)
 - [Apple Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/)

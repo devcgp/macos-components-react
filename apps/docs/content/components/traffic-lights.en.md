@@ -37,12 +37,12 @@ No component-specific props.
 ## Code Example
 
 ```tsx
-import { TrafficLights } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { TrafficLights } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <TrafficLights />
     </div>
   )

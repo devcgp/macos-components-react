@@ -2,7 +2,7 @@
 
 ## 目标
 
-为 macOS Tahoe Components 文档站点的 **Menu** 页面完成真实、可交互的 Live Preview，并检查现有 `DropdownMenu` 组件与设计规范是否一致。
+为 macOS Components 文档站点的 **Menu** 页面完成真实、可交互的 Live Preview，并检查现有 `DropdownMenu` 组件与设计规范是否一致。
 
 **以这两份文档为权威需求：**
 - `apps/docs/content/components/menu.md`（中文）
@@ -10,8 +10,8 @@
 
 **优先读取现有仓库文件：**
 - `packages/ui/src/components/navigation.tsx`
-- `packages/ui/src/styles/tahoe-tokens.css`
-- `packages/ui/src/styles/tahoe-materials.css`
+- `packages/ui/src/styles/desktop-tokens.css`
+- `packages/ui/src/styles/desktop-materials.css`
 - `packages/ui/src/index.ts`
 - `docs/design.md` 和 `docs/tokens.md`
 - `apps/docs/src/app/catalog.ts`
@@ -85,19 +85,19 @@ Code 包含可复制的真实导入、Props 和必要状态；使用 React + Typ
 - 在窄视口中检验菜单不被 `overflow` 裁剪，位置合理，不溢出屏幕。
 - 业务操作通过本地状态反馈；不跳转、不删除真实数据。
 
-## 4. Tahoe Design Tokens
+## 4. Desktop Design Tokens
 
 从现有 CSS 中读取并复用：
 
-- `--tahoe-control-height`
-- `--tahoe-control`
-- `--tahoe-label`
-- `--tahoe-menu`
-- `--tahoe-menu-rim`
-- `--tahoe-menu-shadow`
-- `--tahoe-focus`
-- `--tahoe-accent`
-- `--tahoe-font`、`--tahoe-body`
+- `--desktop-control-height`
+- `--desktop-control`
+- `--desktop-label`
+- `--desktop-menu`
+- `--desktop-menu-rim`
+- `--desktop-menu-shadow`
+- `--desktop-focus`
+- `--desktop-accent`
+- `--desktop-font`、`--desktop-body`
 
 当前 menu CSS：面板最小宽 132px、圆角 10px、内边距 4px；菜单项最小高 24px、圆角 5px；触发器最小宽 84px。以实际代码为准，不复制另一套色板或硬编码主题变量。
 

@@ -1,4 +1,4 @@
-/* Token-only entrypoint. Do not replace tahoe-tokens.css (that file also contains component rules). */
+/* Token-only entrypoint. Do not replace desktop-tokens.css (that file also contains component rules). */
 @import "./palette.tokens.css";
 @import "./semantic.tokens.css";
 @import "./typography.tokens.css";

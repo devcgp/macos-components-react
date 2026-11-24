@@ -12,5 +12,5 @@ export * from './components/feedback'
 export * from './components/desktop'
 export * from './components/content'
 
-import './styles/tahoe-tokens.css'
-import './styles/tahoe-materials.css'
+import './styles/desktop-tokens.css'
+import './styles/desktop-materials.css'

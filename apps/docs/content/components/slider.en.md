@@ -37,12 +37,12 @@ min, max, step, value, defaultValue, onChange and disabled.
 ## Code Example
 
 ```tsx
-import { Slider } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Slider } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Slider aria-label="Thumbnail size" min={110} max={280} defaultValue={170} />
     </div>
   )

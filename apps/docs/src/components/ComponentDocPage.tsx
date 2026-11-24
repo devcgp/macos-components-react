@@ -2,7 +2,7 @@ import ComponentDocumentationLayout from '../layouts/ComponentDocumentationLayou
 import { createContext, isValidElement, Suspense, useContext, useState, type ReactNode } from 'react'
 import ReactMarkdown, { type Components } from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { Checkbox } from '@macos-tahoe/ui'
+import { Checkbox } from '@cgpdesktopui/ui'
 import { slug } from '../app/catalog'
 import { installCommands } from '../app/installation'
 import { useLocale, localizeTitle } from '../app/locale'
@@ -33,7 +33,7 @@ function Installation() {
     <p>{tr(
       '从公开仓库克隆源码，构建并打包 UI，然后将生成的压缩包安装到 React 19 项目。',
       'Clone the public repository, build and pack the UI, then install the tarball in a React 19 project.',
-    )} <a href="#/tahoe/getting-started/installation">{tr('完整安装指南', 'Installation guide')}</a></p>
+    )} <a href="#/desktop/getting-started/installation">{tr('完整安装指南', 'Installation guide')}</a></p>
     <CopyCode source={source} label={tr('复制安装命令', 'Copy install commands')}><pre><code>{source}</code></pre></CopyCode>
   </>
 }
