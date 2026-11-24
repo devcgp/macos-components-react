@@ -49,8 +49,8 @@ export default function TahoeExtraPreview({ id }: { id: ExtraId }) {
       const Overlay = id === 'dialog' ? Dialog : Sheet
       return <><Button onClick={() => setOpen(true)}>{t('查看详情')}</Button><Overlay closeLabel={locale === "en" ? "Close" : undefined} open={open} onClose={() => setOpen(false)} title={t('文件详情')}>JPEG · 2400 × 1600</Overlay></>
     }
-    case 'window': return <Window title="PhotoVault"><SplitView leading={<List><li>{t('所有照片')}</li><li>{t('收藏')}</li></List>}><InspectorPanel title={t('文件详情')}>JPEG</InspectorPanel></SplitView></Window>
-    case 'title-bar': return <TitleBar title="PhotoVault"/>
+    case 'window': return <Window title={t('照片图库')}><SplitView leading={<List><li>{t('所有照片')}</li><li>{t('收藏')}</li></List>}><InspectorPanel title={t('文件详情')}>JPEG</InspectorPanel></SplitView></Window>
+    case 'title-bar': return <TitleBar title={t('照片图库')}/>
     case 'traffic-lights': return <TrafficLights/>
     case 'split-view': return <SplitView leading={<List><li>{t('目录')}</li></List>}>{t('图库')}</SplitView>
     case 'inspector-panel': return <InspectorPanel title={t('文件详情')}>JPEG · 2400 × 1600</InspectorPanel>

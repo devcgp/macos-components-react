@@ -2,8 +2,7 @@
 
 > 组件：`Checkbox`\
 > 包：`@macos-tahoe/ui`\
-> 页面路由：`#/tahoe/checkbox`\
-> 文档状态：Phase 1 — 基于当前实现，可继续完善\
+> 页面路由：`#/tahoe/checkbox`
 > 设计系统：**Tahoe Design Tokens**（以仓库最新的 CSS Tokens 为准）
 
 ## Overview

@@ -13,13 +13,13 @@ type TreeProps = {
 }
 
 function NavigationTree({ items, current, collapsed, toggle }: TreeProps) {
-  const { locale } = useLocale()
+  const { locale, tr } = useLocale()
   const idPrefix = useId()
   return <ul className="docs-nav-list">
     {items.map(item => {
       const title = navigationTitle(item, locale)
       if (item.href) {
-        return <li key={item.id}><a href={item.href} aria-current={item.href === current ? 'page' : undefined}><span>{title}</span>{item.status === 'todo' && <Badge className="docs-nav-todo" aria-hidden="true">TODO</Badge>}</a></li>
+        return <li key={item.id}><a href={item.href} aria-current={item.href === current ? 'page' : undefined}><span>{title}</span>{item.status === 'reference' && <Badge className="docs-nav-reference" aria-hidden="true">{tr('简要文档', 'Quick reference')}</Badge>}</a></li>
       }
       if (!item.children?.length) return null
       const open = !collapsed.has(item.id)

@@ -31,8 +31,8 @@ function Installation() {
   return <>
     <h3 id="installation" className="doc-section">{tr('安装', 'Installation')}</h3>
     <p>{tr(
-      '需要私有仓库访问权限。先构建并打包 UI，再将生成的压缩包安装到 React 19 项目。',
-      'Private repository access is required. Build and pack the UI, then install the tarball in a React 19 project.',
+      '从公开仓库克隆源码，构建并打包 UI，然后将生成的压缩包安装到 React 19 项目。',
+      'Clone the public repository, build and pack the UI, then install the tarball in a React 19 project.',
     )} <a href="#/tahoe/getting-started/installation">{tr('完整安装指南', 'Installation guide')}</a></p>
     <CopyCode source={source} label={tr('复制安装命令', 'Copy install commands')}><pre><code>{source}</code></pre></CopyCode>
   </>

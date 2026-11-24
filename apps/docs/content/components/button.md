@@ -2,8 +2,7 @@
 
 > 组件：`Button`\
 > 包：`@macos-tahoe/ui`\
-> 文档路由：`#/tahoe/button`\
-> 文档状态：第一阶段，已与当前实现对齐
+> 文档路由：`#/tahoe/button`
 
 ## Overview
 

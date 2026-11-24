@@ -85,7 +85,7 @@ button, summary { cursor: pointer; }
 .docs-nav-toggle .docs-nav-chevron { width: 8px; height: 8px; flex: none; }
 .docs-nav-toggle[aria-expanded="true"] .docs-nav-chevron { transform: rotate(90deg); }
 .docs-nav a { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-.docs-nav-todo { flex: none; font-size: 10px; color: var(--tahoe-text-secondary); }
+.docs-nav-reference { flex: none; font-size: 10px; color: var(--tahoe-text-secondary); }
 .docs-nav :is(a, .docs-nav-toggle):hover { background: var(--tahoe-fills-tertiary); }
 .docs-nav a[aria-current="page"] { background: var(--tahoe-selection); font-weight: 650; }
 .docs-toc h2 { font-weight: 600; margin-bottom: 7px; }
