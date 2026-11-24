@@ -17,7 +17,7 @@ test('keeps the HIG sections, resources, component topics, and existing routes',
   const expectedIds = [
     ...topicGroups.flatMap(group => group.items.map(title => group.folder + '/' + slug(title))),
     ...componentDocs.map(doc => doc.id),
-    'design', 'tokens', 'colors', 'resources/ai-integration', 'resources/community',
+    'design', 'tokens', 'resources/ai-integration', 'resources/community',
   ]
   expect(navigationPages.map(({ page }) => page.href).sort()).toEqual(
     expectedIds.map(id => '#/tahoe/' + id).sort(),
@@ -91,7 +91,7 @@ test('keeps specification routes and legacy entry aliases accessible', async ({ 
   const titles = [
     ['design', 'Design Guidelines'],
     ['tokens', 'Design Tokens'],
-    ['colors', 'System Colors'],
+    ['foundations/color', 'Color'],
   ]
   for (const [route, title] of titles) {
     await page.goto('/?lang=en#/tahoe/' + route)
@@ -108,12 +108,12 @@ test('keeps specification routes and legacy entry aliases accessible', async ({ 
 
 test('pins the frosted header and desktop navigation while aligning titles across routes', async ({ page }) => {
   await page.setViewportSize({ width: 882, height: 852 })
-  await page.goto('/?lang=zh-CN#/tahoe/tokens')
+  await page.goto('/?lang=zh-CN#/tahoe/foundations/control-geometry')
 
   const header = page.locator('.site-header')
   const sidebar = page.locator('.docs-nav')
   const title = page.getByRole('main').getByRole('heading', { level: 1 })
-  await expect(title).toHaveText('Tahoe Tokens')
+  await expect(title).toHaveText('控件尺寸')
   await expect(header).toHaveCSS('backdrop-filter', /blur\(16px\)/)
   await expect(sidebar).toHaveCSS('position', 'sticky')
 
@@ -132,8 +132,8 @@ test('pins the frosted header and desktop navigation while aligning titles acros
   expect((await sidebar.boundingBox())?.y).toBeCloseTo(initialSidebar.y)
 
   await expect(sidebar.getByRole('button', { name: '设计原则' })).toHaveAttribute('aria-expanded', 'true')
-  await sidebar.getByRole('link', { name: '辅助功能', exact: true }).click()
-  await expect(title).toHaveText('辅助功能')
+  await sidebar.getByRole('link', { name: '色彩', exact: true }).click()
+  await expect(title).toHaveText('色彩')
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
   expect((await title.boundingBox())?.y).toBeCloseTo(initialTitle.y)
   expect(await sidebar.boundingBox()).toEqual(initialSidebar)
@@ -145,11 +145,11 @@ test('pins the frosted header and desktop navigation while aligning titles acros
 
 test('keeps title spacing and the navigation pane stable on narrow screens', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 800 })
-  await page.goto('/?lang=zh-CN#/tahoe/foundations/accessibility')
+  await page.goto('/?lang=zh-CN#/tahoe/foundations/color')
   const sidebar = page.locator('.docs-nav')
   const header = page.locator('.site-header')
   const title = page.getByRole('main').getByRole('heading', { level: 1 })
-  await expect(title).toHaveText('辅助功能')
+  await expect(title).toHaveText('色彩')
 
   const nav = (await sidebar.boundingBox())!
   const bar = (await header.boundingBox())!

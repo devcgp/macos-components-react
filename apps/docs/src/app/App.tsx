@@ -8,6 +8,7 @@ import { faCodeBranch, faMagnifyingGlass } from '@fortawesome/free-solid-svg-ico
 import { Button } from '@macos-tahoe/ui'
 import { DarkAppearanceContext } from './appearance'
 import { LocaleContext, localizeTitle, readLocale, type Locale } from './locale'
+import { FoundationTokens, foundationTokenSections } from '../components/FoundationTokens'
 import DocumentHeading from '../components/DocumentHeading'
 import DocsLayout from '../layouts/DocsLayout'
 import { PageResources, repository } from '../components/PageResources'
@@ -35,6 +36,7 @@ const componentPages = Object.fromEntries(Object.entries(componentFiles).map(([p
     return { default: ({ id, hash }: { id: string; hash: string }) => <ComponentDocPage id={id} markdown={markdown} hash={hash}/> }
   }),
 ]))
+
 const entries = navigationPages.map(({ page }) => page)
 const start = '#/tahoe/getting-started/introduction'
 
@@ -42,6 +44,11 @@ function currentRoute() {
   const hash = location.hash
   if (!hash.startsWith('#/')) return start
   if (hash === '#/overview' || hash === '#/tahoe/showcase') return start
+  if (hash === '#/tahoe/colors' || hash === '#/tahoe/foundations/accessibility') {
+    const color = '#/tahoe/foundations/color'
+    history.replaceState(history.state, '', color)
+    return color
+  }
   return hash
 }
 
@@ -66,7 +73,7 @@ export default function App() {
     [item.title, navigationTitle(item, 'zh-CN'), item.href, ...(item.keywords ?? [])].some(value =>
       value.toLowerCase().includes(searchTerm)),
   ) : []
-  const referenceSections = id === 'colors' ? tahoeColorSections : id === 'tokens' ? tahoeTokenSections : []
+  const referenceSections = id === 'foundations/color' ? tahoeColorSections : id === 'tokens' ? tahoeTokenSections.slice(0, 1) : foundationTokenSections(id)
   const toc = doc
     ? documentationTab(hash).sections.map(title => ({ title: localizeTitle(title, locale), href: slug(title) }))
     : referenceSections.map(section => ({ title: tr(section.titleZh, section.title), href: section.id }))
@@ -138,13 +145,13 @@ export default function App() {
 
   return <LocaleContext.Provider value={locale}><DarkAppearanceContext.Provider value={dark}><div data-theme="tahoe">
     <DocsLayout header={header} navigation={section?.children ?? []} current={route} toc={toc}>
-      {entryTitle&&<DocumentHeading title={id==='design'?tr('macOS Tahoe 26 设计规范','macOS Tahoe 26 Design Guide'):id==='tokens'?'Tahoe Tokens':entryTitle} category={section?{title:navigationTitle(section,locale),href:navigationPages.find(item=>item.ancestors[0]===section.id)?.page.href??start}:undefined}/>}
+      {entryTitle&&<DocumentHeading title={id==='design'?tr('macOS Tahoe 26 设计规范','macOS Tahoe 26 Design Guide'):entryTitle} category={section?{title:navigationTitle(section,locale),href:navigationPages.find(item=>item.ancestors[0]===section.id)?.page.href??start}:undefined}/>}
       {ComponentPage ? <Suspense fallback={<p role="status">{tr('正在加载组件文档…', 'Loading component documentation…')}</p>}>
           <ComponentPage key={locale + id} id={id} hash={hash}/>
         </Suspense>
-        : id === 'colors' ? <TahoeColorsPage/>
         : id === 'tokens' ? <TahoeTokensPage/>
         : markdown ? <article className="markdown"><ReactMarkdown remarkPlugins={[remarkGfm]} components={{h1:()=>null}}>{markdown}</ReactMarkdown>
+          {id === 'foundations/color' ? <TahoeColorsPage/> : <FoundationTokens key={id} id={id}/>}
           {id.includes('/') && !id.startsWith('resources/') && <p><a href={hig}>Apple Human Interface Guidelines</a></p>}</article>
         : <article><h1>{tr('未找到页面', 'Page not found')}</h1><p><a href={start}>{tr('前往 Tahoe 文档', 'Go to Tahoe documentation')}</a></p></article>}
       {entryTitle && <PageResources key={id+locale} id={id} route={route} title={entryTitle} component={Boolean(doc)}/>}

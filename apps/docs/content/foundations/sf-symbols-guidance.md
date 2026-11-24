@@ -1,3 +1,3 @@
 # SF Symbols Guidance
 
-SF Symbols 用于原生 macOS 的符号参考。网页实现使用 Lucide，图标随文字和状态保持一致。
+SF Symbols 用于参考原生 macOS 的图标语义。下方保留源符号标识。网页组件使用 Font Awesome SVG，避免依赖平台字体。

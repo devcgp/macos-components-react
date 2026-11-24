@@ -4,7 +4,6 @@ import { useLocale } from '../app/locale'
 export const repository = 'https://github.com/devcgp/macos-components-react'
 
 const rawDocuments=import.meta.glob<string>(['../../content/**/*.md','../../../../docs/*.md'],{query:'?raw',import:'default'})
-const colorSource=import.meta.glob<string>('../../../../packages/ui/src/styles/figma-colors.json',{query:'?raw',import:'default'})
 
 const componentSources: Record<string, string[]> = {
   button: ['button', 'icon-button'],
@@ -35,12 +34,11 @@ export function PageResources({ id, route, title, component }: {
   const [loading,setLoading]=useState(false)
   const suffix = tr('.md', '.en.md')
   const path = id === 'design' || id === 'tokens' ? 'docs/' + id + suffix
-    : id === 'colors' ? 'packages/ui/src/styles/figma-colors.json'
     : 'apps/docs/content/' + (component ? 'components/' : '') + id + suffix
   const implementation = Object.entries(componentSources).find(([, ids]) => ids.includes(id))?.[0]
   const source = implementation ? 'packages/ui/src/components/' + implementation + '.tsx'
     : id === 'tokens' ? 'packages/ui/src/styles/tokens/tokens.json'
-    : id === 'colors' ? 'apps/docs/src/components/TahoeColorsPage.tsx'
+    : id === 'foundations/color' ? 'apps/docs/src/components/TahoeColorsPage.tsx'
     : path
   const url = new URL(location.href)
   url.searchParams.set('lang', locale)
@@ -55,7 +53,7 @@ export function PageResources({ id, route, title, component }: {
     : id === 'resources/ai-integration' ? ['ai-integration' + suffix, 'design' + suffix, 'tokens.json', 'styles.css']
     : []
   const documentKey=path.startsWith('docs/')?'../../../../'+path:'../../content/'+path.replace('apps/docs/content/','')
-  const loadRaw=(rawDocuments as Partial<Record<string,()=>Promise<string>>>)[documentKey]??(id==='colors'?Object.values(colorSource)[0]:undefined)
+  const loadRaw=(rawDocuments as Partial<Record<string,()=>Promise<string>>>)[documentKey]
   async function toggleSource(){
     if(showSource){setShowSource(false);return}
     if(raw){setShowSource(true);return}

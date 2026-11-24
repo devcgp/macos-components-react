@@ -1,6 +1,6 @@
 import tokenSource from '../../../../packages/ui/src/styles/tokens/tokens.json'
 
-export const { colors: tahoeColors, typography: tahoeTypography } = tokenSource
+export const { colors: tahoeColors, typography: tahoeTypography, material: tahoeMaterials, context: tahoeContexts, icons: tahoeIcons } = tokenSource
 export const tahoeSizes = tokenSource.sizes.modeData
 export type TahoeSize = keyof typeof tahoeSizes
 

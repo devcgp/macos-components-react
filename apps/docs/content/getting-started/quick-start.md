@@ -1,6 +1,6 @@
 # Quick Start
 
-导入 UI 包与样式，再为界面设置 Tahoe 主题容器。
+导入组件和样式，在主题容器内渲染按钮。
 
 ```tsx
 import { Button } from "@macos-tahoe/ui"

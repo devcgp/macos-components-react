@@ -101,12 +101,12 @@ test('switches language in place and remembers it', async ({ page }) => {
   await page.goto('/#/tahoe/design')
   await expect(page.getByRole('heading', { name: 'macOS Tahoe 26 Design Guide' })).toBeVisible()
   await page.getByRole('button', { name: 'Search', exact: true }).click()
-  await page.getByRole('searchbox', { name: 'Search documentation' }).fill('辅助功能')
-  await page.getByRole('dialog').getByRole('link', { name: 'Accessibility', exact: true }).click()
-  await expect(page.getByRole('heading', { name: 'Accessibility', exact: true, level: 1 })).toBeVisible()
+  await page.getByRole('searchbox', { name: 'Search documentation' }).fill('排版')
+  await page.getByRole('dialog').getByRole('link', { name: 'Typography', exact: true }).click()
+  await expect(page.getByRole('heading', { name: 'Typography', exact: true, level: 1 })).toBeVisible()
   await page.getByRole('combobox', { name: 'Site language' }).selectOption('zh-CN')
   await expect(page.locator('html')).toHaveAttribute('lang', 'zh-CN')
-  await expect(page.getByRole('heading', { name: '辅助功能', exact: true, level: 1 })).toBeVisible()
+  await expect(page.getByRole('heading', { name: '排版', exact: true, level: 1 })).toBeVisible()
 })
 
 test('copies the Markdown example and keeps the preview interactive', async ({ page, context }) => {

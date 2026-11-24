@@ -1,6 +1,6 @@
 # Quick Start
 
-Import the UI package and stylesheet, then wrap your interface with the Tahoe theme.
+Import the component and stylesheet, then render the button inside a theme container.
 
 ```tsx
 import { Button } from "@macos-tahoe/ui"

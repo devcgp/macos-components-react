@@ -1,3 +1,3 @@
 # Introduction
 
-macOS Tahoe Components 提供独立的 React 控件、主题和使用文档。先从 [Button](#/tahoe/button) 和 [Sidebar](#/tahoe/sidebar) 体验两种外观，再查阅对应的设计依据。
+面向 React 19 的开源 UI 组件库，用于构建 macOS 风格的网页界面。先试用 [Button](#/tahoe/button) 和 [Sidebar](#/tahoe/sidebar)，或直接查看[安装指南](#/tahoe/getting-started/installation)。
