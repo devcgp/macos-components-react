@@ -1,7 +1,7 @@
 # Menu / Dropdown Menu — Component Specification (English)
 
-> Component: `DropdownMenu` · Documentation route: `#/tahoe/dropdown-menu` (verify against the existing site routing) · Implementation: `packages/ui/src/components/navigation.tsx` · Styles: `packages/ui/src/styles/tahoe-tokens.css`  
-> Status: Grounded in the current repository. This is a macOS Tahoe-inspired **web approximation**, not an Apple-native menu. The document follows the shared 12-section structure; React owns Live Preview and Markdown owns descriptions and specifications.
+> Component: `DropdownMenu` · Documentation route: `#/desktop/dropdown-menu` (verify against the existing site routing) · Implementation: `packages/ui/src/components/navigation.tsx` · Styles: `packages/ui/src/styles/desktop-tokens.css`\
+> Status: Grounded in the current repository. This is a macOS-inspired **web approximation**, not an Apple-native menu. The document follows the shared 12-section structure; React owns Live Preview and Markdown owns descriptions and specifications.
 
 ## 01. Overview
 
@@ -15,8 +15,8 @@ The Menu groups **discrete commands** associated with a task or object behind a 
 
 | Element | Current implementation | Responsibility |
 |---|---|---|
-| Trigger | `MenuButton.tahoe-menu-trigger` | Displays `label` and opens the menu |
-| Menu Surface | `MenuItems.tahoe-menu` | Contains actions, anchored `bottom start` |
+| Trigger | `MenuButton.desktop-menu-trigger` | Displays `label` and opens the menu |
+| Menu Surface | `MenuItems.desktop-menu` | Contains actions, anchored `bottom start` |
 | Menu Item | `button` inside `MenuItem` | Invokes the corresponding callback |
 | Disabled Item | `MenuItem disabled` and `button disabled` | Prevents activation |
 | Active / Focused | Headless UI focus state + `[data-focus]` CSS | Indicates navigation position |
@@ -32,7 +32,7 @@ This section is rendered by the docs site's React implementation. Do not duplica
 | **Menu Basics** | `File` menu with Open, Rename, Duplicate | Real activation, callback, closing, visible result |
 | **Menu States** | Enabled and Disabled actions; active/focused row | Disabled actions cannot execute; focus remains visible |
 | **Keyboard Interaction** | Keyboard open, arrow navigation, Enter/Space, Escape | Correct focus management and focus return |
-| **Menu in Toolbar** | Menu inside a Tahoe Toolbar or Window | Overlay is visible, responsive, theme-consistent |
+| **Menu in Toolbar** | Menu inside a Desktop Toolbar or Window | Overlay is visible, responsive, theme-consistent |
 
 **Every card:** Title; independent `Light / Dark` control (preview card and overlay only); `Preview / Code` control; highlighted TSX source; Copy Code. Preview is the default. Copied examples must import the real components and compile.
 
@@ -44,7 +44,7 @@ This section is rendered by the docs site's React implementation. Do not duplica
 
 | Element | Current CSS |
 |---|---|
-| Trigger minimum height | `--tahoe-control-height` (currently 24px) |
+| Trigger minimum height | `--desktop-control-height` (currently 24px) |
 | Trigger minimum width | 84px |
 | Menu minimum width | 132px |
 | Menu padding | 4px |
@@ -52,7 +52,7 @@ This section is rendered by the docs site's React implementation. Do not duplica
 | Menu radius | 10px |
 | Item radius | 5px |
 
-These values are **current web implementation specifications**, not claimed measurements from Apple's official Tahoe UI Kit.
+These values are **current web implementation specifications**, not claimed measurements from Apple's official macOS UI Kit.
 
 ## 05. Variants
 
@@ -129,7 +129,7 @@ No public `size`, `variant`, `open`, `onOpenChange`, `icon`, `shortcut`, `separa
 ### Basic Menu
 
 ```tsx
-import { DropdownMenu, type MenuAction } from '@macos-tahoe/ui'
+import { DropdownMenu, type MenuAction } from '@cgpdesktopui/ui'
 
 export function FileMenuExample() {
   const actions: MenuAction[] = [
@@ -139,7 +139,7 @@ export function FileMenuExample() {
   ]
 
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <DropdownMenu label="File" actions={actions} />
     </div>
   )
@@ -149,11 +149,11 @@ export function FileMenuExample() {
 ### In a Toolbar
 
 ```tsx
-import { DropdownMenu, Toolbar } from '@macos-tahoe/ui'
+import { DropdownMenu, Toolbar } from '@cgpdesktopui/ui'
 
 export function PhotoToolbarExample() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Toolbar
         title="Photos"
         actions={
@@ -175,19 +175,19 @@ export function PhotoToolbarExample() {
 
 ## 11. Design Specifications
 
-### Tahoe Token Mapping
+### Desktop Token Mapping
 
 | Role | Existing token / style | Source classification |
 |---|---|---|
-| Trigger height | `--tahoe-control-height` | Project CSS |
-| Trigger background | `--tahoe-control` | Existing semantic token |
-| Text | `--tahoe-label` | Existing semantic token |
-| Menu surface | `--tahoe-menu` | Existing semantic token |
-| Menu border | `--tahoe-menu-rim` | Existing semantic token |
-| Menu shadow | `--tahoe-menu-shadow` | Existing semantic token |
-| Active highlight | `--tahoe-focus` | Existing semantic token |
-| Accent | `--tahoe-accent` | Existing semantic token |
-| Typography | `--tahoe-font`, `--tahoe-body` | Existing semantic tokens |
+| Trigger height | `--desktop-control-height` | Project CSS |
+| Trigger background | `--desktop-control` | Existing semantic token |
+| Text | `--desktop-label` | Existing semantic token |
+| Menu surface | `--desktop-menu` | Existing semantic token |
+| Menu border | `--desktop-menu-rim` | Existing semantic token |
+| Menu shadow | `--desktop-menu-shadow` | Existing semantic token |
+| Active highlight | `--desktop-focus` | Existing semantic token |
+| Accent | `--desktop-accent` | Existing semantic token |
+| Typography | `--desktop-font`, `--desktop-body` | Existing semantic tokens |
 
 The current material uses `backdrop-filter: blur(24px)` as a browser approximation. Light/Dark styles must continue to use the existing token scopes. Do not create a separate hard-coded palette. Any shared token change must be validated against other components.
 
@@ -202,7 +202,7 @@ The current material uses `backdrop-filter: blur(24px)` as a browser approximati
 ## 12. References
 
 - Source: [`packages/ui/src/components/navigation.tsx`](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/components/navigation.tsx)
-- CSS: [`packages/ui/src/styles/tahoe-tokens.css`](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/tahoe-tokens.css)
+- CSS: [`packages/ui/src/styles/desktop-tokens.css`](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/desktop-tokens.css)
 - Project guidance: `docs/design.md`, `docs/tokens.md`
 - [Headless UI — Menu](https://headlessui.com/react/menu)
 - [Apple Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/)

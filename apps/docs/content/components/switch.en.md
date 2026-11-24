@@ -37,12 +37,12 @@ label, checked, defaultChecked, onChange and disabled.
 ## Code Example
 
 ```tsx
-import { Switch } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Switch } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Switch label="Sync favorites" defaultChecked />
     </div>
   )
@@ -58,7 +58,7 @@ export function Example() {
 | Light and dark | Translucent white thumb at 87% / 85%; active track uses the theme accent | Third-party color reference and project theme |
 | States | On, off, disabled and keyboard focus. Toggle with Space or the label. | Native HTML semantics and web styling |
 
-Verification against individual Tahoe 26 UI Kit nodes is pending.
+Verification against individual macOS 26 UI Kit nodes is pending.
 [Third-party reference](https://github.com/tamnguyenvan/macos-components/tree/e82dbfa3702a156e4b9947337dea3d496a162905)
 
 [Design guide and sources](/downloads/design.en.md)

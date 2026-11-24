@@ -2,11 +2,11 @@ import { useId, type ComponentProps } from 'react'
 import { Radio } from './controls'
 
 export function TextArea({ label, className = '', ...props }: ComponentProps<'textarea'> & { label: string }) {
-  return <label className="tahoe-field-label">{label}<textarea {...props} className={`tahoe-text-input tahoe-textarea ${className}`}/></label>
+  return <label className="desktop-field-label">{label}<textarea {...props} className={`desktop-text-input desktop-textarea ${className}`}/></label>
 }
 
 export function Select({ label, className = '', ...props }: ComponentProps<'select'> & { label: string }) {
-  return <label className="tahoe-field-label">{label}<select {...props} className={`tahoe-text-input ${className}`}/></label>
+  return <label className="desktop-field-label">{label}<select {...props} className={`desktop-text-input ${className}`}/></label>
 }
 
 export function RadioGroup({ label, options, value, defaultValue, onValueChange, disabled, name, className }: {
@@ -22,7 +22,7 @@ export function RadioGroup({ label, options, value, defaultValue, onValueChange,
   const groupId = useId()
   return <fieldset disabled={disabled} className={className}>
     <legend>{label}</legend>
-    <div className="tahoe-inline">{options.map(option =>
+    <div className="desktop-inline">{options.map(option =>
       <Radio key={option.value} name={name ?? groupId} label={option.label} value={option.value}
         checked={value === undefined ? undefined : value === option.value}
         defaultChecked={value === undefined ? defaultValue === option.value : undefined}

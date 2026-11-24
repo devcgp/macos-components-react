@@ -37,12 +37,12 @@ items, value, defaultValue and onValueChange.
 ## Code Example
 
 ```tsx
-import { Tabs } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Tabs } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Tabs label="Library" items={[{ id: "all", label: "All", panel: "3 photos" }]} />
     </div>
   )

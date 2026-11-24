@@ -37,12 +37,12 @@ Native input props. Provide an accessible name.
 ## Code Example
 
 ```tsx
-import { SearchField } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { SearchField } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <SearchField aria-label="Search photos" placeholder="Search photos" />
     </div>
   )

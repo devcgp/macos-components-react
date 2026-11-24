@@ -37,12 +37,12 @@ items，最后一项表示当前位置。
 ## Code Example
 
 ```tsx
-import { Breadcrumb } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Breadcrumb } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Breadcrumb items={[{ label: "图库", href: "/" }, { label: "收藏", href: "#favorites" }]} />
     </div>
   )

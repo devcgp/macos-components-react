@@ -37,12 +37,12 @@ text、children。
 ## Code Example
 
 ```tsx
-import { Tooltip } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Tooltip } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Tooltip text="显示文件信息">详情</Tooltip>
     </div>
   )

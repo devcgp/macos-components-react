@@ -28,7 +28,7 @@ export default function SidebarLivePreview() {
     longName: '研究资料、设计参考以及项目备忘录', current: '当前目录',
   }
 
-  return <div className="tahoe-preview-cards">
+  return <div className="desktop-preview-cards">
     <LivePreviewCard title={tr('侧边栏导航', 'Sidebar Navigation')} code={translateSource(navigationSource, navigationLabels, navigation)}>
       <SidebarNavigation labels={navigation}/>
     </LivePreviewCard>

@@ -37,12 +37,12 @@ label, maxHeight and children.
 ## Code Example
 
 ```tsx
-import { ScrollView } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { ScrollView } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <ScrollView label="Photo list" maxHeight={120}>Library content</ScrollView>
     </div>
   )

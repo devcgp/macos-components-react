@@ -37,12 +37,12 @@ label、value、defaultValue、onChange、children。
 ## Code Example
 
 ```tsx
-import { Select } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Select } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Select label="格式"><option>JPEG</option><option>PNG</option></Select>
     </div>
   )

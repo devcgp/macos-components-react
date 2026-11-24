@@ -1,14 +1,14 @@
 # Button
 
 > 组件：`Button`\
-> 包：`@macos-tahoe/ui`\
-> 文档路由：`#/tahoe/button`
+> 包：`@cgpdesktopui/ui`\
+> 文档路由：`#/desktop/button`
 
 ## Overview
 
 按钮用于触发保存、确认或删除等单次操作。标签应直接说明操作。持续的开关或选中状态使用 Switch 或 Checkbox。
 
-项目中的 `Button` 是参考 macOS Tahoe 的网页实现。以下尺寸和视觉参数为项目实现值，尚未经 Apple 官方 Tahoe 26 UI Kit 验证。
+项目中的 `Button` 是参考 macOS 的网页实现。以下尺寸和视觉参数为项目实现值，尚未经 Apple 官方 macOS 26 UI Kit 验证。
 
 ## Anatomy
 
@@ -61,7 +61,7 @@
 - 默认渲染为 `type="button"`。可以传入其他原生类型，例如 `type="submit"`。
 - 点击、Enter 和空格使用原生激活行为，并调用传入的 `onClick`。
 - `disabled` 或 `loading` 会停用按钮。
-- 外观由 Tahoe CSS 变量控制。可在 Tahoe 容器上设置 `data-appearance`，为该区域指定浅色或深色。
+- 外观由 Desktop CSS 变量控制。可在 Desktop 容器上设置 `data-appearance`，为该区域指定浅色或深色。
 
 ## Accessibility
 
@@ -92,12 +92,12 @@
 基础按钮：
 
 ```tsx
-import { Button } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Button } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export function SaveButton() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Button variant="accent" onClick={() => console.log('已保存')}>保存</Button>
     </div>
   )
@@ -107,13 +107,13 @@ export function SaveButton() {
 五档尺寸：
 
 ```tsx
-import { Button } from '@macos-tahoe/ui'
+import { Button } from '@cgpdesktopui/ui'
 
 const sizes = ['mini', 'small', 'regular', 'large', 'xl'] as const
 
 export function ButtonSizes() {
   return (
-    <div data-theme="tahoe" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+    <div data-theme="desktop" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
       {sizes.map((size) => <Button key={size} size={size}>{size}</Button>)}
     </div>
   )
@@ -123,13 +123,13 @@ export function ButtonSizes() {
 三种变体：
 
 ```tsx
-import { Button } from '@macos-tahoe/ui'
+import { Button } from '@cgpdesktopui/ui'
 
 const variants = ['neutral', 'accent', 'destructive'] as const
 
 export function ButtonVariants() {
   return (
-    <div data-theme="tahoe" style={{ display: 'flex', gap: 8 }}>
+    <div data-theme="desktop" style={{ display: 'flex', gap: 8 }}>
       {variants.map((variant) => <Button key={variant} variant={variant}>{variant}</Button>)}
     </div>
   )
@@ -143,19 +143,19 @@ export function ButtonVariants() {
 | 类别 | 当前实现 |
 | --- | --- |
 | 几何 | 见五档尺寸表，宽度由内容决定 |
-| 排印 | 项目字体栈 `--tahoe-font`，Mini 和 Small 各有独立字号 |
-| 中性表面 | `--tahoe-control` |
-| 前景 | `--tahoe-label` |
-| 强调色 | `--tahoe-accent`、`--tahoe-on-accent` |
-| 危险色 | `--tahoe-destructive`、`--tahoe-destructive-face` |
-| 悬停、按下 | `--tahoe-button-hover`、`--tahoe-button-pressed` 及对应的强调色变量 |
-| 禁用 | `--tahoe-disabled-face`、`--tahoe-disabled-label`、`--tahoe-accent-disabled` |
-| 焦点 | `--tahoe-control-focus` 双层焦点环 |
-| 边缘 | `--tahoe-control-rim` |
-| 动效 | `--tahoe-control-transition`，支持减少动态效果偏好 |
+| 排印 | 项目字体栈 `--desktop-font`，Mini 和 Small 各有独立字号 |
+| 中性表面 | `--desktop-control` |
+| 前景 | `--desktop-label` |
+| 强调色 | `--desktop-accent`、`--desktop-on-accent` |
+| 危险色 | `--desktop-destructive`、`--desktop-destructive-face` |
+| 悬停、按下 | `--desktop-button-hover`、`--desktop-button-pressed` 及对应的强调色变量 |
+| 禁用 | `--desktop-disabled-face`、`--desktop-disabled-label`、`--desktop-accent-disabled` |
+| 焦点 | `--desktop-control-focus` 双层焦点环 |
+| 边缘 | `--desktop-control-rim` |
+| 动效 | `--desktop-control-transition`，支持减少动态效果偏好 |
 | 材质 | CSS 表面与颜色近似 |
 
-来源为现有组件代码、样式、[设计规范](/downloads/design.md)和 [Tahoe Tokens](#/tahoe/tokens)。几何与视觉处理参考第三方资料及项目网页实现。
+来源为现有组件代码、样式、[设计规范](/downloads/design.md)和 [Desktop Tokens](#/desktop/tokens)。几何与视觉处理参考第三方资料及项目网页实现。
 
 ## References
 
@@ -163,6 +163,6 @@ export function ButtonVariants() {
 - [Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos)
 - [Apple Design Resources](https://developer.apple.com/design/resources/)
 - [项目 Button 实现](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/components/button.tsx)
-- [项目样式与 Token](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/tahoe-tokens.css)
+- [项目样式与 Token](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/desktop-tokens.css)
 - [项目设计规范](https://github.com/devcgp/macos-components-react/blob/main/docs/design.md)
 - [第三方 macOS Components 参考](https://github.com/tamnguyenvan/macos-components)

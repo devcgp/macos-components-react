@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react'
-import { Button } from '@macos-tahoe/ui'
+import { Button } from '@cgpdesktopui/ui'
 import { useLocale } from '../app/locale'
 
 export default function CopyCode({ source, label, children }: { source: string; label: string; children: ReactNode }) {

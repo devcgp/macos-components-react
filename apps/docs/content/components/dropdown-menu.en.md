@@ -37,13 +37,13 @@ label and actions. Each action has id, label, onSelect and optional disabled.
 ## Code Example
 
 ```tsx
-import { DropdownMenu } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { DropdownMenu } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   const openFile = () => document.getElementById("example-status")?.replaceChildren("Opened")
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <DropdownMenu label="File" actions={[{ id: "open", label: "Open", onSelect: openFile }]} />
       <output id="example-status" />
     </div>

@@ -1,33 +1,33 @@
 /* Generated from tokens.json. Run pnpm tokens. */
 :root,
-[data-appearance="light"]:where(:root, [data-theme="tahoe"], [data-theme="tahoe"] *) {
-  --tahoe-miscellaneous-alerts-overlay: rgba(171, 171, 171, 0.6);
-  --tahoe-miscellaneous-progress-bars-track-stroke: rgba(0, 0, 0, 0.07);
-  --tahoe-miscellaneous-scrollbar: rgba(0, 0, 0, 0.5);
-  --tahoe-miscellaneous-sidebar-label-inactive: #878787;
-  --tahoe-miscellaneous-tables-alternating-row-color: rgba(0, 0, 0, 0.05);
-  --tahoe-miscellaneous-tables-bg-selected-and-active: #0165E2;
-  --tahoe-miscellaneous-tables-bg-selected-and-inactive: rgba(0, 0, 0, 0.14);
-  --tahoe-miscellaneous-tables-column-separator: rgba(0, 0, 0, 0.1);
-  --tahoe-miscellaneous-tooltips-inner-stroke: rgba(255, 255, 255, 0);
-  --tahoe-miscellaneous-tooltips-sidebar-bg-active: #DAE6F2;
-  --tahoe-miscellaneous-tooltips-sidebar-bg-inactive: #EDF4FA;
-  --tahoe-window-background-figma: #FFFFFF;
+[data-appearance="light"]:where(:root, [data-theme="desktop"], [data-theme="desktop"] *) {
+  --desktop-miscellaneous-alerts-overlay: rgba(171, 171, 171, 0.6);
+  --desktop-miscellaneous-progress-bars-track-stroke: rgba(0, 0, 0, 0.07);
+  --desktop-miscellaneous-scrollbar: rgba(0, 0, 0, 0.5);
+  --desktop-miscellaneous-sidebar-label-inactive: #878787;
+  --desktop-miscellaneous-tables-alternating-row-color: rgba(0, 0, 0, 0.05);
+  --desktop-miscellaneous-tables-bg-selected-and-active: #0165E2;
+  --desktop-miscellaneous-tables-bg-selected-and-inactive: rgba(0, 0, 0, 0.14);
+  --desktop-miscellaneous-tables-column-separator: rgba(0, 0, 0, 0.1);
+  --desktop-miscellaneous-tooltips-inner-stroke: rgba(255, 255, 255, 0);
+  --desktop-miscellaneous-tooltips-sidebar-bg-active: #DAE6F2;
+  --desktop-miscellaneous-tooltips-sidebar-bg-inactive: #EDF4FA;
+  --desktop-window-background-figma: #FFFFFF;
 }
 
 :root.dark:not([data-appearance="light"]),
-.dark [data-theme="tahoe"]:not([data-appearance], [data-appearance] *),
-[data-appearance="dark"]:where(:root, [data-theme="tahoe"], [data-theme="tahoe"] *) {
-  --tahoe-miscellaneous-alerts-overlay: rgba(23, 23, 23, 0.62);
-  --tahoe-miscellaneous-progress-bars-track-stroke: rgba(255, 255, 255, 0.04);
-  --tahoe-miscellaneous-scrollbar: rgba(255, 255, 255, 0.55);
-  --tahoe-miscellaneous-sidebar-label-inactive: #666666;
-  --tahoe-miscellaneous-tables-alternating-row-color: rgba(255, 255, 255, 0.05);
-  --tahoe-miscellaneous-tables-bg-selected-and-active: #0158D2;
-  --tahoe-miscellaneous-tables-bg-selected-and-inactive: rgba(255, 255, 255, 0.18);
-  --tahoe-miscellaneous-tables-column-separator: rgba(255, 255, 255, 0.1);
-  --tahoe-miscellaneous-tooltips-inner-stroke: rgba(255, 255, 255, 0.15);
-  --tahoe-miscellaneous-tooltips-sidebar-bg-active: #141517;
-  --tahoe-miscellaneous-tooltips-sidebar-bg-inactive: #131414;
-  --tahoe-window-background-figma: #1E1E1E;
+.dark [data-theme="desktop"]:not([data-appearance], [data-appearance] *),
+[data-appearance="dark"]:where(:root, [data-theme="desktop"], [data-theme="desktop"] *) {
+  --desktop-miscellaneous-alerts-overlay: rgba(23, 23, 23, 0.62);
+  --desktop-miscellaneous-progress-bars-track-stroke: rgba(255, 255, 255, 0.04);
+  --desktop-miscellaneous-scrollbar: rgba(255, 255, 255, 0.55);
+  --desktop-miscellaneous-sidebar-label-inactive: #666666;
+  --desktop-miscellaneous-tables-alternating-row-color: rgba(255, 255, 255, 0.05);
+  --desktop-miscellaneous-tables-bg-selected-and-active: #0158D2;
+  --desktop-miscellaneous-tables-bg-selected-and-inactive: rgba(255, 255, 255, 0.18);
+  --desktop-miscellaneous-tables-column-separator: rgba(255, 255, 255, 0.1);
+  --desktop-miscellaneous-tooltips-inner-stroke: rgba(255, 255, 255, 0.15);
+  --desktop-miscellaneous-tooltips-sidebar-bg-active: #141517;
+  --desktop-miscellaneous-tooltips-sidebar-bg-inactive: #131414;
+  --desktop-window-background-figma: #1E1E1E;
 }

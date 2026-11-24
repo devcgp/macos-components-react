@@ -1,0 +1,16 @@
+[data-theme="desktop"] { font-family: var(--desktop-font); }
+[data-theme="desktop"] [data-material] { background: var(--desktop-content-surface); }
+[data-theme="desktop"] [data-material="vibrant"] { background: var(--desktop-sidebar-surface); }
+@supports (backdrop-filter: blur(1px)) {
+  [data-theme="desktop"] [data-material="glass-regular"] {
+    background: color-mix(in srgb, var(--desktop-window-surface) 80%, transparent);
+    backdrop-filter: blur(24px) saturate(140%);
+  }
+  [data-theme="desktop"] [data-material="glass-clear"] {
+    background: color-mix(in srgb, var(--desktop-window-surface) 58%, transparent);
+    backdrop-filter: blur(16px) saturate(130%);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  [data-theme="desktop"] [data-material] { background: var(--desktop-content-surface); backdrop-filter: none; }
+}

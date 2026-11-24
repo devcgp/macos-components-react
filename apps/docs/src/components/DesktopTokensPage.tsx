@@ -4,31 +4,31 @@ import remarkGfm from 'remark-gfm'
 import tokensZh from '../../../../docs/tokens.md?raw'
 import tokensEn from '../../../../docs/tokens.en.md?raw'
 import { useLocale } from '../app/locale'
-import { tahoeSizeOrder, tahoeSizes, tahoeTypography, type TahoeSize } from '../app/token-data'
+import { desktopSizeOrder, desktopSizes, desktopTypography, type DesktopSize } from '../app/token-data'
 
-export const tahoeTokenSections = [
-  { id: 'tahoe-token-usage', title: 'Usage and sources', titleZh: '接入与来源' },
-  { id: 'tahoe-token-scopes', title: 'Scope preview', titleZh: '作用域预览' },
-  { id: 'tahoe-token-typography', title: 'Typography', titleZh: '字体排印' },
+export const desktopTokenSections = [
+  { id: 'desktop-token-usage', title: 'Usage and sources', titleZh: '接入与来源' },
+  { id: 'desktop-token-scopes', title: 'Scope preview', titleZh: '作用域预览' },
+  { id: 'desktop-token-typography', title: 'Typography', titleZh: '字体排印' },
 ] as const
 
-const sizes: Record<TahoeSize, string> = { mini: 'Mini', small: 'Small', medium: 'Medium', large: 'Large', xl: 'XL' }
+const sizes: Record<DesktopSize, string> = { mini: 'Mini', small: 'Small', medium: 'Medium', large: 'Large', xl: 'XL' }
 const metrics = [
-  ['--tahoe-global-height', '控件高度', 'Control height'],
-  ['--tahoe-global-radius', '通用圆角', 'Base radius'],
-  ['--tahoe-button-padding-horizontal', '按钮横向内边距', 'Button inline padding'],
-  ['--tahoe-toggle-switch-track-width', '开关轨道宽度', 'Switch track width'],
+  ['--desktop-global-height', '控件高度', 'Control height'],
+  ['--desktop-global-radius', '通用圆角', 'Base radius'],
+  ['--desktop-button-padding-horizontal', '按钮横向内边距', 'Button inline padding'],
+  ['--desktop-toggle-switch-track-width', '开关轨道宽度', 'Switch track width'],
 ] as const
 
 export function ScopePreview() {
   const { tr } = useLocale()
-  const [size, setSize] = useState<TahoeSize>('medium')
+  const [size, setSize] = useState<DesktopSize>('medium')
   const [appearance, setAppearance] = useState<'light' | 'dark'>('light')
   const [context, setContext] = useState<'content-area' | 'over-glass'>('content-area')
 
-  return <section id={tahoeTokenSections[1].id} className="doc-section">
-    <h2>{tr(tahoeTokenSections[1].titleZh, tahoeTokenSections[1].title)}</h2>
-    <div className="tahoe-token-controls">
+  return <section id={desktopTokenSections[1].id} className="doc-section">
+    <h2>{tr(desktopTokenSections[1].titleZh, desktopTokenSections[1].title)}</h2>
+    <div className="desktop-token-controls">
       <label>{tr('外观', 'Appearance')}
         <select className="language-select" value={appearance} onChange={event => setAppearance(event.target.value === 'dark' ? 'dark' : 'light')}>
           <option value="light">{tr('浅色', 'Light')}</option>
@@ -36,8 +36,8 @@ export function ScopePreview() {
         </select>
       </label>
       <label>{tr('尺寸', 'Size')}
-        <select className="language-select" value={size} onChange={event => setSize(event.target.value as TahoeSize)}>
-          {tahoeSizeOrder.map(mode => <option key={mode} value={mode}>{sizes[mode]}</option>)}
+        <select className="language-select" value={size} onChange={event => setSize(event.target.value as DesktopSize)}>
+          {desktopSizeOrder.map(mode => <option key={mode} value={mode}>{sizes[mode]}</option>)}
         </select>
       </label>
       <label>{tr('上下文', 'Context')}
@@ -47,23 +47,23 @@ export function ScopePreview() {
         </select>
       </label>
     </div>
-    <div className="tahoe-token-sample" data-theme="tahoe" data-appearance={appearance} data-size={size} data-context={context}>
-      <div className="tahoe-token-shapes">
-        <span className="tahoe-token-control">{tr('尺寸示例', 'Size sample')}</span>
-        <div className="tahoe-token-track" aria-hidden="true"/>
+    <div className="desktop-token-sample" data-theme="desktop" data-appearance={appearance} data-size={size} data-context={context}>
+      <div className="desktop-token-shapes">
+        <span className="desktop-token-control">{tr('尺寸示例', 'Size sample')}</span>
+        <div className="desktop-token-track" aria-hidden="true"/>
         <code>{context}</code>
       </div>
-      <dl className="tahoe-token-metrics">
+      <dl className="desktop-token-metrics">
         {metrics.map(([variable, zh, en]) => <div key={variable}>
           <dt>{tr(zh, en)} <code>{variable}</code></dt>
-          <dd>{tahoeSizes[size][variable]}</dd>
+          <dd>{desktopSizes[size][variable]}</dd>
         </div>)}
       </dl>
     </div>
   </section>
 }
 
-const typographyNames: Record<keyof typeof tahoeTypography, [string, string]> = {
+const typographyNames: Record<keyof typeof desktopTypography, [string, string]> = {
   'large-title': ['大标题', 'Large Title'],
   'title-1': ['标题 1', 'Title 1'], 'title-2': ['标题 2', 'Title 2'], 'title-3': ['标题 3', 'Title 3'],
   headline: ['标题', 'Headline'], body: ['正文', 'Body'], callout: ['强调文字', 'Callout'],
@@ -73,13 +73,13 @@ const typographyNames: Record<keyof typeof tahoeTypography, [string, string]> = 
 
 export function TypographyPreview() {
   const { tr } = useLocale()
-  return <section id={tahoeTokenSections[2].id} className="doc-section">
-    <h2>{tr(tahoeTokenSections[2].titleZh, tahoeTokenSections[2].title)}</h2>
+  return <section id={desktopTokenSections[2].id} className="doc-section">
+    <h2>{tr(desktopTokenSections[2].titleZh, desktopTokenSections[2].title)}</h2>
     <p>{tr(
       '11 组文字样式各提供常规与强调两种变体。示例使用当前 CSS 的字号、行高和字重。',
       'All 11 text styles have Regular and Emphasized variants. The samples use the font size, line height, and weight from the current CSS.',
     )}</p>
-    <div className="tahoe-type-table" role="region" aria-label={tr('字体排印对照', 'Typography comparison')} tabIndex={0}>
+    <div className="desktop-type-table" role="region" aria-label={tr('字体排印对照', 'Typography comparison')} tabIndex={0}>
       <table>
         <thead><tr>
           <th scope="col">{tr('样式', 'Style')}</th>
@@ -87,11 +87,11 @@ export function TypographyPreview() {
           <th scope="col">{tr('强调', 'Emphasized')}</th>
         </tr></thead>
         <tbody>
-          {(Object.keys(typographyNames) as (keyof typeof tahoeTypography)[]).map(group => <tr key={group}>
+          {(Object.keys(typographyNames) as (keyof typeof desktopTypography)[]).map(group => <tr key={group}>
             <th scope="row">{tr(...typographyNames[group])}</th>
             {(['regular', 'emphasized'] as const).map(variant => {
-              const token = '--tahoe-type-' + group + '-' + variant
-              const { fontSize, lineHeight, weight } = tahoeTypography[group][variant]
+              const token = '--desktop-type-' + group + '-' + variant
+              const { fontSize, lineHeight, weight } = desktopTypography[group][variant]
               return <td key={variant}>
                 <span style={{
                   fontFamily: 'var(' + token + '-font-family)',
@@ -109,10 +109,10 @@ export function TypographyPreview() {
   </section>
 }
 
-export default function TahoeTokensPage() {
+export default function DesktopTokensPage() {
   const { tr } = useLocale()
-  return <article className="markdown tahoe-token-doc">
-    <section id={tahoeTokenSections[0].id} className="doc-section">
+  return <article className="markdown desktop-token-doc">
+    <section id={desktopTokenSections[0].id} className="doc-section">
       <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ h1: () => null }}>{tr(tokensZh, tokensEn)}</ReactMarkdown>
     </section>
     <ScopePreview/>
@@ -127,7 +127,7 @@ export default function TahoeTokensPage() {
         ['motion', '动效', 'Motion'], ['icons', '图标', 'Icons'],
         ['sf-symbols-guidance', 'SF Symbols 指南', 'SF Symbols Guidance'],
         ['spacing', '间距', 'Spacing'], ['control-geometry', '控件尺寸', 'Control Geometry'],
-      ].map(([id, zh, en]) => <li key={id}><a href={'#/tahoe/foundations/' + id}>{tr(zh, en)}</a></li>)}</ul>
+      ].map(([id, zh, en]) => <li key={id}><a href={'#/desktop/foundations/' + id}>{tr(zh, en)}</a></li>)}</ul>
     </section>
   </article>
 }

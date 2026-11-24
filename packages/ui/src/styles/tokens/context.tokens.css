@@ -1,9 +1,9 @@
 /* A context scope can switch back to content inside an over-glass scope. */
-:root, :where([data-theme="tahoe"], [data-theme="tahoe"] *)[data-context="content-area"] {
-  --tahoe-context-name: "content-area";
-  --tahoe-context-is-over-glass: 0;
+:root, :where([data-theme="desktop"], [data-theme="desktop"] *)[data-context="content-area"] {
+  --desktop-context-name: "content-area";
+  --desktop-context-is-over-glass: 0;
 }
-:where([data-theme="tahoe"], [data-theme="tahoe"] *)[data-context="over-glass"] {
-  --tahoe-context-name: "over-glass";
-  --tahoe-context-is-over-glass: 1;
+:where([data-theme="desktop"], [data-theme="desktop"] *)[data-context="over-glass"] {
+  --desktop-context-name: "over-glass";
+  --desktop-context-is-over-glass: 1;
 }

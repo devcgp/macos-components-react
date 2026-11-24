@@ -37,12 +37,12 @@ label、checked、defaultChecked、onChange、disabled。
 ## Code Example
 
 ```tsx
-import { Switch } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Switch } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Switch label="同步收藏" defaultChecked />
     </div>
   )
@@ -58,7 +58,7 @@ export function Example() {
 | 浅色／深色 | 半透明白滑块 87%／85%，开启使用主题强调蓝 | 第三方色彩参考与项目主题 |
 | 交互状态 | 开／关、禁用、键盘焦点。空格和点击标签均可切换 | 原生 HTML 语义与网页样式 |
 
-官方 Tahoe 26 UI Kit 节点仍待逐项比对。
+官方 macOS 26 UI Kit 节点仍待逐项比对。
 [第三方参考](https://github.com/tamnguyenvan/macos-components/tree/e82dbfa3702a156e4b9947337dea3d496a162905)
 
 [设计规范与来源](/downloads/design.md)

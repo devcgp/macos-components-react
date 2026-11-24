@@ -37,12 +37,12 @@ Table accepts caption, columns and rows. List accepts ul props.
 ## Code Example
 
 ```tsx
-import { Table } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Table } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Table caption="Library" columns={[{ id: "name", label: "File" }]} rows={[{ id: "1", cells: { name: "Coast.jpg" } }]} />
     </div>
   )

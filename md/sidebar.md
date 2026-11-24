@@ -1,11 +1,11 @@
 # Sidebar（侧边栏）
 
-> 项目：macOS Tahoe Components  
+> 项目：macOS Components for React\
 > 组件：`Sidebar`  
 > 文档状态：Phase 1 · 已核对仓库当前源码；设计与交互规范可持续完善  
-> 页面路由：`#/tahoe/sidebar`  
+> 页面路由：`#/desktop/sidebar`\
 > 源文件：`packages/ui/src/components/sidebar.tsx`  
-> 设计源：`packages/ui/src/styles/tahoe-tokens.css`  
+> 设计源：`packages/ui/src/styles/desktop-tokens.css`\
 > 说明：以下“已实现”根据当前仓库源码；“建议改进”不是现有 API。
 
 ## Overview
@@ -18,14 +18,14 @@ Sidebar 用于在 macOS 风格的桌面 Web 应用中组织分组导航，例如
 
 当前组件的真实结构：
 
-1. **Navigation (`nav.tahoe-sidebar`)**：侧边栏导航容器，当前固定 `aria-label="图库目录"`。
-2. **Group (`.tahoe-sidebar-group`)**：一组项目。
-3. **Group Heading (`button.tahoe-sidebar-heading`)**：点击展开/折叠，对应 `aria-expanded`。
+1. **Navigation (`nav.desktop-sidebar`)**：侧边栏导航容器，当前固定 `aria-label="图库目录"`。
+2. **Group (`.desktop-sidebar-group`)**：一组项目。
+3. **Group Heading (`button.desktop-sidebar-heading`)**：点击展开/折叠，对应 `aria-expanded`。
 4. **Disclosure Chevron**：`ChevronRight` 箭头；展开时旋转 90°，装饰性 `aria-hidden`。
 5. **Item List (`ul > li`)**：分组展开时渲染。
-6. **Navigation Item (`button.tahoe-sidebar-row`)**：点击触发 `onSelect(item.id)`。
-7. **Optional Icon (`.tahoe-sidebar-icon`)**：可选 `ReactNode`，仅作为装饰性图标（`aria-hidden`）。
-8. **Item Label (`.tahoe-sidebar-label`)**：条目标题，宽度不足时省略号截断。
+6. **Navigation Item (`button.desktop-sidebar-row`)**：点击触发 `onSelect(item.id)`。
+7. **Optional Icon (`.desktop-sidebar-icon`)**：可选 `ReactNode`，仅作为装饰性图标（`aria-hidden`）。
+8. **Item Label (`.desktop-sidebar-label`)**：条目标题，宽度不足时省略号截断。
 9. **Current Selection**：当 `item.id === selected` 时，设置 `aria-current="true"` 和选中背景。
 
 当前没有搜索、拖动调整宽度、右键菜单、嵌套子分组或全局收起 Sidebar 的内置功能。
@@ -51,14 +51,14 @@ Sidebar 用于在 macOS 风格的桌面 Web 应用中组织分组导航，例如
 
 | 项目 | 当前值 | 来源 |
 | --- | --- | --- |
-| 默认侧栏宽度 Token | `220px` | `--tahoe-sidebar-width`，由父窗口布局使用 |
-| 导航项目最小行高 | `28px` | `--tahoe-sidebar-row-height` |
-| 导航行圆角 | `5px` | `--tahoe-sidebar-row-radius` |
-| 侧栏内边距 / 行水平内边距 | `8px` | `--tahoe-sidebar-inset` |
-| 分组间距 | `16px` | `--tahoe-sidebar-group-gap` |
-| 图标占位宽度 | `16px` | `.tahoe-sidebar-icon` |
-| 分组标题最小高度 | `16px` | `.tahoe-sidebar-heading` |
-| 分组标题与项目间距 | `4px` | `.tahoe-sidebar-heading` |
+| 默认侧栏宽度 Token | `220px` | `--desktop-sidebar-width`，由父窗口布局使用 |
+| 导航项目最小行高 | `28px` | `--desktop-sidebar-row-height` |
+| 导航行圆角 | `5px` | `--desktop-sidebar-row-radius` |
+| 侧栏内边距 / 行水平内边距 | `8px` | `--desktop-sidebar-inset` |
+| 分组间距 | `16px` | `--desktop-sidebar-group-gap` |
+| 图标占位宽度 | `16px` | `.desktop-sidebar-icon` |
+| 分组标题最小高度 | `16px` | `.desktop-sidebar-heading` |
+| 分组标题与项目间距 | `4px` | `.desktop-sidebar-heading` |
 
 `220px` 是用于窗口示例的布局默认值；独立 `Sidebar` 本身没有固定 `width` Prop。
 
@@ -71,10 +71,10 @@ Sidebar 用于在 macOS 风格的桌面 Web 应用中组织分组导航，例如
 | 状态 | 已实现方式 | 说明 |
 | --- | --- | --- |
 | Default | 默认导航条目 | 未选中时显示正常外观 |
-| Hover | `.tahoe-sidebar-row:hover` | 使用 `--tahoe-fills-tertiary` |
-| Pressed | `.tahoe-sidebar-row:active` | 使用 `--tahoe-fills-primary` |
-| Focus | `.tahoe-sidebar-row:focus-visible` | `2px` 强调色焦点描边，偏移 `-2px` |
-| Current / Selected | `aria-current="true"` | 由 `selected` 匹配项目 ID 决定，使用 `--tahoe-selection` |
+| Hover | `.desktop-sidebar-row:hover` | 使用 `--desktop-fills-tertiary` |
+| Pressed | `.desktop-sidebar-row:active` | 使用 `--desktop-fills-primary` |
+| Focus | `.desktop-sidebar-row:focus-visible` | `2px` 强调色焦点描边，偏移 `-2px` |
+| Current / Selected | `aria-current="true"` | 由 `selected` 匹配项目 ID 决定，使用 `--desktop-selection` |
 | Expanded | `aria-expanded="true"` | 分组内容显示，箭头旋转 |
 | Collapsed | `aria-expanded="false"` | 分组内容不渲染 |
 | Disabled | **未实现 / N/A** | 当前没有 `disabled` Prop 或禁用项目数据结构 |
@@ -139,8 +139,8 @@ type SidebarGroup = {
 ```tsx
 import { useState } from 'react'
 import { Folder, Star } from 'lucide-react'
-import { Sidebar } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Sidebar } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 const groups = [
   {
@@ -171,7 +171,7 @@ export function SidebarExample() {
   }
 
   return (
-    <div data-theme="tahoe" style={{ display: 'flex', minHeight: 240 }}>
+    <div data-theme="desktop" style={{ display: 'flex', minHeight: 240 }}>
       <div style={{ width: 220, flexShrink: 0 }}>
         <Sidebar
           groups={groups}
@@ -195,25 +195,25 @@ export function SidebarExample() {
 
 **Geometry**
 
-- 侧栏内缩 `--tahoe-sidebar-inset`；行高 `--tahoe-sidebar-row-height`；圆角 `--tahoe-sidebar-row-radius`；组间距 `--tahoe-sidebar-group-gap`。
-- 默认窗口侧栏宽度由 `--tahoe-sidebar-width` 和父布局控制。
+- 侧栏内缩 `--desktop-sidebar-inset`；行高 `--desktop-sidebar-row-height`；圆角 `--desktop-sidebar-row-radius`；组间距 `--desktop-sidebar-group-gap`。
+- 默认窗口侧栏宽度由 `--desktop-sidebar-width` 和父布局控制。
 
 **Typography**
 
-- 主要文字使用 `--tahoe-font`、`--tahoe-body`；分组标题使用 `--tahoe-caption`，字重 600。
+- 主要文字使用 `--desktop-font`、`--desktop-body`；分组标题使用 `--desktop-caption`，字重 600。
 
 **Color**
 
-- 文字 `--tahoe-label`；次要组标题 `--tahoe-text-secondary`。
-- 侧栏表面 `--tahoe-sidebar-surface`；分隔线 `--tahoe-separator`。
-- 图标与焦点 `--tahoe-accent`；当前项 `--tahoe-selection`。
-- Hover `--tahoe-fills-tertiary`；Pressed `--tahoe-fills-primary`。
+- 文字 `--desktop-label`；次要组标题 `--desktop-text-secondary`。
+- 侧栏表面 `--desktop-sidebar-surface`；分隔线 `--desktop-separator`。
+- 图标与焦点 `--desktop-accent`；当前项 `--desktop-selection`。
+- Hover `--desktop-fills-tertiary`；Pressed `--desktop-fills-primary`。
 
 **Material / Theme**
 
-- Light / Dark 通过项目现有 `data-theme="tahoe"` 与 `.dark` 主题上下文确定，不能通过不存在的 `Sidebar theme` Prop 切换。
-- `--tahoe-sidebar-surface` 使用 Vibrant Fills 语义色；此处为 Web 实现，不应宣传为 Apple 官方原生材质参数。
-- 本组件尺寸及外观属于项目 Web 设计规范/第三方参考，不是已验证的 Apple Tahoe 26 官方逐像素尺寸。
+- Light / Dark 通过项目现有 `data-theme="desktop"` 与 `.dark` 主题上下文确定，不能通过不存在的 `Sidebar theme` Prop 切换。
+- `--desktop-sidebar-surface` 使用 Vibrant Fills 语义色；此处为 Web 实现，不应宣传为 Apple 官方原生材质参数。
+- 本组件尺寸及外观属于项目 Web 设计规范/第三方参考，不是已验证的 Apple macOS 26 官方逐像素尺寸。
 
 ## References
 
@@ -222,7 +222,7 @@ export function SidebarExample() {
 - [Apple Design Resources](https://developer.apple.com/design/resources/)
 - [第三方 macOS Components 参考](https://github.com/tamnguyenvan/macos-components)
 - 项目源码：`packages/ui/src/components/sidebar.tsx`
-- 项目样式：`packages/ui/src/styles/tahoe-tokens.css`
+- 项目样式：`packages/ui/src/styles/desktop-tokens.css`
 - 项目规范：`docs/design.md`、`docs/tokens.md`
 
 > 文档维护原则：任何新增 API（如可配置的导航 accessible name、键盘方向键支持或可调整侧栏宽度）应在源码实现、类型检查和交互测试通过后，再更新本文件与英文版。

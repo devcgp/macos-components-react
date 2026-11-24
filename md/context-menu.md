@@ -1,10 +1,10 @@
 # Context Menu｜上下文菜单
 
-> macOS Tahoe Components · Component Documentation  
-> 路由：`#/tahoe/context-menu`  
+> macOS Components · Component Documentation\
+> 路由：`#/desktop/context-menu`\
 > 源码：`packages/ui/src/components/navigation.tsx`  
-> 样式：`packages/ui/src/styles/tahoe-tokens.css`  
-> 来源声明：当前仓库实现与 Tahoe Design Tokens；不是 Apple 官方 Tahoe 26 像素级复刻。
+> 样式：`packages/ui/src/styles/desktop-tokens.css`\
+> 来源声明：当前仓库实现与 Desktop Design Tokens；不是 Apple 官方 macOS 26 像素级复刻。
 
 ## 1. Overview
 
@@ -19,9 +19,9 @@ Context Menu（上下文菜单）提供与当前对象有关的操作，适用�
 | 部位 | 当前实现 | 说明 |
 | --- | --- | --- |
 | Root | Headless UI `Menu` | 管理菜单打开/关闭状态 |
-| Trigger | `MenuButton.tahoe-menu-trigger` | 可见按钮，支持点击和右键 |
+| Trigger | `MenuButton.desktop-menu-trigger` | 可见按钮，支持点击和右键 |
 | Context handler | `onContextMenu` | `preventDefault()`；在关闭时调用按钮 `.click()` |
-| Panel | `MenuItems.tahoe-menu` | `anchor="bottom start"`，非光标定位 |
+| Panel | `MenuItems.desktop-menu` | `anchor="bottom start"`，非光标定位 |
 | Item | `MenuItem` + `button` | 每项调用 `onSelect()` |
 | Label | `action.label` | 文本命令名称 |
 | Disabled item | `MenuItem disabled` 与原生 `button disabled` | 不可选、不可激活 |
@@ -46,7 +46,7 @@ Live Preview 由文档站点的共享 React 预览卡片实现，本 Markdown �
 
 ## 4. Sizes
 
-当前 `ContextMenu` **没有 `size` Prop**。菜单项 CSS 使用 `min-height: 24px`，菜单容器 `min-width: 132px`、`padding: 4px`、`border-radius: 10px`。触发器采用共享 `.tahoe-menu-trigger`，其 `min-width: 84px`、`min-height: 24px`。这些是现有 Web 实现规格，不表示已支持 Mini/Small/Large 变体。
+当前 `ContextMenu` **没有 `size` Prop**。菜单项 CSS 使用 `min-height: 24px`，菜单容器 `min-width: 132px`、`padding: 4px`、`border-radius: 10px`。触发器采用共享 `.desktop-menu-trigger`，其 `min-width: 84px`、`min-height: 24px`。这些是现有 Web 实现规格，不表示已支持 Mini/Small/Large 变体。
 
 ## 5. Variants
 
@@ -58,7 +58,7 @@ Live Preview 由文档站点的共享 React 预览卡片实现，本 Markdown �
 | --- | --- | --- |
 | Closed | Headless UI Menu 关闭 | 面板不显示 |
 | Open | 触发按钮激活 | 显示锚定到按钮的面板 |
-| Focused item | Headless UI `data-focus` | 使用 `--tahoe-focus` 显示背景 |
+| Focused item | Headless UI `data-focus` | 使用 `--desktop-focus` 显示背景 |
 | Hovered item | Headless UI 菜单交互 | 聚焦/悬停反馈由底层库和 CSS 管理 |
 | Disabled item | `disabled: true` | 不可选择、不调用回调 |
 | Selected / Executed | 调用 `onSelect()` | 执行结果由调用方提供；组件没有选中持久态 |
@@ -119,13 +119,13 @@ type ContextMenuProps = {
 
 ```tsx
 import { useState } from 'react'
-import { ContextMenu } from '@macos-tahoe/ui'
+import { ContextMenu } from '@cgpdesktopui/ui'
 
 export function PhotoContextActions() {
   const [message, setMessage] = useState('尚未执行操作')
 
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <ContextMenu
         label="照片操作"
         actions={[
@@ -140,33 +140,33 @@ export function PhotoContextActions() {
 }
 ```
 
-在应用入口全局导入 `@macos-tahoe/ui/styles.css`。示例的状态反馈属于调用方逻辑，不是 `ContextMenu` 的内置 Props。
+在应用入口全局导入 `@cgpdesktopui/ui/styles.css`。示例的状态反馈属于调用方逻辑，不是 `ContextMenu` 的内置 Props。
 
 ## 11. Design Specifications
 
 | 属性 | 当前值 / Token | 来源等级 |
 | --- | --- | --- |
-| Trigger minimum height | `--tahoe-control-height`（24px） | Project-defined Web Approximation |
+| Trigger minimum height | `--desktop-control-height`（24px） | Project-defined Web Approximation |
 | Trigger minimum width | 84px | Project-defined Web Approximation |
 | Menu minimum width | 132px | Project-defined Web Approximation |
 | Menu padding | 4px | Project-defined Web Approximation |
 | Menu corner radius | 10px | Project-defined Web Approximation |
 | Menu item min height | 24px | Project-defined Web Approximation |
 | Menu item radius | 5px | Project-defined Web Approximation |
-| Menu surface | `--tahoe-menu` | Tahoe token / Web implementation |
-| Menu border/rim | `--tahoe-menu-rim` | Tahoe token / Web implementation |
-| Shadow | `--tahoe-menu-shadow` | Tahoe token / Web implementation |
-| Focus fill | `--tahoe-focus` | Tahoe semantic token |
-| Text | `--tahoe-label` | Tahoe semantic token |
+| Menu surface | `--desktop-menu` | Desktop token / Web implementation |
+| Menu border/rim | `--desktop-menu-rim` | Desktop token / Web implementation |
+| Shadow | `--desktop-menu-shadow` | Desktop token / Web implementation |
+| Focus fill | `--desktop-focus` | Desktop semantic token |
+| Text | `--desktop-label` | Desktop semantic token |
 
-使用 `data-theme="tahoe"` 容器与项目现有 `.dark` 主题机制。**Portal 的主题传递须单独验证**：不能仅在卡片内部增加 `.dark` 就假定浮层会自动继承；必要时通过项目现有主题方案将主题映射到 MenuItems，而不是全局切换 `.dark`。优先复用 Tokens，不另建硬编码深浅色。
+使用 `data-theme="desktop"` 容器与项目现有 `.dark` 主题机制。**Portal 的主题传递须单独验证**：不能仅在卡片内部增加 `.dark` 就假定浮层会自动继承；必要时通过项目现有主题方案将主题映射到 MenuItems，而不是全局切换 `.dark`。优先复用 Tokens，不另建硬编码深浅色。
 
-菜单 CSS 的原始数字是当前实现值，不应声称经过 Apple Tahoe UI Kit 官方节点测量。若开发引入新的菜单交互或尺寸 Token，必须同步更新本章节及英文文档。
+菜单 CSS 的原始数字是当前实现值，不应声称经过 Apple macOS UI Kit 官方节点测量。若开发引入新的菜单交互或尺寸 Token，必须同步更新本章节及英文文档。
 
 ## 12. References
 
 - [Component source](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/components/navigation.tsx)
-- [Tahoe Tokens source](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/tahoe-tokens.css)
+- [Desktop Tokens source](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/desktop-tokens.css)
 - [Project design guidelines](https://github.com/devcgp/macos-components-react/blob/main/docs/design.md)
 - [Headless UI Menu](https://headlessui.com/react/menu)
 - [Apple Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/)

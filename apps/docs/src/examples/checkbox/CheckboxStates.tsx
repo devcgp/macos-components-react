@@ -1,5 +1,5 @@
-import { Checkbox } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Checkbox } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export const checkboxStateLabels = {
   initial: "Default",
@@ -10,7 +10,7 @@ export const checkboxStateLabels = {
 
 export function CheckboxStates({ labels = checkboxStateLabels }: { labels?: typeof checkboxStateLabels } = {}) {
   return (
-    <div data-theme="tahoe" style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--tahoe-gap)' }}>
+    <div data-theme="desktop" style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--desktop-gap)' }}>
       <Checkbox label={labels.initial}/>
       <Checkbox label={labels.checked} defaultChecked/>
       <Checkbox label={labels.disabledUnchecked} disabled/>

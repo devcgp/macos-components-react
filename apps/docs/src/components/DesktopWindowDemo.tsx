@@ -4,9 +4,9 @@ import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookmark, faFolder, faImages } from '@fortawesome/free-regular-svg-icons'
 import { faList, faTableCellsLarge, faTableColumns } from '@fortawesome/free-solid-svg-icons'
-import { Button, Dropdown, SearchField, Sidebar, Slider, Toolbar } from '@macos-tahoe/ui'
+import { Button, Dropdown, SearchField, Sidebar, Slider, Toolbar } from '@cgpdesktopui/ui'
 
-export default function TahoeWindowDemo({ focus }: { focus: 'sidebar' | 'toolbar' }) {
+export default function DesktopWindowDemo({ focus }: { focus: 'sidebar' | 'toolbar' }) {
   const { locale, tr } = useLocale()
   const t = (text: string) => localizeExample(text, locale)
   const groups = [
@@ -39,23 +39,23 @@ export default function TahoeWindowDemo({ focus }: { focus: 'sidebar' | 'toolbar
     photo.name.toLowerCase().includes(query.trim().toLowerCase())
   )
 
-  return <div className="tahoe-window-demo" data-focus-area={focus} data-sidebar={showSidebar}>
+  return <div className="desktop-window-demo" data-focus-area={focus} data-sidebar={showSidebar}>
     {showSidebar && <Sidebar label={tr("图库目录", "Photo library navigation")} groups={groups} selected={selected} collapsed={collapsed} onSelect={setSelected}
       onToggle={id => setCollapsed(previous => previous.includes(id) ? previous.filter(group => group !== id) : [...previous, id])}/>}
-    <div className="tahoe-window-content">
+    <div className="desktop-window-content">
       <Toolbar filtersLabel={tr("筛选", "Filters")} actionsLabel={tr("显示操作", "View actions")} title={title} detail={<output>{tr(visible.length + ' 张照片', visible.length === 1 ? '1 photo' : visible.length + ' photos')}</output>}
         filters={<Dropdown selectedLabel={tr("（当前选中）", " (selected)")} label={format} selected={[format]} options={options} onSelect={setFormat}/>}
         actions={<>
           <Button aria-label={t('显示侧栏')} title={t('显示侧栏')} aria-pressed={showSidebar} onClick={() => setShowSidebar(previous => !previous)}><FontAwesomeIcon icon={faTableColumns} aria-hidden="true"/></Button>
           <Button aria-label={t('网格视图')} title={t('网格视图')} aria-pressed={grid} onClick={() => setGrid(previous => !previous)}>{grid ? <FontAwesomeIcon icon={faTableCellsLarge} aria-hidden="true"/> : <FontAwesomeIcon icon={faList} aria-hidden="true"/>}</Button>
         </>}
-        search={<SearchField className="tahoe-toolbar-search" aria-label={t('搜索照片')} placeholder={t('搜索照片')} value={query} onChange={event => setQuery(event.target.value)}/>}/>
-      <div className="tahoe-gallery-demo">
+        search={<SearchField className="desktop-toolbar-search" aria-label={t('搜索照片')} placeholder={t('搜索照片')} value={query} onChange={event => setQuery(event.target.value)}/>}/>
+      <div className="desktop-gallery-demo">
         {visible.length ? <ul style={grid ? { gridTemplateColumns: `repeat(auto-fill, minmax(min(100%, ${size}px), 1fr))` } : undefined}>
           {visible.map(photo => <li key={photo.name}><FontAwesomeIcon icon={faImages} aria-hidden="true"/>{photo.name}</li>)}
         </ul> : <p>{t('没有符合条件的照片')}</p>}
       </div>
-      {grid && <div className="tahoe-window-zoom">
+      {grid && <div className="desktop-window-zoom">
         <Slider aria-label={t('缩略图宽度')} min={96} max={200} value={size} onChange={event => setSize(Number(event.target.value))}/>
         <output>{size}px</output>
       </div>}

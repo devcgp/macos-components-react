@@ -37,12 +37,12 @@ title、toolbar、children。
 ## Code Example
 
 ```tsx
-import { Window } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Window } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Window title="照片图库">图库</Window>
     </div>
   )

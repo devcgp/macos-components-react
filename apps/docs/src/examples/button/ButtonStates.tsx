@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Button } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Button } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export const stateLabels = {
   save: "Save",
@@ -18,7 +18,7 @@ export function ButtonStates({ labels = stateLabels }: { labels?: typeof stateLa
   const activate = () => setMessage(labels.done)
 
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <p>{labels.hint}</p>
       <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
         <Button onClick={activate}>{labels.save}</Button>

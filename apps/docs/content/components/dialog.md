@@ -38,14 +38,14 @@ open、onClose、title、children、closeLabel。
 
 ```tsx
 import { useState } from "react"
-import { Button, Dialog } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Button, Dialog } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   const [open, setOpen] = useState(false)
   const close = () => setOpen(false)
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Button onClick={() => setOpen(true)}>查看详情</Button>
       <Dialog open={open} onClose={close} title="简介">JPEG</Dialog>
     </div>

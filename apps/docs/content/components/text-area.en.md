@@ -37,12 +37,12 @@ label and native textarea props.
 ## Code Example
 
 ```tsx
-import { TextArea } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { TextArea } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <TextArea label="Notes" rows={3} />
     </div>
   )

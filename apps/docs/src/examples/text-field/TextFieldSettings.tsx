@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Button, SettingsGroup, TextField } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Button, SettingsGroup, TextField } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export const settingsLabels = {
   title: "Folder settings",
@@ -16,13 +16,13 @@ export function TextFieldSettings({ labels = settingsLabels }: { labels?: typeof
   const nextName = draft.trim()
 
   return (
-    <form data-theme="tahoe" style={{ minWidth: 0, maxWidth: '100%', overflowWrap: 'anywhere' }}
+    <form data-theme="desktop" style={{ minWidth: 0, maxWidth: '100%', overflowWrap: 'anywhere' }}
       onSubmit={event => {
         event.preventDefault()
         if (nextName) setSaved(nextName)
       }}>
       <SettingsGroup title={labels.title}>
-        <div style={{ display: 'grid', gap: 'var(--tahoe-gap)', justifyItems: 'start' }}>
+        <div style={{ display: 'grid', gap: 'var(--desktop-gap)', justifyItems: 'start' }}>
           <TextField label={labels.field} name="folder" required value={draft}
             onChange={event => setDraft(event.currentTarget.value)}/>
           <Button type="submit" disabled={!nextName || nextName === saved}>{labels.save}</Button>

@@ -1,14 +1,14 @@
 # Codex Prompt — Checkbox Component & Live Preview
 
-请在现有 `devcgp/macos-components-react` 仓库中完成 Checkbox 组件核查、必要修正及 Live Preview。**必须遵循最新 Tahoe Design Tokens**，保留现有 React + TypeScript 结构、主题机制、路由与其他组件功能。
+请在现有 `devcgp/macos-components-react` 仓库中完成 Checkbox 组件核查、必要修正及 Live Preview。**必须遵循最新 Desktop Design Tokens**，保留现有 React + TypeScript 结构、主题机制、路由与其他组件功能。
 
 ## 文档输入
 
 - 中文：`apps/docs/content/components/checkbox.md`
 - 英文：`apps/docs/content/components/checkbox.en.md`
 - 组件：`packages/ui/src/components/checkbox.tsx`
-- Tokens：`packages/ui/src/styles/tahoe-tokens.css`
-- 材质：`packages/ui/src/styles/tahoe-materials.css`
+- Tokens：`packages/ui/src/styles/desktop-tokens.css`
+- 材质：`packages/ui/src/styles/desktop-materials.css`
 - 项目规范：`docs/design.md`、`docs/tokens.md`
 
 先核对这些文件的**当前实际内容**。若项目 Tokens 已升级或更名，以最新可用的语义变量为准，更新中英文文档，不要沿用过期数值。文档是需求说明，组件源码和实际 Tokens 是现有功能的核实依据；不得把需求中尚未实现的 API 当作已实现。
@@ -20,21 +20,21 @@
 - 保留 `label`、`checked`、`defaultChecked`、`onChange`、`disabled` 及原生 Input Props。
 - 保留正确的表单、键盘、焦点和无障碍语义。
 - 确保 Unchecked、Checked、Hover、Pressed、Focus、Disabled 和 Disabled + Checked 的视觉反馈与交互准确。
-- 根据现有 Tahoe Tokens 处理 Light / Dark；不要为 Checkbox 新增 `theme` Prop。
+- 根据现有 Desktop Tokens 处理 Light / Dark；不要为 Checkbox 新增 `theme` Prop。
 - 当前无 `size`、`variant`、`indeterminate` 专用 API，不要凭文档或其他 UI Kit 自行添加。需要新增时先报告需求差异。
 - 保持公开 API 兼容。不要重新创建或重写无关组件。
 
 ## 任务 2 — Live Preview
 
-`#/tahoe/checkbox` 页面由独立 Markdown 文件提供文字内容，`## Live Preview` 位置由 React 自动插入真实的预览卡片。保留文档统一的 12 个 Section。
+`#/desktop/checkbox` 页面由独立 Markdown 文件提供文字内容，`## Live Preview` 位置由 React 自动插入真实的预览卡片。保留文档统一的 12 个 Section。
 
 ### 所有预览卡片的统一结构
 
 - 左侧 Card Title；右侧 `Light / Dark` 切换 Tab。
 - 独立的 `Preview / Code` 切换 Tab；默认 Preview。
 - 两组 Tab 相互独立，切换 Preview / Code 不重置主题。
-- Preview 区域通过现有 `data-theme="tahoe"`、`.dark` 和 Tahoe Design Tokens 隔离主题，切换单张卡片不改变文档全局主题。
-- Preview 中必须使用 `@macos-tahoe/ui` 真实导出的 `Checkbox`，允许实际点击和键盘操作。
+- Preview 区域通过现有 `data-theme="desktop"`、`.dark` 和 Desktop Design Tokens 隔离主题，切换单张卡片不改变文档全局主题。
+- Preview 中必须使用 `@cgpdesktopui/ui` 真实导出的 `Checkbox`，允许实际点击和键盘操作。
 - Code 模式提供语法高亮、`Copy Code`，显示与该卡片对应且能通过 TypeScript 检查的 TSX 代码。
 - 不使用静态图片、仿制 Checkbox、虚构 Props、手写模拟的 Light/Dark 颜色。
 - 复用项目现有的 `ComponentPreview` 和共享 Card 体系；不要为 Checkbox 单独搭一套不兼容的组件预览框架。
@@ -71,7 +71,7 @@
 - `checkbox.md` 与 `checkbox.en.md` 具有相同的 12 个 Section 和相同事实，只是语言不同。
 - 保持中英文 Code Example API 一致。
 - 修正所有与最新 Tokens、源码和实际行为不一致的内容。
-- 保留现有 `#/tahoe/checkbox` 路由；不要引入无必要的 Markdown 框架或重构。
+- 保留现有 `#/desktop/checkbox` 路由；不要引入无必要的 Markdown 框架或重构。
 - 不要把 Apple HIG 的原则误写成 Apple 官方认证的控件像素尺寸。
 
 ## 任务 4 — 验收

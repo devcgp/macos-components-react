@@ -38,13 +38,13 @@ label, name, options, value and onChange.
 
 ```tsx
 import { useState } from "react"
-import { SegmentedControl } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { SegmentedControl } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   const [view, setView] = useState("Grid")
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <SegmentedControl label="View" name="view" options={["Grid", "List"]} value={view} onChange={setView} />
     </div>
   )

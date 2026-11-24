@@ -2,9 +2,9 @@
 
 > Component: `Toolbar` · Category: Window & Navigation · Status: existing implementation; documentation and previews to integrate  
 > Source: `packages/ui/src/components/toolbar.tsx`  
-> Styles: `packages/ui/src/styles/tahoe-tokens.css`  
+> Styles: `packages/ui/src/styles/desktop-tokens.css`\
 > Suggested document: `apps/docs/content/components/toolbar.en.md`  
-> Route: `#/tahoe/toolbar` (locale-specific routing only if supported)
+> Route: `#/desktop/toolbar` (locale-specific routing only if supported)
 
 ## Overview
 
@@ -16,8 +16,8 @@ The current component renders a semantic `<header>`. Its `filters`, `actions`, a
 
 ## Anatomy
 
-1. **Container**: `.tahoe-toolbar`, a flex layout that may wrap when space is limited.
-2. **Title area**: `.tahoe-toolbar-title`; required `title`, optional `detail`.
+1. **Container**: `.desktop-toolbar`, a flex layout that may wrap when space is limited.
+2. **Title area**: `.desktop-toolbar-title`; required `title`, optional `detail`.
 3. **Filters group**: optional `filters` slot, wrapped with `role="group"`.
 4. **Actions group**: optional `actions` slot, wrapped with `role="group"`.
 5. **Search slot**: optional `search` ReactNode rendered as supplied.
@@ -42,17 +42,17 @@ No dedicated Sizes or Variants cards are needed: Toolbar has neither a `size` no
 
 ## Sizes
 
-Toolbar has no public `size` prop. These are **current web CSS layout values**, not selectable sizes or Apple-verified Tahoe measurements.
+Toolbar has no public `size` prop. These are **current web CSS layout values**, not selectable sizes or Apple-verified Desktop measurements.
 
 | Measurement | Current implementation | Source |
 | --- | --- | --- |
-| Minimum toolbar height | `52px` | `--tahoe-toolbar-height` |
-| Vertical / horizontal padding | `8px / 12px` | `.tahoe-toolbar` |
-| Primary flex gap | `8px` | `.tahoe-toolbar` |
-| Controls gap | `6px` | `.tahoe-toolbar-controls` |
-| Gap within groups | `2px` | `.tahoe-toolbar-group` |
-| Recommended search width | `150px`, max `100%` | `--tahoe-toolbar-search-width` |
-| Example icon button width in groups | `24px` | `.tahoe-toolbar-group .tahoe-button` |
+| Minimum toolbar height | `52px` | `--desktop-toolbar-height` |
+| Vertical / horizontal padding | `8px / 12px` | `.desktop-toolbar` |
+| Primary flex gap | `8px` | `.desktop-toolbar` |
+| Controls gap | `6px` | `.desktop-toolbar-controls` |
+| Gap within groups | `2px` | `.desktop-toolbar-group` |
+| Recommended search width | `150px`, max `100%` | `--desktop-toolbar-search-width` |
+| Example icon button width in groups | `24px` | `.desktop-toolbar-group .desktop-button` |
 
 The parent determines the available width. `flex-wrap: wrap` allows content to move onto additional lines; `min-height` is not a fixed height.
 
@@ -62,7 +62,7 @@ The current Toolbar does not expose a `variant` prop or predefined Compact, Expa
 
 Different usages can be achieved by composing available slots (title-only, filters/actions, search, etc.). These are **composition examples**, not variants of the Toolbar API.
 
-Themes and materials come from the Tahoe token system and the containing surface; do not add unsupported `material` or `theme` props.
+Themes and materials come from the Desktop token system and the containing surface; do not add unsupported `material` or `theme` props.
 
 ## States
 
@@ -129,12 +129,12 @@ There are no dedicated `onSearch`, `onFilterChange`, `onAction`, `size`, `varian
 ### Minimal
 
 ```tsx
-import { Toolbar } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Toolbar } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export function SimpleToolbar() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Toolbar title="Photos" detail="3 photos" />
     </div>
   )
@@ -145,15 +145,15 @@ export function SimpleToolbar() {
 
 ```tsx
 import { useState } from 'react'
-import { Button, Toolbar } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Button, Toolbar } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export function GalleryToolbar() {
   const [query, setQuery] = useState('')
   const [view, setView] = useState<'grid' | 'list'>('grid')
 
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Toolbar
         title="Gallery"
         detail={`Current view: ${view}`}
@@ -166,7 +166,7 @@ export function GalleryToolbar() {
         actions={<Button onClick={() => window.alert('Import example')}>Import</Button>}
         search={
           <input
-            className="tahoe-toolbar-search"
+            className="desktop-toolbar-search"
             aria-label="Search photos"
             type="search"
             value={query}
@@ -180,29 +180,29 @@ export function GalleryToolbar() {
 }
 ```
 
-> `window.alert` is a consumer-side demonstration action; replace it with an application workflow. `tahoe-toolbar-search` constrains layout width and does not style a complete search field by itself. Verify the API of an existing Search Field component before using it instead.
+> `window.alert` is a consumer-side demonstration action; replace it with an application workflow. `desktop-toolbar-search` constrains layout width and does not style a complete search field by itself. Verify the API of an existing Search Field component before using it instead.
 
 ## Design Specifications
 
-**Provenance: Project-defined Web Approximation.** These are values from this repository, not independently verified official macOS Tahoe 26 measurements.
+**Provenance: Project-defined Web Approximation.** These are values from this repository, not independently verified official macOS measurements.
 
 | Token / Selector | Purpose |
 | --- | --- |
-| `--tahoe-toolbar-height` | 52px minimum height |
-| `--tahoe-toolbar-search-width` | 150px search-area reference width |
-| `--tahoe-toolbar-surface` | Background surface, usually the window surface |
-| `--tahoe-separator` | Bottom separator |
-| `--tahoe-label` | Default text color |
-| `--tahoe-text-secondary` | Detail text color |
-| `--tahoe-accent` | Focus and accents on child controls |
-| `--tahoe-fills-tertiary` | Group button hover surface |
-| `--tahoe-fills-primary` | Group button selected surface |
-| `--tahoe-font`, `--tahoe-body` | Inherited typography |
-| `.tahoe-toolbar` | Flex layout, padding, minimum height, separator |
-| `.tahoe-toolbar-group` | Control grouping and gaps |
-| `.tahoe-toolbar-search` | Suggested search width |
+| `--desktop-toolbar-height` | 52px minimum height |
+| `--desktop-toolbar-search-width` | 150px search-area reference width |
+| `--desktop-toolbar-surface` | Background surface, usually the window surface |
+| `--desktop-separator` | Bottom separator |
+| `--desktop-label` | Default text color |
+| `--desktop-text-secondary` | Detail text color |
+| `--desktop-accent` | Focus and accents on child controls |
+| `--desktop-fills-tertiary` | Group button hover surface |
+| `--desktop-fills-primary` | Group button selected surface |
+| `--desktop-font`, `--desktop-body` | Inherited typography |
+| `.desktop-toolbar` | Flex layout, padding, minimum height, separator |
+| `.desktop-toolbar-group` | Control grouping and gaps |
+| `.desktop-toolbar-search` | Suggested search width |
 
-Use the existing `.dark` and `[data-theme="tahoe"]` theme mechanism. For per-card Live Preview theme switching, verify that CSS selectors apply locally; do not toggle the whole documentation site or hardcode a second palette.
+Use the existing `.dark` and `[data-theme="desktop"]` theme mechanism. For per-card Live Preview theme switching, verify that CSS selectors apply locally; do not toggle the whole documentation site or hardcode a second palette.
 
 ## References
 
@@ -210,7 +210,7 @@ Use the existing `.dark` and `[data-theme="tahoe"]` theme mechanism. For per-car
 - [Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos)
 - [Apple Design Resources](https://developer.apple.com/design/resources/)
 - [Toolbar source](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/components/toolbar.tsx)
-- [Tahoe Design Tokens](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/tahoe-tokens.css)
+- [Desktop Design Tokens](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/desktop-tokens.css)
 - [Design documentation](https://github.com/devcgp/macos-components-react/blob/main/docs/design.md)
 - [Tokens documentation](https://github.com/devcgp/macos-components-react/blob/main/docs/tokens.md)
 

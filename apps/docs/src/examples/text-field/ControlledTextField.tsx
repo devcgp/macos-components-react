@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Button, TextField } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Button, TextField } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export const controlledLabels = {
   field: "Folder name",
@@ -13,7 +13,7 @@ export const controlledLabels = {
 export function ControlledTextField({ labels = controlledLabels }: { labels?: typeof controlledLabels } = {}) {
   const [name, setName] = useState(labels.initial)
   return (
-    <div data-theme="tahoe" style={{ display: 'grid', gap: 'var(--tahoe-gap)', justifyItems: 'start', overflowWrap: 'anywhere', minWidth: 0 }}>
+    <div data-theme="desktop" style={{ display: 'grid', gap: 'var(--desktop-gap)', justifyItems: 'start', overflowWrap: 'anywhere', minWidth: 0 }}>
       <TextField label={labels.field} value={name} onChange={event => setName(event.currentTarget.value)}/>
       <output>{labels.value}: {name}<br/>{labels.characters}: {Array.from(name).length}</output>
       <Button onClick={() => setName(labels.initial)}>{labels.reset}</Button>

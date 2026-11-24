@@ -7,7 +7,7 @@ import {
   Alert, Badge, Breadcrumb, Button, ContextMenu, Dialog, DropdownMenu, IconButton, InspectorPanel,
   List, Popover, RadioGroup, Select, SettingsGroup, Sheet, Spinner, SplitView, Switch, Table, Tabs,
   TextArea, TitleBar, Tooltip, TrafficLights, Window,
-} from '@macos-tahoe/ui'
+} from '@cgpdesktopui/ui'
 
 export const extraComponents = [
   ['icon-button', 'IconButton'], ['text-area', 'TextArea'], ['radio-group', 'RadioGroup'],
@@ -21,7 +21,7 @@ export const extraComponents = [
 
 type ExtraId = typeof extraComponents[number][0]
 
-export default function TahoeExtraPreview({ id }: { id: ExtraId }) {
+export default function DesktopExtraPreview({ id }: { id: ExtraId }) {
   const { locale } = useLocale()
   const t = (text: string) => localizeExample(text, locale)
   const [open, setOpen] = useState(false)
@@ -37,7 +37,7 @@ export default function TahoeExtraPreview({ id }: { id: ExtraId }) {
     case 'context-menu': return <><ContextMenu label={t('文件操作')} actions={actions}/><output>{message || t('按右键或 Enter')}</output></>
     case 'popover': return <Popover label={t('文件信息')}>JPEG · 2400 × 1600</Popover>
     case 'select': return <Select label={t('格式')}><option>JPEG</option><option>PNG</option></Select>
-    case 'breadcrumb': return <Breadcrumb label={locale === "en" ? "Path" : undefined} items={[{ label: t('组件目录'), href: '#/tahoe/showcase' }, { label: 'Breadcrumb', href: '#/tahoe/breadcrumb' }]}/>
+    case 'breadcrumb': return <Breadcrumb label={locale === "en" ? "Path" : undefined} items={[{ label: t('组件目录'), href: '#/desktop/showcase' }, { label: 'Breadcrumb', href: '#/desktop/breadcrumb' }]}/>
     case 'table': return <Table caption={t('图库')} columns={[{ id: 'name', label: t('文件') }, { id: 'size', label: t('尺寸') }]} rows={[{ id: 'coast', cells: { name: t('海岸.jpg'), size: '2400 × 1600' } }]}/>
     case 'list': return <List><li>{t('海岸.jpg')}</li><li>{t('林间.jpg')}</li></List>
     case 'badge': return <Badge>JPEG</Badge>

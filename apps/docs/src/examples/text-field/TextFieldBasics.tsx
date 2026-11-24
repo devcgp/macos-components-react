@@ -1,5 +1,5 @@
-import { TextField } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { TextField } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export const basicsLabels = {
   empty: "Empty",
@@ -11,7 +11,7 @@ export const basicsLabels = {
 
 export function TextFieldBasics({ labels = basicsLabels }: { labels?: typeof basicsLabels } = {}) {
   return (
-    <div data-theme="tahoe" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'var(--tahoe-gap)' }}>
+    <div data-theme="desktop" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'var(--desktop-gap)' }}>
       <TextField label={labels.empty}/>
       <TextField label={labels.placeholder} placeholder={labels.hint}/>
       <TextField label={labels.filled} defaultValue={labels.initial}/>

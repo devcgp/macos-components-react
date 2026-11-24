@@ -38,14 +38,14 @@ open, onClose, title, children and closeLabel.
 
 ```tsx
 import { useState } from "react"
-import { Button, Sheet } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Button, Sheet } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   const [open, setOpen] = useState(false)
   const close = () => setOpen(false)
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Button onClick={() => setOpen(true)}>View details</Button>
       <Sheet open={open} onClose={close} title="File details">JPEG</Sheet>
     </div>

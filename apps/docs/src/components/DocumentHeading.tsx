@@ -10,7 +10,7 @@ export default function DocumentHeading({title,category}:{title:string;category?
   return()=>{observer.disconnect();main.style.removeProperty('--page-heading-height')}
  },[])
  return <header className="desktop-document-heading" ref={ref}>
-  <nav aria-label={tr('面包屑导航','Breadcrumb')}><ol><li><a href="#/tahoe/getting-started/introduction">{tr('开始使用','Getting started')}</a></li>{category&&<li><span aria-hidden="true">/</span><a href={category.href}>{category.title}</a></li>}<li><span aria-hidden="true">/</span><span aria-current="page">{title}</span></li></ol></nav>
+  <nav aria-label={tr('面包屑导航','Breadcrumb')}><ol><li><a href="#/desktop/getting-started/introduction">{tr('开始使用','Getting started')}</a></li>{category&&<li><span aria-hidden="true">/</span><a href={category.href}>{category.title}</a></li>}<li><span aria-hidden="true">/</span><span aria-current="page">{title}</span></li></ol></nav>
   <h1>{title}</h1>
  </header>
 }

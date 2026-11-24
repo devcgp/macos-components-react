@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 test('shows all Button geometries and variants together', async ({ page }) => {
-  await page.goto('/?lang=en#/tahoe/button')
+  await page.goto('/?lang=en#/desktop/button')
   const sizes = page.getByRole('region', { name: 'Button Sizes', exact: true })
   const geometry = [
     ['Mini', '16px', '4px', '7px', '10px'],
@@ -29,7 +29,7 @@ test('shows all Button geometries and variants together', async ({ page }) => {
 
 test('exercises native hover, press, focus, keyboard activation, disabled and busy states', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
-  await page.goto('/?lang=en#/tahoe/button')
+  await page.goto('/?lang=en#/desktop/button')
   const states = page.getByRole('region', { name: 'Button States', exact: true })
   const result = states.locator('output')
   const disabled = states.getByRole('button', { name: 'Disabled', exact: true })
@@ -81,7 +81,7 @@ test('follows global appearance while keeping card views and copy actions indepe
     })
   })
   await page.setViewportSize({ width: 390, height: 800 })
-  await page.goto('/?lang=en#/tahoe/button')
+  await page.goto('/?lang=en#/desktop/button')
   const sizes = page.getByRole('region', { name: 'Button Sizes', exact: true })
   const variants = page.getByRole('region', { name: 'Button Variants', exact: true })
   await expect(sizes.getByRole('tab', { name: 'Preview' })).toHaveAttribute('aria-selected', 'true')
@@ -104,7 +104,7 @@ test('follows global appearance while keeping card views and copy actions indepe
     await card.getByRole('tab', { name: 'Code', exact: true }).click()
     const code = card.locator('code.language-tsx')
     await expect(code.locator('.hljs-keyword').first()).toBeVisible()
-    await expect(code).toContainText('@macos-tahoe/ui/styles.css')
+    await expect(code).toContainText('@cgpdesktopui/ui/styles.css')
     for (const value of expected) await expect(code).toContainText(value)
     const source = await code.textContent()
     await card.getByRole('button', { name: 'Copy code', exact: true }).click()

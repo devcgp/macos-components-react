@@ -1,7 +1,7 @@
 import tokenSource from '../../../../packages/ui/src/styles/tokens/tokens.json'
 
-export const { colors: tahoeColors, typography: tahoeTypography, material: tahoeMaterials, context: tahoeContexts, icons: tahoeIcons } = tokenSource
-export const tahoeSizes = tokenSource.sizes.modeData
-export type TahoeSize = keyof typeof tahoeSizes
+export const { colors: desktopColors, typography: desktopTypography, material: desktopMaterials, context: desktopContexts, icons: desktopIcons } = tokenSource
+export const desktopSizes = tokenSource.sizes.modeData
+export type DesktopSize = keyof typeof desktopSizes
 
-export const tahoeSizeOrder = ['mini', 'small', 'medium', 'large', 'xl'] as const satisfies readonly TahoeSize[]
+export const desktopSizeOrder = ['mini', 'small', 'medium', 'large', 'xl'] as const satisfies readonly DesktopSize[]

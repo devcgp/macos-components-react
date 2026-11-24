@@ -2,9 +2,9 @@
 
 > 组件：`Toolbar` · 分类：Window & Navigation · 状态：已有实现，文档与预览待集成  
 > 源码：`packages/ui/src/components/toolbar.tsx`  
-> 样式：`packages/ui/src/styles/tahoe-tokens.css`  
+> 样式：`packages/ui/src/styles/desktop-tokens.css`\
 > 建议文档路径：`apps/docs/content/components/toolbar.md`  
-> 页面：`#/tahoe/toolbar`
+> 页面：`#/desktop/toolbar`
 
 ## Overview
 
@@ -16,8 +16,8 @@ Toolbar 用于在应用窗口、文件浏览器或内容视图顶部组织**标�
 
 ## Anatomy
 
-1. **Container**：`.tahoe-toolbar`，水平布局，空间不足时允许换行。
-2. **Title area**：`.tahoe-toolbar-title`，必填 `title`，可选 `detail`（辅助说明）。
+1. **Container**：`.desktop-toolbar`，水平布局，空间不足时允许换行。
+2. **Title area**：`.desktop-toolbar-title`，必填 `title`，可选 `detail`（辅助说明）。
 3. **Filters group**：可选 `filters` 插槽，使用 `role="group"` 包装。
 4. **Actions group**：可选 `actions` 插槽，使用 `role="group"` 包装。
 5. **Search slot**：可选 `search` 插槽，直接渲染传入的 ReactNode。
@@ -42,17 +42,17 @@ Toolbar 用于在应用窗口、文件浏览器或内容视图顶部组织**标�
 
 ## Sizes
 
-Toolbar 没有公开 `size` 属性。下列数值是**现有网站 CSS 布局规则**，不是通过 Props 切换的尺寸，也不是经 Apple 官方 Tahoe 节点验证的尺寸。
+Toolbar 没有公开 `size` 属性。下列数值是**现有网站 CSS 布局规则**，不是通过 Props 切换的尺寸，也不是经 Apple 官方 Desktop 节点验证的尺寸。
 
 | 指标 | 当前实现 | 来源 |
 | --- | --- | --- |
-| Toolbar 最小高度 | `52px` | `--tahoe-toolbar-height`，CSS |
-| 上下 / 左右内边距 | `8px / 12px` | `.tahoe-toolbar`，CSS |
-| 主布局元素间距 | `8px` | `.tahoe-toolbar`，CSS |
-| Controls 间距 | `6px` | `.tahoe-toolbar-controls`，CSS |
-| Group 内间距 | `2px` | `.tahoe-toolbar-group`，CSS |
-| 搜索区域建议宽度 | `150px`，最大 `100%` | `--tahoe-toolbar-search-width`，CSS |
-| 普通工具栏图标按钮示例宽度 | `24px` | `.tahoe-toolbar-group .tahoe-button`，CSS |
+| Toolbar 最小高度 | `52px` | `--desktop-toolbar-height`，CSS |
+| 上下 / 左右内边距 | `8px / 12px` | `.desktop-toolbar`，CSS |
+| 主布局元素间距 | `8px` | `.desktop-toolbar`，CSS |
+| Controls 间距 | `6px` | `.desktop-toolbar-controls`，CSS |
+| Group 内间距 | `2px` | `.desktop-toolbar-group`，CSS |
+| 搜索区域建议宽度 | `150px`，最大 `100%` | `--desktop-toolbar-search-width`，CSS |
+| 普通工具栏图标按钮示例宽度 | `24px` | `.desktop-toolbar-group .desktop-button`，CSS |
 
 容器宽度由父布局决定；`flex-wrap: wrap` 在空间不足时允许控件转行。`min-height` 不是固定高度。
 
@@ -62,7 +62,7 @@ Toolbar 没有公开 `size` 属性。下列数值是**现有网站 CSS 布局规
 
 可通过提供不同插槽组合表达不同用途，例如基本标题栏、包含筛选与操作的工具栏、搜索工具栏。它们是**Composition 示例**，而非 Toolbar API 的 Variants。
 
-主题和材质由 Tahoe Design Tokens 与父容器决定；不要为示例自行添加未实现的 `material` 或 `theme` 属性。
+主题和材质由 Desktop Design Tokens 与父容器决定；不要为示例自行添加未实现的 `material` 或 `theme` 属性。
 
 ## States
 
@@ -129,12 +129,12 @@ type ToolbarProps = {
 ### 最小示例
 
 ```tsx
-import { Toolbar } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Toolbar } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export function SimpleToolbar() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Toolbar title="照片" detail="3 张照片" />
     </div>
   )
@@ -145,15 +145,15 @@ export function SimpleToolbar() {
 
 ```tsx
 import { useState } from 'react'
-import { Button, Toolbar } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Button, Toolbar } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export function GalleryToolbar() {
   const [query, setQuery] = useState('')
   const [view, setView] = useState<'grid' | 'list'>('grid')
 
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Toolbar
         title="图库"
         detail={`当前视图：${view}`}
@@ -166,7 +166,7 @@ export function GalleryToolbar() {
         actions={<Button onClick={() => window.alert('导入操作示例')}>导入</Button>}
         search={
           <input
-            className="tahoe-toolbar-search"
+            className="desktop-toolbar-search"
             aria-label="搜索照片"
             type="search"
             value={query}
@@ -180,29 +180,29 @@ export function GalleryToolbar() {
 }
 ```
 
-> 示例中的 `window.alert` 仅为消费端示例动作；真实应用应替换为导入流程。`tahoe-toolbar-search` 是布局宽度类，并不自动创建完整的 Search Field 外观。若使用仓库现有搜索组件，先核对其真实 API。
+> 示例中的 `window.alert` 仅为消费端示例动作；真实应用应替换为导入流程。`desktop-toolbar-search` 是布局宽度类，并不自动创建完整的 Search Field 外观。若使用仓库现有搜索组件，先核对其真实 API。
 
 ## Design Specifications
 
-**来源等级：Project-defined Web Approximation。** 下列是当前仓库的实现值，不能直接称为 Apple 官方 macOS Tahoe 26 的精确规格。
+**来源等级：Project-defined Web Approximation。** 下列是当前仓库的实现值，不能直接称为 Apple 官方 macOS 的精确规格。
 
 | Token / 选择器 | 作用 |
 | --- | --- |
-| `--tahoe-toolbar-height` | 52px 最小工具栏高度 |
-| `--tahoe-toolbar-search-width` | 150px 搜索区参考宽度 |
-| `--tahoe-toolbar-surface` | 工具栏背景，默认继承窗口表面 |
-| `--tahoe-separator` | 底部分隔线颜色 |
-| `--tahoe-label` | 默认文本颜色 |
-| `--tahoe-text-secondary` | `detail` 文字颜色 |
-| `--tahoe-accent` | 子控件焦点 / 强调色 |
-| `--tahoe-fills-tertiary` | 组合按钮 Hover 表面 |
-| `--tahoe-fills-primary` | 组合按钮选中表面 |
-| `--tahoe-font`、`--tahoe-body` | 组件继承字体规则 |
-| `.tahoe-toolbar` | Flex 布局、内边距、最小高度、分隔线 |
-| `.tahoe-toolbar-group` | 控件组及组内间距 |
-| `.tahoe-toolbar-search` | 搜索插槽推荐宽度约束 |
+| `--desktop-toolbar-height` | 52px 最小工具栏高度 |
+| `--desktop-toolbar-search-width` | 150px 搜索区参考宽度 |
+| `--desktop-toolbar-surface` | 工具栏背景，默认继承窗口表面 |
+| `--desktop-separator` | 底部分隔线颜色 |
+| `--desktop-label` | 默认文本颜色 |
+| `--desktop-text-secondary` | `detail` 文字颜色 |
+| `--desktop-accent` | 子控件焦点 / 强调色 |
+| `--desktop-fills-tertiary` | 组合按钮 Hover 表面 |
+| `--desktop-fills-primary` | 组合按钮选中表面 |
+| `--desktop-font`、`--desktop-body` | 组件继承字体规则 |
+| `.desktop-toolbar` | Flex 布局、内边距、最小高度、分隔线 |
+| `.desktop-toolbar-group` | 控件组及组内间距 |
+| `.desktop-toolbar-search` | 搜索插槽推荐宽度约束 |
 
-遵循项目现有 `.dark` + `[data-theme="tahoe"]` 的主题机制；Live Preview 若独立切换主题，需要验证 CSS 选择器确实能在卡片局部生效，不能修改整个站点主题或将颜色硬编码在卡片中。
+遵循项目现有 `.dark` + `[data-theme="desktop"]` 的主题机制；Live Preview 若独立切换主题，需要验证 CSS 选择器确实能在卡片局部生效，不能修改整个站点主题或将颜色硬编码在卡片中。
 
 ## References
 
@@ -210,7 +210,7 @@ export function GalleryToolbar() {
 - [Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos)
 - [Apple Design Resources](https://developer.apple.com/design/resources/)
 - [Toolbar 源码](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/components/toolbar.tsx)
-- [Tahoe Design Tokens](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/tahoe-tokens.css)
+- [Desktop Design Tokens](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/desktop-tokens.css)
 - [Design 文档](https://github.com/devcgp/macos-components-react/blob/main/docs/design.md)
 - [Tokens 文档](https://github.com/devcgp/macos-components-react/blob/main/docs/tokens.md)
 

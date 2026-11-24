@@ -38,13 +38,13 @@ label、value、min、max、variant、onChange、incrementLabel、decrementLabel
 
 ```tsx
 import { useState } from "react"
-import { Stepper } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Stepper } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   const [quantity, setQuantity] = useState(3)
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Stepper label="数量" value={quantity} min={1} max={10} onChange={setQuantity} />
     </div>
   )

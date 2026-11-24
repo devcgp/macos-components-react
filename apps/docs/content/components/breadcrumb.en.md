@@ -37,12 +37,12 @@ items. The last item is the current location.
 ## Code Example
 
 ```tsx
-import { Breadcrumb } from "@macos-tahoe/ui"
-import "@macos-tahoe/ui/styles.css"
+import { Breadcrumb } from "@cgpdesktopui/ui"
+import "@cgpdesktopui/ui/styles.css"
 
 export function Example() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Breadcrumb items={[{ label: "Library", href: "/" }, { label: "Favorites", href: "#favorites" }]} />
     </div>
   )

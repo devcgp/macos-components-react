@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolder } from '@fortawesome/free-regular-svg-icons'
-import { Button, Sidebar, Window } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Button, Sidebar, Window } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export const windowLabels = {
   title: "Notes",
@@ -30,18 +30,18 @@ export function SidebarInWindow({ labels = windowLabels }: { labels?: typeof win
   const current = groups[0].items.find(item => item.id === selected)?.label
 
   return (
-    <div data-theme="tahoe" style={{ width: '100%', minWidth: 0 }}>
+    <div data-theme="desktop" style={{ width: '100%', minWidth: 0 }}>
       <Window title={labels.title} toolbar={
-        <div style={{ padding: 'var(--tahoe-gap)' }}>
+        <div style={{ padding: 'var(--desktop-gap)' }}>
           <Button aria-pressed={visible} onClick={() => setVisible(previous => !previous)}>{visible ? labels.hide : labels.show}</Button>
         </div>
       }>
         <div style={{ display: 'flex', flexWrap: 'wrap', minWidth: 0 }}>
-          {visible && <div style={{ flex: '0 0 var(--tahoe-sidebar-width)', minWidth: 0, maxWidth: '100%' }}>
+          {visible && <div style={{ flex: '0 0 var(--desktop-sidebar-width)', minWidth: 0, maxWidth: '100%' }}>
             <Sidebar label={labels.navigation} groups={groups} selected={selected} collapsed={collapsed} onSelect={setSelected}
               onToggle={id => setCollapsed(previous => previous.includes(id) ? previous.filter(group => group !== id) : [...previous, id])}/>
           </div>}
-          <div style={{ flex: '1 1 calc(var(--tahoe-sidebar-width) / 2)', minWidth: 0, padding: 'calc(var(--tahoe-gap) * 2)', overflowWrap: 'anywhere' }}>
+          <div style={{ flex: '1 1 calc(var(--desktop-sidebar-width) / 2)', minWidth: 0, padding: 'calc(var(--desktop-gap) * 2)', overflowWrap: 'anywhere' }}>
             <output>{labels.current}: {current}</output>
           </div>
         </div>

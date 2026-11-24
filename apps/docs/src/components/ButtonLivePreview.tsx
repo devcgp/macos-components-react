@@ -27,7 +27,7 @@ export default function ButtonLivePreview() {
   const states = locale === 'zh-CN' ? stateZh : stateLabels
   const icon = locale === 'zh-CN' ? iconZh : iconLabels
 
-  return <div className="tahoe-preview-cards">
+  return <div className="desktop-preview-cards">
     <LivePreviewCard title={tr('按钮尺寸', 'Button Sizes')} code={sizesSource.trimEnd()}><ButtonSizes/></LivePreviewCard>
     <LivePreviewCard title={tr('按钮变体', 'Button Variants')} code={variantsSource.trimEnd()}><ButtonVariants/></LivePreviewCard>
     <LivePreviewCard title={tr('按钮状态', 'Button States')} code={translateSource(statesSource, stateLabels, states)}>

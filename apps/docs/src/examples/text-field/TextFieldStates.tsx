@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Button, TextField } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Button, TextField } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export const statesLabels = {
   initial: "Default",
@@ -17,7 +17,7 @@ export const statesLabels = {
 export function TextFieldStates({ labels = statesLabels }: { labels?: typeof statesLabels } = {}) {
   const [passed, setPassed] = useState(false)
   return (
-    <form data-theme="tahoe" style={{ display: 'grid', gap: 'var(--tahoe-gap)', justifyItems: 'start' }}
+    <form data-theme="desktop" style={{ display: 'grid', gap: 'var(--desktop-gap)', justifyItems: 'start' }}
       onSubmit={event => { event.preventDefault(); setPassed(true) }}>
       <TextField label={labels.initial}/>
       <TextField label={labels.filled} defaultValue={labels.value}/>

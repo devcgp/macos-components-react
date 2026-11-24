@@ -1,9 +1,9 @@
 # Checkbox
 
 > Component: `Checkbox`\
-> Package: `@macos-tahoe/ui`\
-> Documentation route: `#/tahoe/checkbox`
-> Design system: **Tahoe Design Tokens** (always use the latest repository tokens)
+> Package: `@cgpdesktopui/ui`\
+> Documentation route: `#/desktop/checkbox`
+> Design system: **Desktop Design Tokens** (always use the latest repository tokens)
 
 ## Overview
 
@@ -11,7 +11,7 @@ Checkboxes represent **independent selections** in forms, preference panels, and
 
 - Use a Checkbox to represent selected vs. unselected choices, not a one-time command.
 - Consider a Switch for an immediately applied on/off setting and a Radio Group for mutually exclusive choices.
-- This is a Tahoe-inspired React web control, not a native Apple control.
+- This is a Desktop-inspired React web control, not a native Apple control.
 
 ## Anatomy
 
@@ -19,7 +19,7 @@ The implemented structure consists of:
 
 1. **Label wrapper** — native `<label>` containing the control and text, making the text clickable.
 2. **Native input** — `<input type="checkbox">` for semantics, focus, keyboard interaction, and selection state.
-3. **Visual box** — decorative check box styled through Tahoe Design Tokens.
+3. **Visual box** — decorative check box styled through Desktop Design Tokens.
 4. **Checkmark** — SVG decoration revealed when checked; hidden from assistive technology.
 5. **Label text** — the required `label: string` prop.
 
@@ -35,7 +35,7 @@ Each card has:
 
 - Card title at top left.
 - **Preview / Code** tabs. The **Light / Dark** tabs change the current card. The header appearance button changes the site theme.
-- **Preview:** real exported `Checkbox` components from `@macos-tahoe/ui`.
+- **Preview:** real exported `Checkbox` components from `@cgpdesktopui/ui`.
 - **Code:** corresponding runnable React + TypeScript example, syntax highlighting, and **Copy Code**.
 
 ### Card 1 — Checkbox Selection
@@ -58,7 +58,7 @@ Show several independent checkboxes within one form with distinct labels. This i
 
 ## Sizes
 
-The control uses the fixed Medium Tahoe tokens and has no public `size` prop.
+The control uses the fixed Medium Desktop tokens and has no public `size` prop.
 
 | Specification | Current implementation |
 | --- | --- |
@@ -68,11 +68,11 @@ The control uses the fixed Medium Tahoe tokens and has no public `size` prop.
 | Box-to-label gap | `8px` |
 | Visual checkmark width / height | `9.31px / 8.93px` |
 
-These values describe project CSS, **not an Apple-verified Tahoe geometry specification**. Introduce a size API only after implementation and verification.
+These values describe project CSS, **not an Apple-verified Desktop geometry specification**. Introduce a size API only after implementation and verification.
 
 ## Variants
 
-There is **no `variant` prop**. The single Tahoe visual treatment adapts to Light/Dark theme and checked states. `checked` and `disabled` are states, not variants.
+There is **no `variant` prop**. The single Desktop visual treatment adapts to Light/Dark theme and checked states. `checked` and `disabled` are states, not variants.
 
 ## States
 
@@ -82,7 +82,7 @@ There is **no `variant` prop**. The single Tahoe visual treatment adapts to Ligh
 | Checked | Native `checked`, accent-filled box with visible checkmark |
 | Hover | CSS hover background for an available, unchecked control |
 | Pressed | CSS `:active` treatment for checked and unchecked controls |
-| Focus | Tahoe focus ring on the visual box via `:focus-visible` |
+| Focus | Desktop focus ring on the visual box via `:focus-visible` |
 | Disabled | Native `disabled`; reduced opacity and no interaction |
 | Disabled + Checked | Retains selection but blocks interaction |
 | Indeterminate | **No dedicated React prop or documented built-in styling**; do not advertise as supported |
@@ -94,7 +94,7 @@ There is **no `variant` prop**. The single Tahoe visual treatment adapts to Ligh
 - Supports uncontrolled `defaultChecked` and controlled `checked` plus `onChange`.
 - `onChange` uses the native React `ChangeEvent<HTMLInputElement>` handler; read `event.currentTarget.checked`.
 - `disabled` prevents user interaction. The native `name` and `value` props support form submission; unchecked checkboxes are not submitted as ordinary form values.
-- Light and Dark appearance comes from Tahoe tokens and the theme container, not a Checkbox prop.
+- Light and Dark appearance comes from Desktop tokens and the theme container, not a Checkbox prop.
 
 ## Accessibility
 
@@ -102,7 +102,7 @@ There is **no `variant` prop**. The single Tahoe visual treatment adapts to Ligh
 - Native label association provides a readable accessible name and a larger clickable region.
 - The custom visual box is decorative and has `aria-hidden="true"`.
 - Preserves native keyboard, focus, disabled, and form semantics.
-- `--tahoe-control-focus` defines the visual focus ring; the stylesheet includes a forced-colors fallback for native inputs.
+- `--desktop-control-focus` defines the visual focus ring; the stylesheet includes a forced-colors fallback for native inputs.
 - For related options, the consumer may add `<fieldset>` and `<legend>` as appropriate.
 - Confirm color contrast, focus visibility, and screen-reader behavior through QA; do not claim unverified WCAG compliance.
 
@@ -138,12 +138,12 @@ declare function Checkbox(
 ### Basic / Uncontrolled
 
 ```tsx
-import { Checkbox } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Checkbox } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export function BasicCheckbox() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Checkbox label="Show filenames" defaultChecked />
       <Checkbox label="Show file extensions" />
     </div>
@@ -155,14 +155,14 @@ export function BasicCheckbox() {
 
 ```tsx
 import { useState } from 'react'
-import { Checkbox } from '@macos-tahoe/ui'
-import '@macos-tahoe/ui/styles.css'
+import { Checkbox } from '@cgpdesktopui/ui'
+import '@cgpdesktopui/ui/styles.css'
 
 export function ControlledCheckbox() {
   const [enabled, setEnabled] = useState(false)
 
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Checkbox
         label="Show filenames"
         checked={enabled}
@@ -177,11 +177,11 @@ export function ControlledCheckbox() {
 ### Disabled
 
 ```tsx
-import { Checkbox } from '@macos-tahoe/ui'
+import { Checkbox } from '@cgpdesktopui/ui'
 
 export function DisabledCheckboxes() {
   return (
-    <div data-theme="tahoe">
+    <div data-theme="desktop">
       <Checkbox label="Unavailable" disabled />
       <Checkbox label="Checked and locked" defaultChecked disabled />
     </div>
@@ -193,27 +193,27 @@ Import the stylesheet once at the application entry point. The examples use curr
 
 ## Design Specifications
 
-All preview and component styles must consume the **current Tahoe Design Tokens** instead of duplicating hard-coded colors and dimensions.
+All preview and component styles must consume the **current Desktop Design Tokens** instead of duplicating hard-coded colors and dimensions.
 
 | Category | Token / style | Current use |
 | --- | --- | --- |
-| Checkbox size | `--tahoe-checkbox-size` | 16px visual box |
-| Checkbox radius | `--tahoe-checkbox-radius` | 5.5px corners |
-| Checkmark | `--tahoe-checkbox-mark-width`, `--tahoe-checkbox-mark-height` | SVG check dimensions |
-| Neutral surface | `--tahoe-control` | Unchecked background |
-| Accent | `--tahoe-accent` | Checked background |
-| Text | `--tahoe-label` | Label color |
-| Checkmark color | `--tahoe-on-accent` | Foreground when checked |
-| Border / rim | `--tahoe-control-rim` | Box outline |
-| Focus | `--tahoe-control-focus` | Focus ring |
-| Hover | `--tahoe-button-hover` | Unchecked hover background (currently reused) |
-| Pressed | `--tahoe-button-pressed`, `--tahoe-accent-pressed` | Pressed feedback |
-| Typography | `--tahoe-type-body-regular-*` | Label typography |
-| Layout | `--tahoe-global-height`, `--tahoe-gap` | 24px minimum row height, 8px gap |
+| Checkbox size | `--desktop-checkbox-size` | 16px visual box |
+| Checkbox radius | `--desktop-checkbox-radius` | 5.5px corners |
+| Checkmark | `--desktop-checkbox-mark-width`, `--desktop-checkbox-mark-height` | SVG check dimensions |
+| Neutral surface | `--desktop-control` | Unchecked background |
+| Accent | `--desktop-accent` | Checked background |
+| Text | `--desktop-label` | Label color |
+| Checkmark color | `--desktop-on-accent` | Foreground when checked |
+| Border / rim | `--desktop-control-rim` | Box outline |
+| Focus | `--desktop-control-focus` | Focus ring |
+| Hover | `--desktop-button-hover` | Unchecked hover background (currently reused) |
+| Pressed | `--desktop-button-pressed`, `--desktop-accent-pressed` | Pressed feedback |
+| Typography | `--desktop-type-body-regular-*` | Label typography |
+| Layout | `--desktop-global-height`, `--desktop-gap` | 24px minimum row height, 8px gap |
 
-Tahoe CSS variables control appearance. The root `.dark` class sets the site theme. A preview card follows it until you choose an appearance for that card.
+Desktop CSS variables control appearance. The root `.dark` class sets the site theme. A preview card follows it until you choose an appearance for that card.
 
-**Source classification:** Apple HIG informs interaction and accessibility principles. The 16px box and 5.5px corners come from the project’s Medium Tahoe tokens and third-party measured references, not officially certified Apple Tahoe geometry.
+**Source classification:** Apple HIG informs interaction and accessibility principles. The 16px box and 5.5px corners come from the project’s Medium Desktop tokens and third-party measured references, not officially certified Apple Desktop geometry.
 
 ## References
 
@@ -221,7 +221,7 @@ Tahoe CSS variables control appearance. The root `.dark` class sets the site the
 - [Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos)
 - [Apple Design Resources](https://developer.apple.com/design/resources/)
 - [Checkbox implementation](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/components/checkbox.tsx)
-- [Tahoe Design Tokens / CSS](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/tahoe-tokens.css)
+- [Desktop Design Tokens / CSS](https://github.com/devcgp/macos-components-react/blob/main/packages/ui/src/styles/desktop-tokens.css)
 - [Project design specification](https://github.com/devcgp/macos-components-react/blob/main/docs/design.md)
 - [Third-party macOS components reference](https://github.com/tamnguyenvan/macos-components)
 
