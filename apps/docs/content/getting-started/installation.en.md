@@ -10,7 +10,9 @@ pnpm --filter @macos-tahoe/ui build
 pnpm --filter @macos-tahoe/ui pack --pack-destination "$PWD"
 ```
 
-From your React project, install the generated archive using its actual path.
+`@macos-tahoe/ui` is the workspace package name. The `--filter` flag selects that package, and `pack` creates an installable `.tgz` archive from its build output in the current directory.
+
+From your React project directory, replace the example path with the path to the generated archive and run:
 
 ```sh
 pnpm add /path/to/macos-tahoe-ui-0.1.0.tgz

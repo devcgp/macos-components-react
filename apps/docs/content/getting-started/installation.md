@@ -1,6 +1,6 @@
 # Installation
 
-使用 React 19、Node.js 22.12+ 和 pnpm 11.25.0。克隆公开仓库并构建组件包。
+使用 React 19、Node.js 22.12+ 和 pnpm 11.25.0。从 GitHub 获取源码并在本地构建组件包。
 
 ```sh
 git clone https://github.com/devcgp/macos-components-react.git
@@ -10,7 +10,9 @@ pnpm --filter @macos-tahoe/ui build
 pnpm --filter @macos-tahoe/ui pack --pack-destination "$PWD"
 ```
 
-在你的 React 项目中安装生成的压缩包，将示例路径替换为实际路径。
+`@macos-tahoe/ui` 是仓库里的组件包名。`--filter` 选中该包，`pack` 把它的构建产物打成一个可安装的 `.tgz` 文件，并将文件写到当前目录。
+
+切换到你的 React 项目目录，将示例路径替换为刚生成的文件路径，再运行：
 
 ```sh
 pnpm add /path/to/macos-tahoe-ui-0.1.0.tgz
