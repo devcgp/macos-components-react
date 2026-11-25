@@ -16,7 +16,7 @@ for (const locale of ['zh-CN', 'en'] as const) test('opens every component and t
         tab.sections.map(title => localizeTitle(title, locale)),
       )
     }
-    await expect(page.locator('.docs-nav [aria-current="page"]')).toHaveAttribute("href", "/desktop/" + item.id)
+    await expect(page.locator('.docs-nav [aria-current="page"]')).toHaveAttribute("href", (locale === "en" ? "/en" : "") + "/desktop/" + item.id)
     if (locale === 'en') await expect(page.locator('main')).not.toContainText(/[\u3400-\u9fff]/)
   }
   for (const group of topicGroups) for (const title of group.items) {

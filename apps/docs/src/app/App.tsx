@@ -92,7 +92,7 @@ export default function App() {
       setRoute(currentRoute())
       setSearch(false)
       setMenu(false)
-      window.scrollTo(0, 0)
+      if (!location.hash) window.scrollTo(0, 0)
     }
     const navigate = (event: MouseEvent) => {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return

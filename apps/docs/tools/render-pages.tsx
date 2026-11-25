@@ -42,8 +42,8 @@ function renderPage(page: (typeof navigationPages)[number]['page'], locale: Loca
       <a href={documentHref(page.href, locale === 'en' ? 'zh-CN' : 'en')}>{locale === 'en' ? '简体中文' : 'English'}</a>
     </header>
     <main id="main" className="docs-static">
+      <h1>{navigationTitle(page, locale)}</h1>
       <article className="markdown">
-        <h1>{navigationTitle(page, locale)}</h1>
         <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ h1: () => null }}
           urlTransform={url => defaultUrlTransform(documentHref(url, locale))}>{markdown}</ReactMarkdown>
       </article>
@@ -58,7 +58,7 @@ function renderPage(page: (typeof navigationPages)[number]['page'], locale: Loca
     .replace(/^\s*<meta name="description"[^>]*>\n/m, '\n')
     .replace(/<title>[^<]*<\/title>/, () => metadata)
     .replace('<div id="root"></div>', () => '<div id="root">' + content + '</div>')
-  const file = join('dist', path, 'index.html')
+  const file = join('dist', path === '/' ? 'index.html' : path + '.html')
   mkdirSync(dirname(file), { recursive: true })
   writeFileSync(file, html)
   sitemap.push('  <url><loc>' + canonical + '</loc></url>')
