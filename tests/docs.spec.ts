@@ -4,10 +4,13 @@ import { localizeTitle } from '../apps/docs/src/app/locale'
 import { componentDocs, topicGroups, slug } from '../apps/docs/src/app/catalog'
 
 for (const locale of ['zh-CN', 'en'] as const) test('opens every component and topic in ' + locale, async ({ page }) => {
+  // Each direct URL now requests its own HTML instead of reusing a hash-routed document.
+  test.setTimeout(90_000)
+  const prefix = locale === 'en' ? '/en/desktop/' : '/desktop/'
   const errors: string[] = []
   page.on('pageerror', error => errors.push(error.message))
   for (const item of componentDocs) {
-    await page.goto('/?lang=' + locale + '#/desktop/' + item.id)
+    await page.goto(prefix + item.id)
     await expect(page.getByRole('heading', { name: item.title, exact: true, level: 1 })).toBeVisible()
     await expect(page.locator('.preview-content > *').first()).toBeVisible()
     for (const tab of documentationTabs) {
@@ -16,11 +19,11 @@ for (const locale of ['zh-CN', 'en'] as const) test('opens every component and t
         tab.sections.map(title => localizeTitle(title, locale)),
       )
     }
-    await expect(page.locator('.docs-nav [aria-current="page"]')).toHaveAttribute("href", (locale === "en" ? "/en" : "") + "/desktop/" + item.id)
+    await expect(page.locator('.docs-nav [aria-current="page"]')).toHaveAttribute("href", prefix + item.id)
     if (locale === 'en') await expect(page.locator('main')).not.toContainText(/[\u3400-\u9fff]/)
   }
   for (const group of topicGroups) for (const title of group.items) {
-    await page.goto('/?lang=' + locale + '#/desktop/' + group.folder + '/' + slug(title))
+    await page.goto(prefix + group.folder + '/' + slug(title))
     await expect(page.getByRole('heading', { name: localizeTitle(title, locale), exact: true, level: 1 })).toBeVisible()
     if (locale === 'en') await expect(page.locator('main')).not.toContainText(/[\u3400-\u9fff]/)
   }
