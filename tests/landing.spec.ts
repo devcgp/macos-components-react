@@ -11,6 +11,11 @@ test('serves both landing pages and the linked introduction as static HTML', asy
     await page.getByRole('link', { name: 'English' }).click()
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Build macOS-inspired interfaces with React.')
     await expect(page.locator('html')).toHaveAttribute('lang', 'en')
+    await expect(page.locator('main > section')).toHaveCount(9)
+    const links = await page.locator('.landing a[href^="/"]').evaluateAll(
+      anchors => [...new Set(anchors.map(anchor => anchor.getAttribute('href')!))],
+    )
+    for (const link of links) expect((await page.request.get(link)).ok(), link).toBe(true)
     await expect(page.getByText('npm install @cgpdesktopui/ui', { exact: true })).toBeVisible()
     await expect(page.getByRole('link', { name: 'Get Started' })).toHaveAttribute('href', '/en/desktop/getting-started/installation')
     await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Docs' }).click()
