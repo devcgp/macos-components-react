@@ -4,6 +4,9 @@
   "outputDirectory": "apps/docs/dist",
   "cleanUrls": true,
   "trailingSlash": false,
-  "redirects": [{ "source": "/desktop/getting-started/introduction", "destination": "/", "permanent": true }],
-  "rewrites": [{ "source": "/design-system/desktop", "destination": "/index.html" }, { "source": "/design-system/tahoe", "destination": "/index.html" }]
+  "redirects": [
+    { "source": "/desktop/getting-started/introduction", "destination": "/", "permanent": true },
+    { "source": "/design-system/desktop", "destination": "/", "permanent": true },
+    { "source": "/design-system/tahoe", "destination": "/", "permanent": true }
+  ]
 }
