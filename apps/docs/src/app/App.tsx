@@ -1,3 +1,5 @@
+import LandingPage from '../components/LandingPage'
+import SiteHeader from '../components/SiteHeader'
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import ReactMarkdown, { defaultUrlTransform } from 'react-markdown'
@@ -6,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun } from '@fortawesome/free-regular-svg-icons'
 import { faBars, faCodeBranch, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '@cgpdesktopui/ui'
-import { documentHref, documentPath, documentStart } from './document-urls'
+import { documentHref, documentPath, documentStart, homeHref, isHomePath } from './document-urls'
 import { DarkAppearanceContext } from './appearance'
 import { LocaleContext, localizeTitle, readLocale, type Locale } from './locale'
 import { FoundationTokens, foundationTokenSections } from '../components/FoundationTokens'
@@ -59,10 +61,10 @@ function currentRoute() {
   return normalized + url.search + url.hash
 }
 
-export default function App() {
-  const [locale, setLocale] = useState(readLocale)
+export default function App({ landing = false }: { landing?: boolean }) {
+  const [locale, setLocale] = useState<Locale>(() => landing ? (location.pathname.startsWith('/en') ? 'en' : 'zh-CN') : readLocale())
   const tr = (zh: string, en: string) => locale === 'en' ? en : zh
-  const [hash, setRoute] = useState(currentRoute)
+  const [hash, setRoute] = useState(() => landing ? '/' : currentRoute())
   const route = hash.split(/[?#]/)[0]
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'))
   const [menu, setMenu] = useState(false)
@@ -88,18 +90,20 @@ export default function App() {
 
   useEffect(() => {
     const update = () => {
-      setLocale(readLocale())
-      setRoute(currentRoute())
+      if (!landing) {
+        setLocale(readLocale())
+        setRoute(currentRoute())
+      }
       setSearch(false)
       setMenu(false)
       if (!location.hash) window.scrollTo(0, 0)
     }
     const navigate = (event: MouseEvent) => {
-      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+      if (landing || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
       const anchor = event.target instanceof Element && event.target.closest('a[href]')
       if (!(anchor instanceof HTMLAnchorElement) || anchor.target || anchor.hasAttribute('download')) return
       const url = new URL(anchor.href)
-      if (url.origin !== location.origin || !navigationByHref.has(documentPath(url.pathname))) return
+      if (url.origin !== location.origin || isHomePath(url.pathname) || !navigationByHref.has(documentPath(url.pathname))) return
       if (url.pathname === location.pathname && url.search === location.search && url.hash) return
       event.preventDefault()
       if (url.href !== location.href) history.pushState(history.state, '', url)
@@ -122,7 +126,7 @@ export default function App() {
       window.removeEventListener('popstate', update)
       window.removeEventListener('keydown', key)
     }
-  }, [])
+  }, [landing])
   useEffect(() => {
     if (!menu) return
     const desktop = matchMedia('(min-width: 681px)')
@@ -134,6 +138,7 @@ export default function App() {
     document.documentElement.classList.toggle('dark', dark)
   }, [dark])
   useEffect(() => {
+    if (landing) return
     document.title = (entryTitle ? entryTitle + ' · ' : '') + 'macOS Components for React'
     if (!entryTitle) return
     const links = document.head.querySelectorAll<HTMLLinkElement>('link[rel="canonical"], link[rel="alternate"][hreflang]')
@@ -141,7 +146,7 @@ export default function App() {
       const language = link.hreflang === 'en' ? 'en' : link.rel === 'canonical' ? locale : 'zh-CN'
       link.href = new URL(documentHref(route, language), link.href).href
     })
-  }, [entryTitle, locale, route])
+  }, [entryTitle, landing, locale, route])
   useEffect(() => { document.documentElement.lang = locale }, [locale])
 
   function changeAppearance(nextDark: boolean) {
@@ -156,7 +161,7 @@ export default function App() {
       <select className="language-select" aria-label={tr('网站语言', 'Site language')} value={locale} onChange={event => {
         const next = event.target.value as Locale
         const url = new URL(location.href)
-        url.pathname = documentHref(route, next)
+        url.pathname = landing ? homeHref(next) : documentHref(route, next)
         url.searchParams.delete('lang')
         try { localStorage.setItem('desktop-language', next) } catch { /* storage can be unavailable */ }
         location.assign(url)
@@ -166,15 +171,7 @@ export default function App() {
       </select>
       <a href={repository}><FontAwesomeIcon icon={faCodeBranch} className="site-icon" aria-hidden="true"/> GitHub</a>
   </>
-  const header = <header className="site-header">
-    <a className="brand" href={documentHref(documentStart, locale)}>macOS Components for React</a>
-    <nav className="header-sections" aria-label={tr('一级目录', 'Documentation sections')}>
-      {navigation.map(item => {
-        const firstPage = navigationPages.find(({ ancestors }) => ancestors[0] === item.id)
-        return firstPage && <a key={item.id} href={documentHref(firstPage.page.href, locale)}
-          aria-current={item.id === sectionId ? 'true' : undefined}>{navigationTitle(item, locale)}</a>
-      })}
-    </nav>
+  const header = <SiteHeader locale={locale} sectionId={sectionId}>
     <div className="header-actions">
       <Button className="header-search" aria-label={tr('搜索', 'Search')} onClick={() => { setQuery(''); setSearch(true) }}>
         <FontAwesomeIcon icon={faMagnifyingGlass} className="site-icon" aria-hidden="true"/> <span>{tr('搜索', 'Search')}</span>
@@ -184,10 +181,10 @@ export default function App() {
         <FontAwesomeIcon icon={faBars} className="site-icon" aria-hidden="true"/>
       </Button>
     </div>
-  </header>
+  </SiteHeader>
 
   return <LocaleContext.Provider value={locale}><DarkAppearanceContext.Provider value={dark}><div data-theme="desktop">
-    <DocsLayout header={header} navigation={section?.children ?? []} current={route} toc={toc} heading={
+    {landing ? <><div className="docs-topbar">{header}</div><LandingPage locale={locale}/></> : <DocsLayout header={header} navigation={section?.children ?? []} current={route} toc={toc} heading={
       entryTitle && <DocumentHeading title={entryTitle} category={section ? {
         title: navigationTitle(section, locale),
         href: navigationPages.find(item => item.ancestors[0] === section.id)?.page.href ?? documentStart,
@@ -206,7 +203,7 @@ export default function App() {
         {entries[index - 1] && <a href={documentHref(entries[index - 1].href, locale)}>← {navigationTitle(entries[index - 1], locale)}</a>}
         {entries[index + 1] && <a href={documentHref(entries[index + 1].href, locale)}>{navigationTitle(entries[index + 1], locale)} →</a>}
       </nav>}
-    </DocsLayout>
+    </DocsLayout>}
     <Dialog open={menu} onClose={setMenu} className="mobile-navigation" data-theme="desktop">
       <DialogBackdrop className="search-backdrop"/>
       <DialogPanel className="mobile-navigation-panel">

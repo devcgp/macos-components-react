@@ -1,0 +1,53 @@
+import { expect, test } from '@playwright/test'
+
+test('serves both landing pages and the linked introduction as static HTML', async ({ browser, baseURL }) => {
+  const context = await browser.newContext({ baseURL, javaScriptEnabled: false })
+  try {
+    const page = await context.newPage()
+    expect((await page.goto('/'))?.status()).toBe(200)
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('用 React 构建 macOS 风格的界面')
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://cgpdesktopui.com/')
+    await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href', 'https://cgpdesktopui.com/en')
+    await page.getByRole('link', { name: 'English' }).click()
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Build macOS-inspired interfaces with React.')
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en')
+    await expect(page.locator('main > section')).toHaveCount(9)
+    const links = await page.locator('.landing a[href^="/"]').evaluateAll(
+      anchors => [...new Set(anchors.map(anchor => anchor.getAttribute('href')!))],
+    )
+    for (const link of links) expect((await page.request.get(link)).ok(), link).toBe(true)
+    await expect(page.getByText('npm install @cgpdesktopui/ui', { exact: true })).toBeVisible()
+    await expect(page.getByRole('link', { name: 'Get Started' })).toHaveAttribute('href', '/en/desktop/getting-started/installation')
+    await page.getByRole('navigation', { name: 'Documentation sections' }).getByRole('link', { name: 'Getting Started' }).click()
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Introduction')
+    expect((await page.goto('/desktop/getting-started/introduction'))?.status()).toBe(200)
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('简介')
+    const sitemap = await page.request.get('/sitemap.xml')
+    expect(await sitemap.text()).toContain('<loc>https://cgpdesktopui.com/en</loc>')
+  } finally {
+    await context.close()
+  }
+})
+
+test('keeps the interactive preview usable and landing links within a narrow viewport', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write'])
+  await page.setViewportSize({ width: 320, height: 800 })
+  await page.goto('/en')
+  await page.getByRole('button', { name: 'Copy install command' }).click()
+  await expect(page.getByText('Copied', { exact: true })).toBeVisible()
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe('npm install @cgpdesktopui/ui')
+  await page.getByRole('button', { name: 'Open documentation menu' }).click()
+  await page.getByRole('button', { name: 'Switch to dark mode' }).click()
+  await page.keyboard.press('Escape')
+  await expect(page.locator('html')).toHaveClass(/dark/)
+  await page.getByRole('button', { name: 'Hide sidebar' }).press('Enter')
+  await expect(page.getByRole('button', { name: 'Show sidebar' })).toBeVisible()
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320)
+  await page.getByRole('link', { name: 'Get Started' }).click()
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Installation')
+  await page.getByRole('link', { name: 'CGP Desktop UI' }).click()
+  await expect(page).toHaveURL(/\/en$/)
+  await page.goto('/?lang=zh-CN#/desktop/getting-started/introduction')
+  await expect(page).toHaveURL(/\/desktop\/getting-started\/introduction$/)
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('简介')
+})

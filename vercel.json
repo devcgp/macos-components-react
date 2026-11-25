@@ -5,8 +5,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/desktop/getting-started/introduction", "destination": "/", "permanent": true },
-    { "source": "/design-system/desktop", "destination": "/", "permanent": true },
-    { "source": "/design-system/tahoe", "destination": "/", "permanent": true }
+    { "source": "/design-system/desktop", "destination": "/desktop/getting-started/introduction", "permanent": true },
+    { "source": "/design-system/tahoe", "destination": "/desktop/getting-started/introduction", "permanent": true }
   ]
 }
