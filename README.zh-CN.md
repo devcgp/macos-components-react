@@ -6,6 +6,8 @@ macOS Components for React 是面向 React 19 的开源组件库，用于构建 
 
 [正式文档](https://cgpdesktopui.com/) · [English documentation](https://cgpdesktopui.com/en/desktop/getting-started/introduction)
 
+[![Window、Sidebar 和 Button 的实际组件预览](docs/desktop-components-preview.png)](https://cgpdesktopui.com/desktop/sidebar)
+
 ## 安装
 
 在使用 React 19 的项目目录中运行

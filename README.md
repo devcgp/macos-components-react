@@ -4,6 +4,8 @@ macOS Components for React is an open-source React 19 component library for buil
 
 [English documentation](https://cgpdesktopui.com/en/desktop/getting-started/introduction) · [中文文档](https://cgpdesktopui.com/) · [中文 README](README.zh-CN.md)
 
+[![Live preview showing the Window, Sidebar, and Button components](docs/desktop-components-preview.png)](https://cgpdesktopui.com/en/desktop/sidebar)
+
 ## Install
 
 In your React 19 project, run
