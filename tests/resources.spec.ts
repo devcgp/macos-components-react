@@ -51,8 +51,9 @@ test('maps contribution links to the route and switches the edit language in pla
 test('keeps installation commands inside the mobile viewport', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 800 })
   await page.goto('/?lang=en#/desktop/getting-started/installation')
-  const code = page.getByRole('main').locator('pre').first()
-  await expect(code).toContainText('pnpm --filter @cgpdesktopui/ui pack')
+  const codeBlocks = page.getByRole('main').locator('pre')
+  await expect(codeBlocks.first()).toHaveText('npm install @cgpdesktopui/ui')
+  const code = codeBlocks.filter({ hasText: 'pnpm --filter @cgpdesktopui/ui pack' })
   await expect(code).toHaveCSS('overflow-x', 'auto')
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
 })
