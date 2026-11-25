@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "node tools/export-resources.mjs && vite --host 127.0.0.1 --port 8897 --strictPort",
-    "build": "tsc -p tsconfig.json && node tools/export-resources.mjs && vite build",
+    "build": "tsc -p tsconfig.json && node tools/export-resources.mjs && vite build && vite build --ssr tools/render-pages.tsx --outDir .docs-render && node .docs-render/render-pages.js",
     "typecheck": "tsc -p tsconfig.json",
     "preview": "vite preview --host 127.0.0.1 --port 8897 --strictPort"
   },

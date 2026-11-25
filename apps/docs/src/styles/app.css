@@ -409,3 +409,7 @@ article :is(td, th) { padding: 6px 9px; text-align: start; border: 1px solid var
   .search-panel a { min-block-size: 44px; padding-block: 11px; }
   .search-panel ul { max-height: min(58dvh, calc(100dvh - 125px)); }
 }
+
+.docs-static { max-width: 1080px; padding: 24px clamp(16px, 4vw, 48px); margin-inline: auto; }
+.docs-static nav { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-block-start: 24px; }
+.docs-static nav a { color: var(--desktop-accents-blue); }

@@ -1,11 +1,12 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown, { defaultUrlTransform } from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun } from '@fortawesome/free-regular-svg-icons'
 import { faBars, faCodeBranch, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '@cgpdesktopui/ui'
+import { documentHref, documentPath, documentStart } from './document-urls'
 import { DarkAppearanceContext } from './appearance'
 import { LocaleContext, localizeTitle, readLocale, type Locale } from './locale'
 import { FoundationTokens, foundationTokenSections } from '../components/FoundationTokens'
@@ -37,35 +38,37 @@ const componentPages = Object.fromEntries(Object.entries(componentFiles).map(([p
 ]))
 
 const entries = navigationPages.map(({ page }) => page)
-const start = '#/desktop/getting-started/introduction'
-
 function currentRoute() {
-  const original = location.hash
-  if (!original.startsWith('#/')) return start
-  // Preserve links shared before the theme namespace changed.
-  const hash = original.replace(/^#\/tahoe(?=\/|$)/, '#/desktop')
-  const legacyRoutes: Record<string, string> = {
-    '#/overview': start,
-    '#/desktop/showcase': start,
-    '#/desktop/design': '#/desktop/foundations/control-geometry',
-    '#/desktop/colors': '#/desktop/foundations/color',
-    '#/desktop/foundations/accessibility': '#/desktop/foundations/color',
+  const url = new URL(location.href)
+  const legacy = url.hash.startsWith('#/')
+  const route = legacy ? url.hash.slice(1) : url.pathname
+  const path = /^([^?#]+)/.exec(route)?.[0] ?? documentStart
+  const suffix = legacy ? route.slice(path.length) : url.search + url.hash
+  const normalized = documentPath(path)
+  const target = documentHref(normalized, readLocale())
+  if (legacy || target !== url.pathname || url.searchParams.has('lang')) {
+    if (legacy) {
+      const legacyURL = new URL(normalized + suffix, url.origin)
+      url.search = legacyURL.search || url.search
+      url.hash = legacyURL.hash
+    }
+    url.pathname = target
+    url.searchParams.delete('lang')
+    history.replaceState(history.state, '', url)
   }
-  const route = legacyRoutes[hash] ?? hash
-  if (route !== original) history.replaceState(history.state, '', route)
-  return route
+  return normalized + url.search + url.hash
 }
 
 export default function App() {
   const [locale, setLocale] = useState(readLocale)
   const tr = (zh: string, en: string) => locale === 'en' ? en : zh
   const [hash, setRoute] = useState(currentRoute)
-  const route = '#' + hash.slice(1).split(/[?#]/)[0]
+  const route = hash.split(/[?#]/)[0]
   const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'))
   const [menu, setMenu] = useState(false)
   const [search, setSearch] = useState(false)
   const [query, setQuery] = useState('')
-  const id = route.replace('#/desktop/', '')
+  const id = route.replace('/desktop/', '')
   const doc = componentDocs.find(item => item.id === id)
   const index = entries.findIndex(item => item.href === route)
   const entry = entries[index]
@@ -86,11 +89,21 @@ export default function App() {
   useEffect(() => {
     const update = () => {
       setLocale(readLocale())
-      if (location.hash && !location.hash.startsWith('#/')) return
       setRoute(currentRoute())
       setSearch(false)
       setMenu(false)
-      window.scrollTo(0, 0)
+      if (!location.hash) window.scrollTo(0, 0)
+    }
+    const navigate = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+      const anchor = event.target instanceof Element && event.target.closest('a[href]')
+      if (!(anchor instanceof HTMLAnchorElement) || anchor.target || anchor.hasAttribute('download')) return
+      const url = new URL(anchor.href)
+      if (url.origin !== location.origin || !navigationByHref.has(documentPath(url.pathname))) return
+      if (url.pathname === location.pathname && url.search === location.search && url.hash) return
+      event.preventDefault()
+      if (url.href !== location.href) history.pushState(history.state, '', url)
+      update()
     }
     const key = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
@@ -99,10 +112,12 @@ export default function App() {
         setSearch(value => !value)
       }
     }
+    document.addEventListener('click', navigate)
     window.addEventListener('hashchange', update)
     window.addEventListener('popstate', update)
     window.addEventListener('keydown', key)
     return () => {
+      document.removeEventListener('click', navigate)
       window.removeEventListener('hashchange', update)
       window.removeEventListener('popstate', update)
       window.removeEventListener('keydown', key)
@@ -120,7 +135,13 @@ export default function App() {
   }, [dark])
   useEffect(() => {
     document.title = (entryTitle ? entryTitle + ' · ' : '') + 'macOS Components for React'
-  }, [entryTitle])
+    if (!entryTitle) return
+    const links = document.head.querySelectorAll<HTMLLinkElement>('link[rel="canonical"], link[rel="alternate"][hreflang]')
+    links.forEach(link => {
+      const language = link.hreflang === 'en' ? 'en' : link.rel === 'canonical' ? locale : 'zh-CN'
+      link.href = new URL(documentHref(route, language), link.href).href
+    })
+  }, [entryTitle, locale, route])
   useEffect(() => { document.documentElement.lang = locale }, [locale])
 
   function changeAppearance(nextDark: boolean) {
@@ -135,10 +156,10 @@ export default function App() {
       <select className="language-select" aria-label={tr('网站语言', 'Site language')} value={locale} onChange={event => {
         const next = event.target.value as Locale
         const url = new URL(location.href)
-        url.searchParams.set('lang', next)
-        history.replaceState(history.state, '', url)
+        url.pathname = documentHref(route, next)
+        url.searchParams.delete('lang')
         try { localStorage.setItem('desktop-language', next) } catch { /* storage can be unavailable */ }
-        setLocale(next)
+        location.assign(url)
       }}>
         <option value="en" lang="en">English</option>
         <option value="zh-CN" lang="zh-CN">简体中文</option>
@@ -146,11 +167,11 @@ export default function App() {
       <a href={repository}><FontAwesomeIcon icon={faCodeBranch} className="site-icon" aria-hidden="true"/> GitHub</a>
   </>
   const header = <header className="site-header">
-    <a className="brand" href={start}>macOS Components for React</a>
+    <a className="brand" href={documentHref(documentStart, locale)}>macOS Components for React</a>
     <nav className="header-sections" aria-label={tr('一级目录', 'Documentation sections')}>
       {navigation.map(item => {
         const firstPage = navigationPages.find(({ ancestors }) => ancestors[0] === item.id)
-        return firstPage && <a key={item.id} href={firstPage.page.href}
+        return firstPage && <a key={item.id} href={documentHref(firstPage.page.href, locale)}
           aria-current={item.id === sectionId ? 'true' : undefined}>{navigationTitle(item, locale)}</a>
       })}
     </nav>
@@ -169,21 +190,21 @@ export default function App() {
     <DocsLayout header={header} navigation={section?.children ?? []} current={route} toc={toc} heading={
       entryTitle && <DocumentHeading title={entryTitle} category={section ? {
         title: navigationTitle(section, locale),
-        href: navigationPages.find(item => item.ancestors[0] === section.id)?.page.href ?? start,
+        href: navigationPages.find(item => item.ancestors[0] === section.id)?.page.href ?? documentStart,
       } : undefined}/>
     }>
       {ComponentPage ? <Suspense fallback={<p role="status">{tr('正在加载组件文档…', 'Loading component documentation…')}</p>}>
           <ComponentPage key={locale + id} id={id} hash={hash}/>
         </Suspense>
         : id === 'tokens' ? <DesktopTokensPage/>
-        : markdown ? <article className="markdown"><ReactMarkdown remarkPlugins={[remarkGfm]} components={{h1:()=>null}}>{markdown}</ReactMarkdown>
+        : markdown ? <article className="markdown"><ReactMarkdown remarkPlugins={[remarkGfm]} components={{h1:()=>null}} urlTransform={url => defaultUrlTransform(documentHref(url, locale))}>{markdown}</ReactMarkdown>
           {id === 'foundations/color' ? <DesktopColorsPage/> : <FoundationTokens key={id} id={id}/>}
           {id.includes('/') && !id.startsWith('resources/') && <p><a href={hig}>Apple Human Interface Guidelines</a></p>}</article>
-        : <article><h1>{tr('未找到页面', 'Page not found')}</h1><p><a href={start}>{tr('前往 Desktop 文档', 'Go to Desktop documentation')}</a></p></article>}
-      {entryTitle && <PageResources key={id+locale} id={id} route={route} title={entryTitle} component={Boolean(doc)}/>}
+        : <article><h1>{tr('未找到页面', 'Page not found')}</h1><p><a href={documentHref(documentStart, locale)}>{tr('前往 Desktop 文档', 'Go to Desktop documentation')}</a></p></article>}
+      {entryTitle && <PageResources key={id+locale} id={id} title={entryTitle} component={Boolean(doc)}/>}
       {index >= 0 && <nav className="page-neighbors" aria-label={tr("上一页和下一页", "Previous and next pages")}>
-        {entries[index - 1] && <a href={entries[index - 1].href}>← {navigationTitle(entries[index - 1], locale)}</a>}
-        {entries[index + 1] && <a href={entries[index + 1].href}>{navigationTitle(entries[index + 1], locale)} →</a>}
+        {entries[index - 1] && <a href={documentHref(entries[index - 1].href, locale)}>← {navigationTitle(entries[index - 1], locale)}</a>}
+        {entries[index + 1] && <a href={documentHref(entries[index + 1].href, locale)}>{navigationTitle(entries[index + 1], locale)} →</a>}
       </nav>}
     </DocsLayout>
     <Dialog open={menu} onClose={setMenu} className="mobile-navigation" data-theme="desktop">
@@ -204,7 +225,7 @@ export default function App() {
       <DialogPanel className="search-panel">
         <DialogTitle>{tr("搜索文档", "Search documentation")}</DialogTitle>
         <input data-autofocus type="search" aria-label={tr("搜索文档", "Search documentation")} value={query} onChange={event => setQuery(event.target.value)} placeholder={tr("组件、颜色、主题…", "Components, colors, themes…")}/>
-        <ul>{matches.length ? matches.map(item => <li key={item.href}><a href={item.href} onClick={() => setSearch(false)}>{navigationTitle(item, locale)}</a></li>) : <li>{tr("没有匹配的文档", "No matching pages")}</li>}</ul>
+        <ul>{matches.length ? matches.map(item => <li key={item.href}><a href={documentHref(item.href, locale)} onClick={() => setSearch(false)}>{navigationTitle(item, locale)}</a></li>) : <li>{tr("没有匹配的文档", "No matching pages")}</li>}</ul>
       </DialogPanel>
     </Dialog>
   </div></DarkAppearanceContext.Provider></LocaleContext.Provider>

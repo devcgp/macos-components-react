@@ -20,7 +20,7 @@ test('keeps the HIG sections, resources, component topics, and existing routes',
     'tokens', 'resources/ai-integration', 'resources/community',
   ]
   expect(navigationPages.map(({ page }) => page.href).sort()).toEqual(
-    expectedIds.map(id => '#/desktop/' + id).sort(),
+    expectedIds.map(id => '/desktop/' + id).sort(),
   )
   for (const [id, section] of [
     ['tokens', 'foundations'],
@@ -61,7 +61,7 @@ test('opens active ancestors, keeps independent toggle state, and supports keybo
   await page.keyboard.press('Space')
   await expect(menus).toHaveAttribute('aria-expanded', 'true')
   await nav.getByRole('link', { name: 'Button', exact: true }).click()
-  await expect(page).toHaveURL(/#\/desktop\/button$/)
+  await expect(page).toHaveURL(/\/en\/desktop\/button$/)
   await expect(nav.getByRole('link', { name: 'Button', exact: true })).toHaveAttribute('aria-current', 'page')
   await expect(navigationAndSearch).toHaveAttribute('aria-expanded', 'true')
 

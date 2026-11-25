@@ -2,5 +2,11 @@
   "installCommand": "pnpm install --frozen-lockfile",
   "buildCommand": "pnpm build",
   "outputDirectory": "apps/docs/dist",
-  "rewrites": [{ "source": "/design-system/desktop", "destination": "/index.html" }, { "source": "/design-system/tahoe", "destination": "/index.html" }]
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/desktop/getting-started/introduction", "destination": "/", "permanent": true },
+    { "source": "/design-system/desktop", "destination": "/", "permanent": true },
+    { "source": "/design-system/tahoe", "destination": "/", "permanent": true }
+  ]
 }

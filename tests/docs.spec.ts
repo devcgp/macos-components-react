@@ -4,10 +4,13 @@ import { localizeTitle } from '../apps/docs/src/app/locale'
 import { componentDocs, topicGroups, slug } from '../apps/docs/src/app/catalog'
 
 for (const locale of ['zh-CN', 'en'] as const) test('opens every component and topic in ' + locale, async ({ page }) => {
+  // Each direct URL now requests its own HTML instead of reusing a hash-routed document.
+  test.setTimeout(90_000)
+  const prefix = locale === 'en' ? '/en/desktop/' : '/desktop/'
   const errors: string[] = []
   page.on('pageerror', error => errors.push(error.message))
   for (const item of componentDocs) {
-    await page.goto('/?lang=' + locale + '#/desktop/' + item.id)
+    await page.goto(prefix + item.id)
     await expect(page.getByRole('heading', { name: item.title, exact: true, level: 1 })).toBeVisible()
     await expect(page.locator('.preview-content > *').first()).toBeVisible()
     for (const tab of documentationTabs) {
@@ -16,11 +19,11 @@ for (const locale of ['zh-CN', 'en'] as const) test('opens every component and t
         tab.sections.map(title => localizeTitle(title, locale)),
       )
     }
-    await expect(page.locator('.docs-nav [aria-current="page"]')).toHaveAttribute("href", "#/desktop/" + item.id)
+    await expect(page.locator('.docs-nav [aria-current="page"]')).toHaveAttribute("href", prefix + item.id)
     if (locale === 'en') await expect(page.locator('main')).not.toContainText(/[\u3400-\u9fff]/)
   }
   for (const group of topicGroups) for (const title of group.items) {
-    await page.goto('/?lang=' + locale + '#/desktop/' + group.folder + '/' + slug(title))
+    await page.goto(prefix + group.folder + '/' + slug(title))
     await expect(page.getByRole('heading', { name: localizeTitle(title, locale), exact: true, level: 1 })).toBeVisible()
     if (locale === 'en') await expect(page.locator('main')).not.toContainText(/[\u3400-\u9fff]/)
   }
@@ -89,7 +92,7 @@ test('installation and measured geometry are present in both themes', async ({ p
 test('switches language in place and remembers it', async ({ page }) => {
   await page.goto('/design-system/desktop#/desktop/button')
   await page.getByRole('combobox', { name: '网站语言' }).selectOption('en')
-  await expect(page).toHaveURL(/lang=en#\/desktop\/button$/)
+  await expect(page).toHaveURL(/\/en\/desktop\/button$/)
   await expect(page.locator('html')).toHaveAttribute('lang', 'en')
   await page.getByRole('tab', { name: 'API', exact: true }).click()
   await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible()
@@ -100,7 +103,7 @@ test('switches language in place and remembers it', async ({ page }) => {
   await expect(page.getByRole('combobox', { name: 'Site language' })).toHaveValue('en')
   await page.goto('/#/desktop/design')
   await expect(page.getByRole('heading', { name: 'Control Geometry', level: 1 })).toBeVisible()
-  await expect(page).toHaveURL(/#\/desktop\/foundations\/control-geometry$/)
+  await expect(page).toHaveURL(/\/en\/desktop\/foundations\/control-geometry$/)
   await page.getByRole('button', { name: 'Search', exact: true }).click()
   await page.getByRole('searchbox', { name: 'Search documentation' }).fill('排版')
   await page.getByRole('dialog').getByRole('link', { name: 'Typography', exact: true }).click()
@@ -143,4 +146,30 @@ test('restores documentation tabs from section links and browser history', async
   await expect(guidelines).toHaveAttribute('aria-selected', 'true')
   await page.goForward()
   await expect(accessibility).toHaveAttribute('aria-selected', 'true')
+})
+
+test('serves crawlable language-specific documents and links without JavaScript', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false })
+  try {
+    const page = await context.newPage()
+    const response = await page.goto('/desktop/button')
+    expect(response?.status()).toBe(200)
+    await expect(page.getByRole('heading', { name: 'Button', level: 1 })).toBeVisible()
+    await expect(page.locator('head link[rel="canonical"]')).toHaveAttribute('href', 'https://cgpdesktopui.com/desktop/button')
+    const english = page.getByRole('link', { name: 'English', exact: true })
+    await expect(english).toHaveAttribute('href', '/en/desktop/button')
+    await english.click()
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en')
+    await expect(page.getByRole('heading', { name: 'Anatomy', exact: true })).toBeVisible()
+    await expect(page.getByRole('navigation', { name: 'Documentation' }).getByRole('link', { name: 'Sidebar', exact: true }))
+      .toHaveAttribute('href', '/en/desktop/sidebar')
+
+    const sitemap = await page.request.get('/sitemap.xml')
+    expect(sitemap.ok()).toBe(true)
+    expect(await sitemap.text()).toContain('<loc>https://cgpdesktopui.com/en/desktop/button</loc>')
+    const robots = await page.request.get('/robots.txt')
+    expect(await robots.text()).toContain('Sitemap: https://cgpdesktopui.com/sitemap.xml')
+  } finally {
+    await context.close()
+  }
 })

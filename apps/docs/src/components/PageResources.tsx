@@ -1,3 +1,4 @@
+import { documentHref } from '../app/document-urls'
 import {useState} from 'react'
 import { useLocale } from '../app/locale'
 
@@ -21,9 +22,8 @@ const componentSources: Record<string, string[]> = {
   feedback: ['alert', 'dialog', 'sheet', 'tooltip', 'badge', 'spinner'],
 }
 
-export function PageResources({ id, route, title, component }: {
+export function PageResources({ id, title, component }: {
   id: string
-  route: string
   title: string
   component: boolean
 }) {
@@ -41,8 +41,6 @@ export function PageResources({ id, route, title, component }: {
     : id === 'foundations/color' ? 'apps/docs/src/components/DesktopColorsPage.tsx'
     : path
   const url = new URL(location.href)
-  url.searchParams.set('lang', locale)
-  if (url.hash.split(/[?#]/, 2)[1] !== route.slice(1)) url.hash = route
   const issue = new URLSearchParams({
     template: 'bug_report.md',
     title: '[Docs] ' + title,
@@ -73,7 +71,7 @@ export function PageResources({ id, route, title, component }: {
     <nav className="page-resource-links" aria-label={tr('贡献入口','Contribution links')}>
       <a href={repository+'/blob/'+__DOCS_GIT_REF__+'/'+source} target="_blank" rel="noopener noreferrer">{tr('查看源码','View source')} ↗</a>
       <a href={repository+'/issues/new?'+issue} target="_blank" rel="noopener noreferrer">{tr('报告问题','Report an issue')} ↗</a>
-      <a href="#/desktop/resources/community">{tr('贡献指南','Contribution guide')} →</a>
+      <a href={documentHref('/desktop/resources/community',locale)}>{tr('贡献指南','Contribution guide')} →</a>
       <a href="/font-awesome-license.txt">Font Awesome {tr('许可','license')}</a>
     </nav>
     {sourceError&&<p role="alert">{tr('原文加载失败，请重试或下载 Markdown。','Could not load source. Retry or download Markdown.')}</p>}

@@ -1,5 +1,6 @@
+import { documentHref } from '../app/document-urls'
 import { useState } from 'react'
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown, { defaultUrlTransform } from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import tokensZh from '../../../../docs/tokens.md?raw'
 import tokensEn from '../../../../docs/tokens.en.md?raw'
@@ -110,10 +111,10 @@ export function TypographyPreview() {
 }
 
 export default function DesktopTokensPage() {
-  const { tr } = useLocale()
+  const { locale, tr } = useLocale()
   return <article className="markdown desktop-token-doc">
     <section id={desktopTokenSections[0].id} className="doc-section">
-      <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ h1: () => null }}>{tr(tokensZh, tokensEn)}</ReactMarkdown>
+      <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ h1: () => null }} urlTransform={url => defaultUrlTransform(documentHref(url, locale))}>{tr(tokensZh, tokensEn)}</ReactMarkdown>
     </section>
     <ScopePreview/>
     <TypographyPreview/>
@@ -127,7 +128,7 @@ export default function DesktopTokensPage() {
         ['motion', '动效', 'Motion'], ['icons', '图标', 'Icons'],
         ['sf-symbols-guidance', 'SF Symbols 指南', 'SF Symbols Guidance'],
         ['spacing', '间距', 'Spacing'], ['control-geometry', '控件尺寸', 'Control Geometry'],
-      ].map(([id, zh, en]) => <li key={id}><a href={'#/desktop/foundations/' + id}>{tr(zh, en)}</a></li>)}</ul>
+      ].map(([id, zh, en]) => <li key={id}><a href={documentHref('/desktop/foundations/' + id, locale)}>{tr(zh, en)}</a></li>)}</ul>
     </section>
   </article>
 }

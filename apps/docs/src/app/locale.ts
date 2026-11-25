@@ -11,6 +11,8 @@ export function useLocale() {
 export function readLocale(): Locale {
   const query = new URLSearchParams(location.search).get('lang')
   if (query === 'en' || query === 'zh-CN') return query
+  if (/^\/en(?:\/|$)/.test(location.pathname)) return 'en'
+  if (location.pathname.startsWith('/desktop/')) return 'zh-CN'
   try {
     if (localStorage.getItem('desktop-language') === 'en') return 'en'
   } catch { /* storage can be unavailable */ }

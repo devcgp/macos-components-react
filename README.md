@@ -43,7 +43,7 @@ export function Settings() {
 
 ## 升级现有项目
 
-更新为 `@cgpdesktopui/ui` 的导入和样式路径，主题容器使用 `data-theme="desktop"`。直接引用 CSS 变量的项目需同步改用 `--desktop-*`。新文档链接使用 `#/desktop/`，此前分享的链接仍可访问。
+更新为 `@cgpdesktopui/ui` 的导入和样式路径，主题容器使用 `data-theme="desktop"`。直接引用 CSS 变量的项目需同步改用 `--desktop-*`。文档提供普通路径 `/desktop/…`（简体中文）和 `/en/desktop/…`（英文），此前分享的链接仍可访问。
 
 ## 许可证
 

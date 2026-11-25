@@ -31,7 +31,6 @@ test('renders token scopes and typography from the active CSS on mobile', async 
 
   await page.getByRole('button', { name: 'Open documentation menu' }).click()
   await page.getByRole('combobox', { name: 'Site language' }).selectOption('zh-CN')
-  await page.getByRole('button', { name: '关闭导航' }).click()
   await expect(page.getByRole('heading', { name: '字体排印' })).toBeVisible()
   await page.getByRole('button', { name: '打开文档导航' }).click()
   await page.getByRole('dialog').getByRole('link', { name: '色彩', exact: true }).click()
@@ -41,7 +40,7 @@ test('renders token scopes and typography from the active CSS on mobile', async 
 test('shows all 62 system colors with stable Light and Dark swatches', async ({ page }) => {
   await page.goto('/?lang=en#/desktop/colors')
   await expect(page.getByRole('heading', { name: 'Color', level: 1 })).toBeVisible()
-  await expect(page).toHaveURL(/#\/desktop\/foundations\/color$/)
+  await expect(page).toHaveURL(/\/en\/desktop\/foundations\/color$/)
   await expect(page.locator('.desktop-color-grid > li')).toHaveCount(62)
   await expect(page.locator('.desktop-color-grid > li').first()).toHaveCSS('list-style-type', 'none')
   await expect(page.getByRole('heading', { name: 'Semantic Colors', exact: true })).toBeVisible()

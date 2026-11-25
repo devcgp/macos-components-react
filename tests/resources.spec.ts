@@ -42,7 +42,7 @@ test('maps contribution links to the route and switches the edit language in pla
   await expect(footer.getByRole('link', { name: 'Edit on GitHub' })).toHaveAttribute('href', /\/content\/components\/button\.en\.md$/)
   const href = await footer.getByRole('link', { name: 'Report an issue' }).getAttribute('href')
   const body = new URL(href!).searchParams.get('body')
-  expect(body).toContain('?lang=en#/desktop/button')
+  expect(body).toContain('/en/desktop/button')
   expect(body).toContain('Language / 语言: en')
   await page.goto('/?lang=en#/desktop/resources/community')
   await expect(page.getByRole('heading', { name: 'Community', exact: true })).toBeVisible()
