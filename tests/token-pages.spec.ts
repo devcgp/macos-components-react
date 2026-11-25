@@ -41,7 +41,7 @@ test('renders token scopes and typography from the active CSS on mobile', async 
 test('shows all 62 system colors with stable Light and Dark swatches', async ({ page }) => {
   await page.goto('/?lang=en#/desktop/colors')
   await expect(page.getByRole('heading', { name: 'Color', level: 1 })).toBeVisible()
-  await expect(page).toHaveURL(/#\/desktop\/foundations\/color$/)
+  await expect(page).toHaveURL(/\/en\/desktop\/foundations\/color$/)
   await expect(page.locator('.desktop-color-grid > li')).toHaveCount(62)
   await expect(page.locator('.desktop-color-grid > li').first()).toHaveCSS('list-style-type', 'none')
   await expect(page.getByRole('heading', { name: 'Semantic Colors', exact: true })).toBeVisible()

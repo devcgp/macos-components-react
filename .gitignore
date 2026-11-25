@@ -11,3 +11,5 @@ test-results/
 *.tgz
 
 /apps/docs/public/downloads/
+
+/apps/docs/.docs-render/

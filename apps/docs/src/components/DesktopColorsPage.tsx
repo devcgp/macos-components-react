@@ -1,3 +1,4 @@
+import { documentHref } from '../app/document-urls'
 import { useLocale } from '../app/locale'
 import { desktopColors } from '../app/token-data'
 
@@ -63,7 +64,7 @@ function swatchName(name: string) {
 }
 
 export default function DesktopColorsPage() {
-  const { tr } = useLocale()
+  const { locale, tr } = useLocale()
   return <div className="desktop-doc">
     <p>{tr(
       '每张色卡并排显示同一个 CSS 变量在浅色与深色下的值。棋盘格用于查看透明填充和文本色的实际叠加效果。',
@@ -74,7 +75,7 @@ export default function DesktopColorsPage() {
       'Swatches render the theme’s CSS variables. Their values come from the project tokens used to generate the palette. Vibrant swatches show the variable itself. Material effects also depend on the backdrop and blending.',
     )}</p>
     <p>
-      <a href="#/desktop/tokens">{tr('下载设计 Tokens', 'Download design tokens')}</a>
+      <a href={documentHref('/desktop/tokens',locale)}>{tr('下载设计 Tokens', 'Download design tokens')}</a>
       {' · '}
       <a href="https://www.figma.com/design/0Moxn0hZAwA13h5DRFhK2h?node-id=0-765">{tr('查看 Figma 色板', 'View Figma palette')}</a>
     </p>

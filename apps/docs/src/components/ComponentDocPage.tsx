@@ -1,6 +1,7 @@
+import { documentHref } from '../app/document-urls'
 import ComponentDocumentationLayout from '../layouts/ComponentDocumentationLayout'
 import { createContext, isValidElement, Suspense, useContext, useState, type ReactNode } from 'react'
-import ReactMarkdown, { type Components } from 'react-markdown'
+import ReactMarkdown, { defaultUrlTransform, type Components } from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Checkbox } from '@cgpdesktopui/ui'
 import { slug } from '../app/catalog'
@@ -23,7 +24,7 @@ function LivePreview({ id }: { id: string }) {
 }
 
 function Installation() {
-  const { tr } = useLocale()
+  const { locale, tr } = useLocale()
   const source = tr(installCommands, installCommands.replace(
     '在你的 React 19 项目目录运行，路径指向刚生成的文件',
     'Run from your React 19 project using the generated tarball path',
@@ -33,7 +34,7 @@ function Installation() {
     <p>{tr(
       '从公开仓库克隆源码，构建并打包 UI，然后将生成的压缩包安装到 React 19 项目。',
       'Clone the public repository, build and pack the UI, then install the tarball in a React 19 project.',
-    )} <a href="#/desktop/getting-started/installation">{tr('完整安装指南', 'Installation guide')}</a></p>
+    )} <a href={documentHref('/desktop/getting-started/installation',locale)}>{tr('完整安装指南', 'Installation guide')}</a></p>
     <CopyCode source={source} label={tr('复制安装命令', 'Copy install commands')}><pre><code>{source}</code></pre></CopyCode>
   </>
 }
@@ -62,10 +63,11 @@ function MarkdownCode({ children }: { children?: ReactNode }) {
 const markdownComponents: Components = { h1:()=>null, h2: SectionHeading, pre: MarkdownCode }
 
 export default function ComponentDocPage({ id, markdown, hash }: { id: string; markdown: string; hash: string }) {
+  const { locale } = useLocale()
   return <article className="markdown">
     <ComponentId.Provider value={id}>
       <ComponentDocumentationLayout markdown={markdown} hash={hash} render={source =>
-        <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{source}</ReactMarkdown>
+        <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents} urlTransform={url => defaultUrlTransform(documentHref(url, locale))}>{source}</ReactMarkdown>
       }/>
     </ComponentId.Provider>
   </article>

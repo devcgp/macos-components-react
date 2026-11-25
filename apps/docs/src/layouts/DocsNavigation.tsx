@@ -1,3 +1,4 @@
+import { documentHref } from '../app/document-urls'
 import { Badge } from '@cgpdesktopui/ui'
 import { useEffect, useId, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -20,7 +21,7 @@ function NavigationTree({ items, current, collapsed, toggle, onNavigate }: TreeP
     {items.map(item => {
       const title = navigationTitle(item, locale)
       if (item.href) {
-        return <li key={item.id}><a href={item.href} onClick={onNavigate} aria-current={item.href === current ? 'page' : undefined}><span>{title}</span>{item.status === 'reference' && <Badge className="docs-nav-reference" aria-hidden="true">{tr('简要文档', 'Quick reference')}</Badge>}</a></li>
+        return <li key={item.id}><a href={documentHref(item.href, locale)} onClick={onNavigate} aria-current={item.href === current ? 'page' : undefined}><span>{title}</span>{item.status === 'reference' && <Badge className="docs-nav-reference" aria-hidden="true">{tr('简要文档', 'Quick reference')}</Badge>}</a></li>
       }
       if (!item.children?.length) return null
       const open = !collapsed.has(item.id)

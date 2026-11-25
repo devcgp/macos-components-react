@@ -47,8 +47,12 @@ export default function ComponentDocumentationLayout({ markdown, hash, render }:
   return <>
     {render(intro)}
     {tabs.length > 0 && <TabGroup selectedIndex={index} onChange={next => {
-      const route = hash.slice(1).split(/[?#]/)[0]
-      window.location.hash = route + '?tab=' + tabs[next].id
+      const url = new URL(location.href)
+      url.hash = ''
+      url.searchParams.delete('section')
+      url.searchParams.set('tab', tabs[next].id)
+      history.pushState(history.state, '', url)
+      window.dispatchEvent(new PopStateEvent('popstate'))
     }}>
       <TabList className="documentation-tabs" aria-label={tr('组件文档', 'Component documentation')}>
         {tabs.map(tab => <Tab key={tab.id}>{tr(tab.zh, tab.label)}</Tab>)}

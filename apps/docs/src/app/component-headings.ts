@@ -13,7 +13,7 @@ export const documentationTabs = [
 
 export function documentationSectionAnchor(hash: string) {
   const query = hash.split('?')[1]?.split('#')[0]
-  return hash.split('#')[2] || new URLSearchParams(query).get('section') || ''
+  return hash.includes('#') ? hash.split('#').at(-1) ?? '' : new URLSearchParams(query).get('section') || ''
 }
 
 export function documentationTab(hash: string) {
