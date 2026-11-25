@@ -4,6 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import ReactMarkdown, { defaultUrlTransform } from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { documentHref, homeHref } from '../src/app/document-urls'
+import SiteHeader from '../src/components/SiteHeader'
 import LandingPage, { landingMetadata } from '../src/components/LandingPage'
 import type { Locale } from '../src/app/locale'
 import { navigationPages, navigationTitle } from '../src/app/navigation'
@@ -39,7 +40,7 @@ function renderPage(page: (typeof navigationPages)[number]['page'], locale: Loca
   </>)
   const content = renderToStaticMarkup(<div data-theme="desktop">
     <header className="site-header">
-      <a className="brand" href={homeHref(locale)}>{brand}</a>
+      <a className="brand" href={homeHref(locale)}>CGP Desktop UI</a>
       <a href={documentHref(page.href, locale === 'en' ? 'zh-CN' : 'en')}>{locale === 'en' ? '简体中文' : 'English'}</a>
     </header>
     <main id="main" className="docs-static">
@@ -81,7 +82,13 @@ for (const locale of locales) {
     <link rel="canonical" href={origin + path}/>
     {locales.map(language => <link key={language} rel="alternate" hrefLang={language} href={origin + homeHref(language)}/>)}
   </>)
-  writePage(path, locale, metadata, renderToStaticMarkup(<LandingPage locale={locale}/>))
+  const other = locale === 'en' ? 'zh-CN' : 'en'
+  writePage(path, locale, metadata, renderToStaticMarkup(<>
+    <div className="docs-topbar" data-theme="desktop"><SiteHeader locale={locale}>
+      <a href={homeHref(other)} lang={other}>{other === 'en' ? 'English' : '简体中文'}</a>
+    </SiteHeader></div>
+    <LandingPage locale={locale}/>
+  </>))
 }
 writeFileSync('dist/sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + sitemap.join('\n') + '\n</urlset>\n')
 writeFileSync('dist/robots.txt', 'User-agent: *\nAllow: /\nSitemap: ' + origin + '/sitemap.xml\n')

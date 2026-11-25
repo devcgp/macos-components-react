@@ -1,30 +1,24 @@
 .landing {
-  min-height: 100vh;
   color: var(--desktop-label);
   background: var(--desktop-window-surface);
 }
 
-.landing-header, .landing-main, .landing-footer {
+.landing-main, .landing-footer {
   width: min(1200px, 100% - 2 * clamp(16px, 4vw, 48px));
   margin-inline: auto;
 }
 
-.landing-header, .landing-footer, .landing-header nav, .landing-footer nav, .landing-actions {
+.landing-footer, .landing-footer nav, .landing-actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 12px 20px;
 }
 
-.landing-header, .landing-footer {
+.landing-footer {
   justify-content: space-between;
   padding-block: 16px;
   border-block-end: 1px solid var(--desktop-separator);
-}
-
-.landing-brand {
-  color: inherit;
-  font-weight: 700;
 }
 
 .landing-hero {

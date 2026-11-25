@@ -1,6 +1,5 @@
-import { useState } from 'react'
 import { Button, Checkbox, InspectorPanel, Table, TextField, Toolbar, Window } from '@cgpdesktopui/ui'
-import { documentHref, documentStart, homeHref } from '../app/document-urls'
+import { documentHref, documentStart } from '../app/document-urls'
 import { installCommands } from '../app/installation'
 import { LocaleContext, type Locale } from '../app/locale'
 import { SidebarInWindow } from '../examples/sidebar/SidebarInWindow'
@@ -32,10 +31,8 @@ const windowZh = {
   current: '当前目录',
 }
 
-export default function LandingPage({ locale, initialDark = false }: { locale: Locale; initialDark?: boolean }) {
-  const [dark, setDark] = useState(initialDark)
+export default function LandingPage({ locale }: { locale: Locale }) {
   const tr = (zh: string, en: string) => locale === 'en' ? en : zh
-  const otherLocale = locale === 'en' ? 'zh-CN' : 'en'
   const href = (route: string) => documentHref(route, locale)
   const { heading, description } = landingMetadata(locale)
   const install = href('/desktop/getting-started/installation')
@@ -56,24 +53,7 @@ export function App() {
   </div>
 }`
 
-  function toggleAppearance() {
-    const next = !dark
-    setDark(next)
-    document.documentElement.classList.toggle('dark', next)
-    try { localStorage.setItem('desktop-appearance', next ? 'dark' : 'light') } catch { /* storage can be unavailable */ }
-  }
-
   return <LocaleContext.Provider value={locale}><div className="landing" data-theme="desktop">
-    <header className="landing-header">
-      <a className="landing-brand" href={homeHref(locale)}>CGP Desktop UI</a>
-      <nav aria-label={tr('主导航', 'Main navigation')}>
-        <a href={docs}>{tr('文档', 'Docs')}</a>
-        <a href={href('/desktop/tokens')}>{tr('设计 Tokens', 'Design Tokens')}</a>
-        <a href={homeHref(otherLocale)} lang={otherLocale}>{tr('English', '简体中文')}</a>
-        <a href={repository}>GitHub</a>
-        <Button aria-pressed={dark} onClick={toggleAppearance}>{tr('深色模式', 'Dark mode')}</Button>
-      </nav>
-    </header>
     <main id="main" className="landing-main">
       <section className="landing-hero" aria-labelledby="landing-title">
         <div className="landing-intro">
