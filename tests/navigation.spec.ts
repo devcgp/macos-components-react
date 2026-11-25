@@ -181,3 +181,25 @@ test('shows the document first and keeps the page outline usable at 320px', asyn
   await expect(page.getByRole('heading', { name: '灰阶', exact: true })).toBeInViewport()
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320)
 })
+
+
+test('keeps the desktop header controls borderless and on one row', async ({ page }) => {
+  for (const width of [1579, 768]) {
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto('/?lang=zh-CN#/desktop/getting-started/introduction')
+    const actions = page.locator('.header-actions')
+    const controls = [
+      actions.getByRole('button', { name: '搜索', exact: true }),
+      actions.getByRole('button', { name: '切换深色' }),
+      actions.getByRole('combobox', { name: '网站语言' }),
+      actions.getByRole('link', { name: 'GitHub' }),
+    ]
+    const centers = []
+    for (const control of controls) {
+      await expect(control).toHaveCSS('border-top-width', '0px')
+      const box = (await control.boundingBox())!
+      centers.push(box.y + box.height / 2)
+    }
+    expect(Math.max(...centers) - Math.min(...centers)).toBeLessThan(1)
+  }
+})

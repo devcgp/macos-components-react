@@ -158,7 +158,7 @@ export default function App() {
       <Button className="header-search" aria-label={tr('搜索', 'Search')} onClick={() => { setQuery(''); setSearch(true) }}>
         <FontAwesomeIcon icon={faMagnifyingGlass} className="site-icon" aria-hidden="true"/> <span>{tr('搜索', 'Search')}</span>
       </Button>
-      <div className="desktop-settings">{settings}</div>
+      <div className="header-settings">{settings}</div>
       <Button className="mobile-menu-trigger" aria-label={tr('打开文档导航', 'Open documentation menu')} aria-haspopup="dialog" aria-expanded={menu} onClick={() => setMenu(true)}>
         <FontAwesomeIcon icon={faBars} className="site-icon" aria-hidden="true"/>
       </Button>
