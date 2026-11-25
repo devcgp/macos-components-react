@@ -1,0 +1,111 @@
+.landing {
+  min-height: 100vh;
+  color: var(--desktop-label);
+  background: var(--desktop-window-surface);
+}
+
+.landing-header, .landing-main, .landing-footer {
+  width: min(1200px, 100% - 2 * clamp(16px, 4vw, 48px));
+  margin-inline: auto;
+}
+
+.landing-header, .landing-footer, .landing-header nav, .landing-footer nav, .landing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+}
+
+.landing-header, .landing-footer {
+  justify-content: space-between;
+  padding-block: 16px;
+  border-block-end: 1px solid var(--desktop-separator);
+}
+
+.landing-brand {
+  color: inherit;
+  font-weight: 700;
+}
+
+.landing-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  align-items: center;
+  gap: clamp(20px, 5vw, 72px);
+  padding-block: clamp(40px, 9vw, 128px);
+}
+
+.landing-intro h1 {
+  margin: 0;
+  max-width: 16ch;
+  font-size: clamp(2.25rem, 5vw, 4.25rem);
+  line-height: 1.06;
+  letter-spacing: -.04em;
+  text-wrap: balance;
+}
+
+.landing-intro p {
+  max-width: 40ch;
+  margin-block: 20px 24px;
+  color: var(--desktop-text-secondary);
+  font-size: 1.125rem;
+  line-height: 1.55;
+}
+
+.landing-primary {
+  display: inline-flex;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--desktop-accent) 78%, black);
+  color: white;
+  font-weight: 600;
+}
+
+.landing-primary:hover { background: color-mix(in srgb, var(--desktop-accent) 70%, black); }
+
+.landing a:focus-visible {
+  outline: 2px solid var(--desktop-accent);
+  outline-offset: 4px;
+}
+
+.landing-preview {
+  min-width: 0;
+  margin: 0;
+  padding: clamp(12px, 3vw, 28px);
+  border: 1px solid var(--desktop-separator);
+  border-radius: 16px;
+  background: var(--desktop-fills-quaternary);
+}
+
+.landing-preview figcaption { margin-block-start: 12px; }
+
+.landing-install {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: 12px 24px;
+  align-items: center;
+  border-block-start: 1px solid var(--desktop-separator);
+  padding-block: 24px;
+}
+
+.landing-install h2, .landing-install p { margin-block: 0 6px; }
+.landing-install h2 { font-size: 1.25rem; font-weight: 600; }
+
+.landing-install pre {
+  margin: 0;
+  overflow-x: auto;
+  padding: 12px;
+  background: var(--desktop-fills-quaternary);
+}
+
+.landing-footer {
+  border-block-start: 1px solid var(--desktop-separator);
+  border-block-end: 0;
+  color: var(--desktop-text-secondary);
+}
+
+.landing-footer p { margin: 0; }
+
+@media (max-width: 768px) {
+  .landing-hero, .landing-install { grid-template-columns: minmax(0, 1fr); }
+}

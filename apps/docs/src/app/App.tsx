@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun } from '@fortawesome/free-regular-svg-icons'
 import { faBars, faCodeBranch, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { Button } from '@cgpdesktopui/ui'
-import { documentHref, documentPath, documentStart } from './document-urls'
+import { documentHref, documentPath, documentStart, homeHref, isHomePath } from './document-urls'
 import { DarkAppearanceContext } from './appearance'
 import { LocaleContext, localizeTitle, readLocale, type Locale } from './locale'
 import { FoundationTokens, foundationTokenSections } from '../components/FoundationTokens'
@@ -99,7 +99,7 @@ export default function App() {
       const anchor = event.target instanceof Element && event.target.closest('a[href]')
       if (!(anchor instanceof HTMLAnchorElement) || anchor.target || anchor.hasAttribute('download')) return
       const url = new URL(anchor.href)
-      if (url.origin !== location.origin || !navigationByHref.has(documentPath(url.pathname))) return
+      if (url.origin !== location.origin || isHomePath(url.pathname) || !navigationByHref.has(documentPath(url.pathname))) return
       if (url.pathname === location.pathname && url.search === location.search && url.hash) return
       event.preventDefault()
       if (url.href !== location.href) history.pushState(history.state, '', url)
@@ -167,7 +167,7 @@ export default function App() {
       <a href={repository}><FontAwesomeIcon icon={faCodeBranch} className="site-icon" aria-hidden="true"/> GitHub</a>
   </>
   const header = <header className="site-header">
-    <a className="brand" href={documentHref(documentStart, locale)}>macOS Components for React</a>
+    <a className="brand" href={homeHref(locale)}>macOS Components for React</a>
     <nav className="header-sections" aria-label={tr('一级目录', 'Documentation sections')}>
       {navigation.map(item => {
         const firstPage = navigationPages.find(({ ancestors }) => ancestors[0] === item.id)

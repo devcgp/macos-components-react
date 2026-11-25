@@ -3,7 +3,8 @@ import { dirname, join } from 'node:path'
 import { renderToStaticMarkup } from 'react-dom/server'
 import ReactMarkdown, { defaultUrlTransform } from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { documentHref, documentStart } from '../src/app/document-urls'
+import { documentHref, homeHref } from '../src/app/document-urls'
+import LandingPage, { landingMetadata } from '../src/components/LandingPage'
 import type { Locale } from '../src/app/locale'
 import { navigationPages, navigationTitle } from '../src/app/navigation'
 import tokensZh from '../../../docs/tokens.md?raw'
@@ -38,7 +39,7 @@ function renderPage(page: (typeof navigationPages)[number]['page'], locale: Loca
   </>)
   const content = renderToStaticMarkup(<div data-theme="desktop">
     <header className="site-header">
-      <a className="brand" href={documentHref(documentStart, locale)}>{brand}</a>
+      <a className="brand" href={homeHref(locale)}>{brand}</a>
       <a href={documentHref(page.href, locale === 'en' ? 'zh-CN' : 'en')}>{locale === 'en' ? '简体中文' : 'English'}</a>
     </header>
     <main id="main" className="docs-static">
@@ -54,6 +55,10 @@ function renderPage(page: (typeof navigationPages)[number]['page'], locale: Loca
       </nav>
     </main>
   </div>)
+  writePage(path, locale, metadata, content)
+}
+
+function writePage(path: string, locale: Locale, metadata: string, content: string) {
   const html = template.replace('<html lang="zh-CN">', '<html lang="' + locale + '">')
     .replace(/^\s*<meta name="description"[^>]*>\n/m, '\n')
     .replace(/<title>[^<]*<\/title>/, () => metadata)
@@ -61,11 +66,22 @@ function renderPage(page: (typeof navigationPages)[number]['page'], locale: Loca
   const file = join('dist', path === '/' ? 'index.html' : path + '.html')
   mkdirSync(dirname(file), { recursive: true })
   writeFileSync(file, html)
-  sitemap.push('  <url><loc>' + canonical + '</loc></url>')
+  sitemap.push('  <url><loc>' + origin + path + '</loc></url>')
 }
 
 for (const { page } of navigationPages) {
   for (const locale of locales) renderPage(page, locale)
+}
+for (const locale of locales) {
+  const { title, description } = landingMetadata(locale)
+  const path = homeHref(locale)
+  const metadata = renderToStaticMarkup(<>
+    <title>{title}</title>
+    <meta name="description" content={description}/>
+    <link rel="canonical" href={origin + path}/>
+    {locales.map(language => <link key={language} rel="alternate" hrefLang={language} href={origin + homeHref(language)}/>)}
+  </>)
+  writePage(path, locale, metadata, renderToStaticMarkup(<LandingPage locale={locale}/>))
 }
 writeFileSync('dist/sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + sitemap.join('\n') + '\n</urlset>\n')
 writeFileSync('dist/robots.txt', 'User-agent: *\nAllow: /\nSitemap: ' + origin + '/sitemap.xml\n')
