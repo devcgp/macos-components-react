@@ -1,4 +1,12 @@
-# Installation
+# 安装
+
+在使用 React 19 的项目中安装组件包。
+
+```sh
+npm install @cgpdesktopui/ui
+```
+
+## 从源码构建
 
 使用 React 19、Node.js 22.12+ 和 pnpm 11.25.0。从 GitHub 获取源码并在本地构建组件包。
 

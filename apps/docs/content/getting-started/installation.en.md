@@ -1,5 +1,13 @@
 # Installation
 
+Install the component package in your React 19 project.
+
+```sh
+npm install @cgpdesktopui/ui
+```
+
+## Build from source
+
 Use React 19, Node.js 22.12+ and pnpm 11.25.0. Clone the public repository and build the UI package.
 
 ```sh
