@@ -25,17 +25,13 @@ function LivePreview({ id }: { id: string }) {
 
 function Installation() {
   const { locale, tr } = useLocale()
-  const source = tr(installCommands, installCommands.replace(
-    '在你的 React 19 项目目录运行，路径指向刚生成的文件',
-    'Run from your React 19 project using the generated tarball path',
-  ))
   return <>
     <h3 id="installation" className="doc-section">{tr('安装', 'Installation')}</h3>
     <p>{tr(
-      '从公开仓库克隆源码，构建并打包 UI，然后将生成的压缩包安装到 React 19 项目。',
-      'Clone the public repository, build and pack the UI, then install the tarball in a React 19 project.',
+      '在 React 19 项目中安装组件包。',
+      'Install the component package in your React 19 project.',
     )} <a href={documentHref('/desktop/getting-started/installation',locale)}>{tr('完整安装指南', 'Installation guide')}</a></p>
-    <CopyCode source={source} label={tr('复制安装命令', 'Copy install commands')}><pre><code>{source}</code></pre></CopyCode>
+    <CopyCode source={installCommands} label={tr('复制安装命令', 'Copy install commands')}><pre><code>{installCommands}</code></pre></CopyCode>
   </>
 }
 

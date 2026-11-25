@@ -6,7 +6,7 @@
 
 ## 集成与验收
 
-1. 在项目中安装或链接组件包。按[安装指南](#/desktop/getting-started/installation)从 Git 工作区构建 `@cgpdesktopui/ui`。
+1. 在项目中安装或链接组件包。按[安装指南](#/desktop/getting-started/installation)安装 `@cgpdesktopui/ui`。
 2. 导入 `@cgpdesktopui/ui/styles.css`，并在应用容器上设置 `data-theme="desktop"`。下载的 CSS 可用于核对构建输出。
 3. 指明所需的控件状态和交互。让助手使用现有组件 API 与语义变量，并核对浅色、深色、键盘焦点和禁用状态。
 

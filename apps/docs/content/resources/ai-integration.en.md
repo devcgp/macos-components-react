@@ -6,7 +6,7 @@ Give your coding assistant the design guidelines, token JSON and built component
 
 ## Integrate and verify
 
-1. Follow the [installation guide](#/desktop/getting-started/installation) to build and link `@cgpdesktopui/ui` from the Git workspace.
+1. Follow the [installation guide](#/desktop/getting-started/installation) to install `@cgpdesktopui/ui`.
 2. Import `@cgpdesktopui/ui/styles.css` and set `data-theme="desktop"` on your app container. Use the downloadable CSS to inspect the build output.
 3. Describe the interaction and states you need. Ask the assistant to reuse the component APIs and semantic tokens, and verify light and dark appearances, keyboard focus and disabled states.
 
