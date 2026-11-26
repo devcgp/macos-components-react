@@ -104,7 +104,7 @@ export function App() {
           <figcaption><a href={href('/desktop/sidebar')}>{tr('查看 Sidebar 交互文档', 'Explore the Sidebar example')}</a></figcaption>
         </figure>
       </section>
-      <section className="landing-section" aria-labelledby="landing-system">
+      <section className="landing-section landing-section-white" aria-labelledby="landing-system">
         <h2 id="landing-system">{tr('从设计规范到 React 组件', 'From design foundations to React components')}</h2>
         <div className="landing-grid">
           {capabilities.map(({ label, detail, route, preview }) => <article key={route}><div className="landing-system-preview">{preview}</div><h3><a href={href(route)}>{label}</a></h3><p>{detail}</p></article>)}
@@ -120,24 +120,26 @@ export function App() {
         </div>
       </section>
       <section className="landing-section" aria-labelledby="landing-showcase">
-        <h2 id="landing-showcase">{tr('桌面界面示例', 'Desktop interface example')}</h2>
-        <p>{tr('在一个窗口中组合工具栏、内容表格和检查器。', 'Combine a toolbar, content table, and inspector in one window.')}</p>
-        <Window title={tr('项目资料', 'Project files')} toolbar={<Toolbar title={tr('设计资料', 'Design files')}
-          detail={<output>{tr('文件数', 'Files')}: {visibleFiles.length}</output>}
-          search={<SearchField className="desktop-toolbar-search" aria-label={tr('搜索资源', 'Search resources')} placeholder={tr('搜索资源', 'Search resources')} value={query} onChange={event => setQuery(event.target.value)}/>}/>}>
-          <div className="landing-showcase">
-            {visibleFiles.length ? <Table caption={tr('文件列表', 'File list')} columns={[{id:'name', label:tr('名称', 'Name')}, {id:'format', label:tr('格式', 'Format')}]}
-              rows={visibleFiles.map(file => ({id:file.id, cells:{name:<Button aria-pressed={activeFile?.id === file.id} onClick={() => setSelectedFile(file.id)}>{file.name}</Button>, format:file.format}}))}/>
-              : <p className="landing-empty" role="status">{tr('没有匹配的资源。', 'No matching resources.')}</p>}
-            <InspectorPanel title={tr('检查器', 'Inspector')}>
-              {activeFile ? <><p>{activeFile.name} · {activeFile.format}</p><a href={activeFile.url} download>{tr('下载文件', 'Download file')}</a></>
-                : <p>{tr('请修改搜索词。', 'Try another search term.')}</p>}
-            </InspectorPanel>
-          </div>
-        </Window>
-        <p><a href={href('/desktop/patterns/file-management')}>{tr('查看文件管理模式', 'Explore file management patterns')}</a></p>
+        <div className="landing-showcase-card">
+          <h2 id="landing-showcase">{tr('桌面界面示例', 'Desktop interface example')}</h2>
+          <p>{tr('在一个窗口中组合工具栏、内容表格和检查器。', 'Combine a toolbar, content table, and inspector in one window.')}</p>
+          <Window title={tr('项目资料', 'Project files')} toolbar={<Toolbar title={tr('设计资料', 'Design files')}
+            detail={<output>{tr('文件数', 'Files')}: {visibleFiles.length}</output>}
+            search={<SearchField className="desktop-toolbar-search" aria-label={tr('搜索资源', 'Search resources')} placeholder={tr('搜索资源', 'Search resources')} value={query} onChange={event => setQuery(event.target.value)}/>}/>}>
+            <div className="landing-showcase">
+              {visibleFiles.length ? <Table caption={tr('文件列表', 'File list')} columns={[{id:'name', label:tr('名称', 'Name')}, {id:'format', label:tr('格式', 'Format')}]}
+                rows={visibleFiles.map(file => ({id:file.id, cells:{name:<Button aria-pressed={activeFile?.id === file.id} onClick={() => setSelectedFile(file.id)}>{file.name}</Button>, format:file.format}}))}/>
+                : <p className="landing-empty" role="status">{tr('没有匹配的资源。', 'No matching resources.')}</p>}
+              <InspectorPanel title={tr('检查器', 'Inspector')}>
+                {activeFile ? <><p>{activeFile.name} · {activeFile.format}</p><a href={activeFile.url} download>{tr('下载文件', 'Download file')}</a></>
+                  : <p>{tr('请修改搜索词。', 'Try another search term.')}</p>}
+              </InspectorPanel>
+            </div>
+          </Window>
+          <p><a href={href('/desktop/patterns/file-management')}>{tr('查看文件管理模式', 'Explore file management patterns')}</a></p>
+        </div>
       </section>
-      <section className="landing-section" aria-labelledby="landing-tokens">
+      <section className="landing-section landing-tokens" aria-labelledby="landing-tokens">
         <h2 id="landing-tokens">{tr('设计基础与 Tokens', 'Foundations and design tokens')}</h2>
         <p>{tr('JSON 数据生成 CSS 变量，供组件与主题使用。', 'JSON data generates the CSS variables used by components and themes.')}</p>
         <div className="landing-foundations">
@@ -161,7 +163,7 @@ export function App() {
         <div className="landing-step"><div><h3>{tr('构建', 'Build')}</h3><div className="landing-stage"><Button variant="accent">{tr('保存', 'Save')}</Button></div></div>
           <CopyCode source={exampleCode} label={tr('复制 React 代码', 'Copy React code')}><pre><code>{exampleCode}</code></pre></CopyCode></div>
       </section>
-      <section className="landing-section" aria-labelledby="landing-ai">
+      <section className="landing-section landing-section-white" aria-labelledby="landing-ai">
         <h2 id="landing-ai">{tr('为 AI 编码提供一致的设计语言', 'A consistent design language for AI coding')}</h2>
         <ol className="landing-flow">
           <li><h3>{tr('提供项目资源', 'Supply project resources')}</h3><a href={guidelines} download>{tr('设计规范', 'Design guidelines')}</a><a href={tokens} download>tokens.json</a><a href={api}>{tr('组件 API', 'Component API')}</a></li>
