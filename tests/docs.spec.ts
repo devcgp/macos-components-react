@@ -70,7 +70,7 @@ test('installation and measured geometry are present in both themes', async ({ p
   await expect(page.getByRole('button', { name: '复制安装命令' })).toBeVisible()
   await page.getByRole('tab', { name: '概览', exact: true }).click()
   const sizes = page.getByRole('region', { name: '按钮尺寸', exact: true })
-  await expect(sizes.getByRole('button', { name: 'Regular' })).toHaveCSS('height', '24px')
+  await expect(sizes.getByRole('button', { name: 'Medium' })).toHaveCSS('height', '24px')
   for (const dark of [false, true]) {
     await page.goto('/#/desktop/switch')
     await expect(page.locator('html')).toHaveClass(dark ? 'dark' : '')

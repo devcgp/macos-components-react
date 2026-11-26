@@ -20,7 +20,7 @@ import '@cgpdesktopui/ui/styles.css'
 | 尺寸 | `data-size` | `mini`、`small`、`medium`、`large`、`xl`，默认 Medium。 |
 | 上下文 | `data-context` | `content-area`、`over-glass`，默认 Content Area。 |
 
-尺寸 Token 提供 5 档、每档 64 个几何参数。组件原有的尺寸属性和默认值由各自 API 定义。上下文属性提供 Token 标记，玻璃样式由 `data-material` 单独设置。
+尺寸 Token 提供 5 档、每档 64 个几何参数。组件示例默认使用 Medium，尺寸对照示例展示其他档位。Button 等组件沿用各自的公开 API，例如 Button 的 `regular` 对应 Medium。上下文属性提供 Token 标记，玻璃样式由 `data-material` 单独设置。
 
 ## 变量与来源
 
