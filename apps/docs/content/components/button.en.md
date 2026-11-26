@@ -35,7 +35,7 @@ The current `size` prop supports the following five values:
 | `large` | 28px | Pill (`999px`) | 16px | Project regular typography |
 | `xl` | 36px | Pill (`999px`) | 16px | Project regular typography |
 
-**Default:** `regular`. Dimensions describe current CSS px values, not official Apple measurements. Button width is content-dependent; no fixed width prop is defined.
+**Default size** is Medium, exposed as `size="regular"` in the Button API. Dimensions describe current CSS px values, not official Apple measurements. Button width is content-dependent; no fixed width prop is defined.
 
 ## Variants
 

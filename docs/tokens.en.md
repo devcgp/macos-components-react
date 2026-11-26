@@ -20,7 +20,7 @@ import '@cgpdesktopui/ui/styles.css'
 | Size | `data-size` | `mini`, `small`, `medium`, `large`, `xl`. Medium is the default. |
 | Context | `data-context` | `content-area`, `over-glass`. Content Area is the default. |
 
-There are five size modes with 64 geometry values each. Each component's API defines its existing size props and defaults. The context attribute exposes token metadata, while `data-material` selects the glass treatment separately.
+There are five size modes with 64 geometry values each. Component previews use Medium by default, and size comparison examples show the other modes. Components retain their public size names. For Button, `regular` maps to Medium. The context attribute exposes token metadata, while `data-material` selects the glass treatment separately.
 
 ## Variables and sources
 

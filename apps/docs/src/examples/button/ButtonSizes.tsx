@@ -4,7 +4,7 @@ import '@cgpdesktopui/ui/styles.css'
 const sizes = [
   ['mini', 'Mini'],
   ['small', 'Small'],
-  ['regular', 'Regular'],
+  ['regular', 'Medium'],
   ['large', 'Large'],
   ['xl', 'XL'],
 ] as const

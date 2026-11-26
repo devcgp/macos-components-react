@@ -31,7 +31,7 @@
 | `large` | 28px | 胶囊形（999px） | 16px | 项目常规字号 |
 | `xl` | 36px | 胶囊形（999px） | 16px | 项目常规字号 |
 
-默认使用 `regular`。表中数值为当前 CSS 像素值。按钮宽度由内容决定。
+默认展示 Medium，对应 Button API 的 `size="regular"`。表中数值为当前 CSS 像素值。按钮宽度由内容决定。
 
 ## Variants
 

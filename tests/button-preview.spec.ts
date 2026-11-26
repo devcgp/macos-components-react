@@ -6,14 +6,14 @@ test('shows all Button geometries and variants together', async ({ page }) => {
   const geometry = [
     ['Mini', '16px', '4px', '7px', '10px'],
     ['Small', '20px', '5px', '10px', '11px'],
-    ['Regular', '24px', '6px', '16px', '13px'],
+    ['Medium', '24px', '6px', '16px', '13px'],
     ['Large', '28px', '999px', '16px', '13px'],
     ['XL', '36px', '999px', '16px', '13px'],
   ] as const
   for (const [label, height, radius, padding, fontSize] of geometry) {
     const button = sizes.getByRole('button', { name: label, exact: true })
     await expect(button).toBeVisible()
-    await expect(button).toHaveAttribute('data-size', label.toLowerCase())
+    await expect(button).toHaveAttribute('data-size', label === 'Medium' ? 'regular' : label.toLowerCase())
     await expect(button).toHaveCSS('height', height)
     await expect(button).toHaveCSS('border-radius', radius)
     await expect(button).toHaveCSS('padding-inline-start', padding)
@@ -24,6 +24,7 @@ test('shows all Button geometries and variants together', async ({ page }) => {
     const button = variants.getByRole('button', { name: label, exact: true })
     await expect(button).toBeVisible()
     await expect(button).toHaveAttribute('data-variant', label.toLowerCase())
+    await expect(button).toHaveAttribute('data-size', 'regular')
   }
 })
 
@@ -85,13 +86,13 @@ test('follows global appearance while keeping card views and copy actions indepe
   const sizes = page.getByRole('region', { name: 'Button Sizes', exact: true })
   const variants = page.getByRole('region', { name: 'Button Variants', exact: true })
   await expect(sizes.getByRole('tab', { name: 'Preview' })).toHaveAttribute('aria-selected', 'true')
-  await expect(sizes.getByRole('button', { name: 'Regular' })).toHaveCSS('background-color', 'rgba(0, 0, 0, 0.05)')
+  await expect(sizes.getByRole('button', { name: 'Medium' })).toHaveCSS('background-color', 'rgba(0, 0, 0, 0.05)')
   await expect(variants.getByRole('button', { name: 'Neutral' })).toHaveCSS('background-color', 'rgba(0, 0, 0, 0.05)')
 
   await page.getByRole('button', { name: 'Open documentation menu' }).click()
   await page.getByRole('button', { name: 'Switch to dark mode', exact: true }).click()
   await page.getByRole('button', { name: 'Close menu' }).click()
-  await expect(sizes.getByRole('button', { name: 'Regular' })).toHaveCSS('background-color', 'rgba(255, 255, 255, 0.07)')
+  await expect(sizes.getByRole('button', { name: 'Medium' })).toHaveCSS('background-color', 'rgba(255, 255, 255, 0.07)')
   await expect(variants.getByRole('button', { name: 'Neutral' })).toHaveCSS('background-color', 'rgba(255, 255, 255, 0.07)')
   await expect(variants.getByRole('button', { name: 'Accent' })).toHaveCSS('background-color', 'rgb(0, 145, 255)')
 
@@ -119,7 +120,7 @@ test('follows global appearance while keeping card views and copy actions indepe
   await page.getByRole('button', { name: 'Close menu' }).click()
   await expect(sizes.getByRole('tab', { name: 'Code', exact: true })).toHaveAttribute('aria-selected', 'true')
   await sizes.getByRole('tab', { name: 'Preview', exact: true }).click()
-  await expect(sizes.getByRole('button', { name: 'Regular' })).toHaveCSS('background-color', 'rgba(0, 0, 0, 0.05)')
+  await expect(sizes.getByRole('button', { name: 'Medium' })).toHaveCSS('background-color', 'rgba(0, 0, 0, 0.05)')
   await expect(variants.getByRole('tab', { name: 'Code', exact: true })).toHaveAttribute('aria-selected', 'true')
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
 })
