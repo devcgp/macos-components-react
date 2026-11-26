@@ -12,8 +12,6 @@ export default function SiteHeader({ locale, sectionId, landing = false, childre
   const links = landing ? [
     { label: locale === 'en' ? 'Docs' : '文档', route: '/desktop/getting-started/introduction' },
     { label: locale === 'en' ? 'Components' : '组件', route: '/desktop/button' },
-    { label: locale === 'en' ? 'Design Tokens' : '设计 Tokens', route: '/desktop/tokens' },
-    { label: locale === 'en' ? 'AI Integration' : 'AI 集成', route: '/desktop/resources/ai-integration' },
   ] : []
   return <header className={landing ? 'site-header landing-site-header' : 'site-header'}>
     <a className="brand" href={homeHref(locale)}>CGP Desktop UI</a>

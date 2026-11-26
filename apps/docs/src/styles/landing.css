@@ -5,12 +5,17 @@
   line-height: 1.55;
 }
 
-.landing-main, .landing-footer, .landing-site-header {
+.landing-footer {
   width: min(1200px, 100% - 2 * clamp(16px, 4vw, 48px));
   margin-inline: auto;
 }
 
-.landing-site-header.site-header { padding-inline: 0; }
+.landing-main, .landing-site-header.site-header {
+  --landing-gutter: max(clamp(16px, 4vw, 48px), calc((100% - 1200px) / 2));
+}
+
+.landing-site-header.site-header { padding-inline: var(--landing-gutter); }
+.landing-main > section { padding-inline: var(--landing-gutter); }
 
 @media (min-width: 900px) {
   .landing-site-header .header-sections { order: 0; flex-basis: auto; }
@@ -74,8 +79,11 @@
 
 .landing-section {
   padding-block: clamp(40px, 7vw, 96px);
-  border-block-start: 1px solid var(--desktop-separator);
 }
+
+.landing-section-white, .landing-final { background: var(--desktop-content-surface); }
+.landing-tokens { background: color-mix(in srgb, var(--desktop-content-surface) 91%, var(--desktop-accent)); }
+.landing-install { background: color-mix(in srgb, var(--desktop-window-surface) 70%, var(--desktop-fills-quaternary)); }
 
 .landing-section h2 {
   max-width: 26ch;
@@ -128,7 +136,7 @@
 }
 .landing-gallery .landing-stage { border-radius: 11px 11px 0 0; min-height: 110px; }
 .landing-stage input { max-width: 100%; }
-.landing-gallery-copy { padding: 14px 16px; }
+.landing-gallery-copy { padding: 14px 16px; background: var(--desktop-content-surface); border-radius: 0 0 11px 11px; }
 .landing-gallery-copy p { margin: 0; }
 
 .landing-showcase {
@@ -140,7 +148,12 @@
 .landing-showcase td:first-child button { white-space: normal; text-align: start; }
 .landing-showcase td:first-child button[aria-pressed="true"] { background: var(--desktop-selection); }
 .landing-empty { padding: 16px; }
-.landing-section > .desktop-window + p { margin-block-start: 18px; }
+.landing-showcase-card {
+  padding: clamp(16px, 3vw, 36px);
+  border-radius: 16px;
+  background: var(--desktop-content-surface);
+}
+.landing-showcase-card > .desktop-window + p { margin-block: 18px 0; }
 
 .landing-foundations { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .landing-foundations article {
