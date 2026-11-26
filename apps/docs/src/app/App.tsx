@@ -171,7 +171,7 @@ export default function App({ landing = false }: { landing?: boolean }) {
       </select>
       <a href={repository}><FontAwesomeIcon icon={faCodeBranch} className="site-icon" aria-hidden="true"/> GitHub</a>
   </>
-  const header = <SiteHeader locale={locale} sectionId={sectionId}>
+  const header = <SiteHeader locale={locale} sectionId={sectionId} landing={landing}>
     <div className="header-actions">
       <Button className="header-search" aria-label={tr('搜索', 'Search')} onClick={() => { setQuery(''); setSearch(true) }}>
         <FontAwesomeIcon icon={faMagnifyingGlass} className="site-icon" aria-hidden="true"/> <span>{tr('搜索', 'Search')}</span>

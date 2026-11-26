@@ -84,7 +84,7 @@ for (const locale of locales) {
   </>)
   const other = locale === 'en' ? 'zh-CN' : 'en'
   writePage(path, locale, metadata, renderToStaticMarkup(<>
-    <div className="docs-topbar" data-theme="desktop"><SiteHeader locale={locale}>
+    <div className="docs-topbar" data-theme="desktop"><SiteHeader locale={locale} landing>
       <a href={homeHref(other)} lang={other}>{other === 'en' ? 'English' : '简体中文'}</a>
     </SiteHeader></div>
     <LandingPage locale={locale}/>
